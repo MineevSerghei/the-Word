@@ -23,7 +23,7 @@ def get_books():
     Get a list of all the books of the Bible in order
     """
 
-    books = Book.query.order_by(Book.ordinal_number).all()
+    books = Book.query.all()
 
     if books:
         return [book.to_dict() for book in books]

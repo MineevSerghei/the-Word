@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllBooksThunk } from "../../store/bible";
+import NotesBox from "../NotesBox";
 import './BibleText.css'
 
 export default function BibleText() {
@@ -9,7 +10,6 @@ export default function BibleText() {
     const booksObj = useSelector(state => state.bible)
 
     const [selectedBook, setSelectedBook] = useState('');
-    const [selectedChapter, setSelectedChapter] = useState(1);
     const [booksMenuOpen, setBooksMenuOpen] = useState(false);
     const [displayedChapter, setDisplayedChapter] = useState(1);
     const [displayedBook, setDisplayedBook] = useState('Genesis');
@@ -36,41 +36,46 @@ export default function BibleText() {
     if (books.length === 0) return <h1>Loading...</h1>;
 
     return (
-        <div>
-            <div className="book-top">
-                <div className="book-menu">
-                    <h2
-                        onClick={() => setBooksMenuOpen(!booksMenuOpen)}
-                        className="selected-book-title">{displayedBook}</h2>
+        <div className="read-page">
+            <div className="left-section">
+                <div className="book-top">
+                    <div className="book-menu">
+                        <h2
+                            onClick={() => setBooksMenuOpen(!booksMenuOpen)}
+                            className="selected-book-title">{displayedBook}</h2>
 
-                    {booksMenuOpen && <div className="select-book">
-                        {books.map(book => {
-                            return <>
-                                <p
-                                    className="book-selection"
-                                    value={book.name}
-                                    onClick={() => setSelectedBook(book.name)}
-                                    key={book.id}>{book.name}</p>
+                        {booksMenuOpen && <div className="select-book">
+                            {books.map(book => {
+                                return <>
+                                    <p
+                                        className="book-selection"
+                                        value={book.name}
+                                        onClick={() => setSelectedBook(book.name)}
+                                        key={book.id}>{book.name}</p>
 
-                                {selectedBook === book.name &&
-                                    <div className="chapter-box">
-                                        {Object.values(book.chaptersObj).map(chapter => <span
-                                            onClick={() => setDisplayed(chapter.number, book.name)}
-                                            className="chapter-number">{chapter.number}</span>)}
-                                    </div>
-                                }</>
-                        })}
-                    </div>}
+                                    {selectedBook === book.name &&
+                                        <div className="chapter-box">
+                                            {Object.values(book.chaptersObj).map(chapter => <span
+                                                onClick={() => setDisplayed(chapter.number, book.name)}
+                                                className="chapter-number">{chapter.number}</span>)}
+                                        </div>
+                                    }</>
+                            })}
+                        </div>}
+                    </div>
+                </div>
+
+                <div className="Bible-text-area">
+                    {displayedBook && displayedChapter && <>
+                        {Object.values(booksObj[displayedBook]
+                            .chaptersObj[displayedChapter].versesObj)
+                            .map(verse => <p key={verse.id}>{verse.number === 1 ? <span className="chapter-number-in-text">{displayedChapter}</span> : verse.number} {verse.text}</p>)}</>}
                 </div>
             </div>
 
-            <div className="Bible-text-area">
-                {displayedBook && displayedChapter && <>
-                    {Object.values(booksObj[displayedBook]
-                        .chaptersObj[displayedChapter].versesObj)
-                        .map(verse => <p>{verse.number === 1 ? <span className="chapter-number-in-text">{displayedChapter}</span> : verse.number} {verse.text}</p>)}</>}<p></p>
+            <div className="right-section">
+                <NotesBox chapter={booksObj[displayedBook].chaptersObj[displayedChapter]} />
             </div>
-
         </div>
     );
 }

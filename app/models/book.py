@@ -18,7 +18,7 @@ class Book(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'ordinal_number': self.ordinal_number,
+            'ordinalNumber': self.ordinal_number,
             'chapters': [chapter.to_dict_no_book() for chapter in self.chapters]
         }
 
@@ -26,5 +26,5 @@ class Book(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'ordinal_number': self.ordinal_number,
+            'ordinalNumber': self.ordinal_number,
         }

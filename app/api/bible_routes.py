@@ -25,8 +25,6 @@ def get_books():
 
     books = Book.query.order_by(Book.ordinal_number).all()
 
-    print("books", books)
-
     if books:
         return [book.to_dict() for book in books]
     else:

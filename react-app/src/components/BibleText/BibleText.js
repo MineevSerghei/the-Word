@@ -20,7 +20,7 @@ export default function BibleText() {
 
     }, [dispatch]);
 
-    console.log("Books", books)
+
     if (books.length === 0) return <h1>Loading...</h1>;
 
     return (

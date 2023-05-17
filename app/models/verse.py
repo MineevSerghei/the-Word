@@ -12,7 +12,7 @@ class Verse(db.Model):
     text = db.Column(db.String(700), nullable=False)
     chapter_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('chapters.id')), nullable=False)
 
-    chapter = db.relationship('Chapter', back_populates='verses')
+    chapter = db.relationship('Chapter', back_populates='verses', lazy="joined")
 
     def to_dict(self):
         return {

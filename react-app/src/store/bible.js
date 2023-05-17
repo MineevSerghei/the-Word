@@ -7,8 +7,9 @@ const getAllBooksAction = (books) => ({
 });
 
 export const getAllBooksThunk = () => async (dispatch) => {
+    console.log("before fetch ....... ")
     const res = await fetch("/api/bible/books");
-
+    console.log("after fetch ....... ")
     if (res.ok) {
         const books = await res.json();
         dispatch(getAllBooksAction(books))

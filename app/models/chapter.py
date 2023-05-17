@@ -11,8 +11,8 @@ class Chapter(db.Model):
     number = db.Column(db.Integer, nullable=False)
     book_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('books.id')), nullable=False)
 
-    book = db.relationship('Book', back_populates='chapters')
-    verses = db.relationship('Verse', back_populates='chapter')
+    book = db.relationship('Book', back_populates='chapters', lazy="joined")
+    verses = db.relationship('Verse', back_populates='chapter', lazy="joined")
 
 
     def to_dict(self):

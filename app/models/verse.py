@@ -14,6 +14,8 @@ class Verse(db.Model):
 
     chapter = db.relationship('Chapter', back_populates='verses', lazy='selectin')
 
+
+
     def to_dict(self):
         return {
             'id': self.id,

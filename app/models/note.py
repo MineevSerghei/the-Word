@@ -26,3 +26,13 @@ class Note(db.Model):
             'user': self.user.to_dict(),
             'verse': self.verse.to_dict()
         }
+
+    def to_dict_no_user(self):
+        return {
+            'id': self.id,
+            'userId': self.user_id,
+            'verseId': self.verse_id,
+            'noteText': self.note_text,
+            'createdAt': self.created_at,
+            'verse': self.verse.to_dict()
+        }

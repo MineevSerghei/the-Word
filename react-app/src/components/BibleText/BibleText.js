@@ -13,10 +13,10 @@ export default function BibleText() {
     useEffect(() => {
 
         const getBooks = async () => {
+
             await dispatch(getAllBooksThunk())
         }
-
-        getBooks();
+        if (!books || !books.length) getBooks();
 
     }, [dispatch]);
 

@@ -11,7 +11,7 @@ class Book(db.Model):
     name = db.Column(db.String(50), nullable=False, unique=True)
     ordinal_number = db.Column(db.Integer, nullable=False)
 
-    chapters = db.relationship('Chapter', back_populates='book', lazy="joined")
+    chapters = db.relationship('Chapter', back_populates='book', lazy='selectin')
 
 
     def to_dict(self):

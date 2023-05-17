@@ -1,0 +1,42 @@
+.select-book {
+    overflow: scroll;
+    height: 40vh;
+    border: 1px solid brown;
+    width: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.selected-book-title {
+    user-select: none
+}
+
+.selected-book-title:hover {
+    cursor: pointer;
+}
+
+.book-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book-selection {
+    box-sizing: border-box;
+    width: 15vw;
+    margin: 5px;
+    padding: 5px 5px 5px 20px;
+    flex-grow: 1;
+    border: 1px solid transparent;
+}
+
+.book-selection:hover {
+    border: 1px solid brown;
+    cursor: pointer;
+}
+
+.book-top {
+    display: flex;
+    justify-content: center;
+}

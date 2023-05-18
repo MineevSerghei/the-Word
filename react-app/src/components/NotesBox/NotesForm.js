@@ -21,7 +21,7 @@ export default function NotesForm({ verseNum, chapter, book, setField }) {
             return
         }
 
-        const new_note = await dispatch(createNoteThunk(verse.id, note))
+        await dispatch(createNoteThunk(verse.id, note))
         setField('allNotes')
 
     }

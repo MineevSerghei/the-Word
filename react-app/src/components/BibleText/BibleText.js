@@ -36,6 +36,7 @@ export default function BibleText() {
         setDisplayedChapter(chapter)
         setDisplayedBook(book)
         setBooksMenuOpen(false)
+        setSelectedBook('')
     }
 
     const openPopUp = (e, verseNumber) => {
@@ -46,6 +47,14 @@ export default function BibleText() {
         setX(e.pageX);
         setY(e.pageY);
         setPopUpOpen(verseNumber);
+    }
+
+    const selectBook = (book) => {
+
+        if (selectedBook !== book.name)
+            setSelectedBook(book.name)
+        else
+            setSelectedBook('')
     }
 
     if (books.length === 0) return <h1>Loading...</h1>;
@@ -61,12 +70,12 @@ export default function BibleText() {
 
                         {booksMenuOpen && <div className="select-book">
                             {books.map(book => {
-                                return <>
+                                return <div key={book.id}>
                                     <p
                                         className="book-selection"
                                         value={book.name}
-                                        onClick={() => setSelectedBook(book.name)}
-                                        key={book.id}>{book.name}</p>
+                                        onClick={() => selectBook(book)}
+                                    >{book.name}</p>
 
                                     {selectedBook === book.name &&
                                         <div className="chapter-box">
@@ -75,7 +84,7 @@ export default function BibleText() {
                                                 key={chapter.id}
                                                 className="chapter-number">{chapter.number}</span>)}
                                         </div>
-                                    }</>
+                                    }</div>
                             })}
                         </div>}
                     </div>

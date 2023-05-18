@@ -1,7 +1,10 @@
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import './NotesBox.css'
 import { editNoteThunk } from "../../store/session";
+import ConfirmDeleteModal from "./ConfirmDeleteModal";
+import OpenModalButton from "../OpenModalButton";
+
 
 export default function NotesEditForm({ note, setField }) {
 
@@ -19,7 +22,7 @@ export default function NotesEditForm({ note, setField }) {
             return
         }
 
-        const updated_note = await dispatch(editNoteThunk(note.id, noteText))
+        await dispatch(editNoteThunk(note.id, noteText))
         setField('allNotes')
 
     }
@@ -31,6 +34,10 @@ export default function NotesEditForm({ note, setField }) {
             <div>
                 <button onClick={() => setField('allNotes')} >Close</button>
                 <button onClick={saveNote}>Save Edit</button>
+                <OpenModalButton
+                    buttonText="Delete"
+                    modalComponent={<ConfirmDeleteModal noteId={note.id} setField={setField} />}
+                />
                 <p>{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</p>
                 <textarea
                     value={noteText}

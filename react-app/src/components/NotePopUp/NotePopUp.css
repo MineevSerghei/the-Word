@@ -1,0 +1,17 @@
+.pop-up-container {
+    width: 200px;
+    height: 150px;
+    background-color: rgb(253, 243, 228);
+    position: absolute;
+    padding: 10px 10px 0 10px;
+}
+
+.underlined {
+    text-decoration: underline;
+}
+
+.popup-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}

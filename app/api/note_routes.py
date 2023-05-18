@@ -30,7 +30,7 @@ def post_note():
 
         return note.to_dict()
 
-
+    print("IS IT HERE? --> ", form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
@@ -54,12 +54,11 @@ def edit_note(id):
 
     if form.validate_on_submit():
 
-        note.note_text = form.data['noteText'],
-        note.verse_id=int(request.get_json()['verseId'])
+        note.note_text = form.data['noteText']
 
         db.session.commit()
 
-        return note.to_dict()
+        return note.to_dict_no_user()
 
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

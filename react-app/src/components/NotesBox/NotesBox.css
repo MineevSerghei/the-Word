@@ -1,0 +1,21 @@
+.right-nav-bttn {
+    border: #3c3c3c 1px solid;
+}
+
+.right-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+.note-title:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

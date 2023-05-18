@@ -14,3 +14,8 @@
     align-items: center;
     width: 100vw;
 }
+
+.note-title:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

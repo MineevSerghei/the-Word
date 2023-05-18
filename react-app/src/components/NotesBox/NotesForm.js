@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { createNoteThunk } from "../../store/session";
-
+import './NotesBox.css'
 
 export default function NotesForm({ verseNum, chapter, book, setField }) {
 
@@ -25,6 +25,8 @@ export default function NotesForm({ verseNum, chapter, book, setField }) {
         setField('allNotes')
 
     }
+
+    if (!verse) return <h1>NO VERSE</h1>
 
     return (
         <>

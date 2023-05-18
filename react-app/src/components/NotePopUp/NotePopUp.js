@@ -11,7 +11,7 @@ export default function NotePopUp({ verse, chapter, book, x, y, setPopUpOpen, se
 
     const openNoteField = (e) => {
         setField('createNote')
-        setSelectedVerse(verse.id)
+        setSelectedVerse(verse.number)
         setPopUpOpen(0)
     }
 

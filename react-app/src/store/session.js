@@ -2,6 +2,7 @@
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const CREATE_NOTE = "session/CREATE_NOTE";
+const EDIT_NOTE = "session/EDIT_NOTE";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -17,6 +18,38 @@ const createNoteAction = (note) => ({
 	note
 });
 
+const editNoteAction = (note) => ({
+	type: EDIT_NOTE,
+	note
+});
+
+
+export const editNoteThunk = (id, text) => async (dispatch) => {
+	const res = await fetch(`/api/notes/${id}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			noteText: text
+		})
+	});
+
+	if (res.ok) {
+		const data = await res.json();
+		dispatch(editNoteAction(data))
+		return data
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+
+
+};
 
 
 export const createNoteThunk = (verseId, note) => async (dispatch) => {
@@ -41,7 +74,7 @@ export const createNoteThunk = (verseId, note) => async (dispatch) => {
 			return data.errors;
 		}
 	} else {
-		return { errors: "An error occurred. Please try again." };
+		return ["An error occurred. Please try again."];
 	}
 
 
@@ -138,6 +171,13 @@ export default function reducer(state = initialState, action) {
 			return { user: null };
 		case CREATE_NOTE:
 			return { ...state, user: { ...state.user, notes: [...state.user.notes, action.note] } }
+		case EDIT_NOTE:
+			const newState = { ...state, user: { ...state.user, notes: [...state.user.notes] } }
+			newState.user.notes = state.user.notes.map(note => {
+				if (note.id === action.note.id) return { ...action.note }
+				else return { ...note }
+			});
+			return newState
 		default:
 			return state;
 	}

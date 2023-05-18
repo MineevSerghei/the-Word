@@ -148,6 +148,7 @@ export default function BibleText() {
                         verse={booksObj[displayedBook].chaptersObj[displayedChapter].versesObj[popUpOpen]}
                         chapter={booksObj[displayedBook].chaptersObj[displayedChapter]}
                         book={booksObj[displayedBook]}
+                        setTab={setTab}
                         setSelectedVerse={setSelectedVerse}
                         x={x} y={y} setPopUpOpen={setPopUpOpen} />}
                 </div>
@@ -157,6 +158,7 @@ export default function BibleText() {
                 <div className="right-top">
                     <div onClick={() => { setTab('notes') }} className="right-nav-bttn">Notes</div>
                     <div onClick={() => { setTab('plans') }} className="right-nav-bttn">Plans</div>
+                    <div onClick={() => { setTab('') }} className="right-nav-bttn">Close</div>
                 </div>
 
 

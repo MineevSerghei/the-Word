@@ -7,7 +7,6 @@ export default function PlansBox() {
 
     const user = useSelector(state => state.session.user)
 
-    const myPlans = user.enrolledPlans;
 
     const [plansField, setPlansField] = useState('myPlans')
     const [selectedPlan, setSelectedPlan] = useState({})
@@ -17,6 +16,9 @@ export default function PlansBox() {
         setPlansField('planDetails')
     }
 
+    if (!user) return <h2>Please sign in to see your Plans</h2>
+
+    const myPlans = user.enrolledPlans;
     return (
         <div>
 

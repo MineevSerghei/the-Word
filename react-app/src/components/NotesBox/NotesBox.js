@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 import NotesForm from "./NotesForm"
 import NotesEditForm from "./NotesEditForm"
+import NoteDetails from "./NoteDetails"
 import "./NotesBox.css"
 import { useState } from "react"
 
@@ -16,10 +17,12 @@ export default function NotesBox({ setSelectedVerse, chapter, book, field, setFi
         setField('createNote')
     }
 
-    const openEditNote = note => {
+    const openNoteDetails = note => {
         setNoteToEdit({ ...note })
-        setField('editNote')
+        setField('noteDetails')
     }
+
+
 
     return (
         <>
@@ -36,7 +39,7 @@ export default function NotesBox({ setSelectedVerse, chapter, book, field, setFi
                             <div key={note.id}>
                                 <span
                                     className="note-title"
-                                    onClick={() => openEditNote(note)}
+                                    onClick={() => openNoteDetails(note)}
 
                                 >{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</span>
                                 <p>{note.noteText}</p>
@@ -47,7 +50,9 @@ export default function NotesBox({ setSelectedVerse, chapter, book, field, setFi
                 </div>
             </> : field === 'createNote' ? <NotesForm setSelectedVerse={setSelectedVerse} chapter={chapter} book={book} setField={setField} verseNum={verseNum} />
 
-                : <NotesEditForm note={noteToEdit} setField={setField} />
+                : field === 'noteDetails' ? <NoteDetails note={noteToEdit} setField={setField} />
+
+                    : <NotesEditForm note={noteToEdit} setField={setField} />
 
             }
         </>

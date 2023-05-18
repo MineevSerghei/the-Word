@@ -29,7 +29,7 @@ class Plan(db.Model):
             'duration': self.duration,
             'isPublic': self.is_public,
             'isTemplate': self.is_template,
-            'tasks': [task.to_dict for task in self.tasks],
+            'tasks': [task.to_dict() for task in self.tasks],
             'author': self.author.to_dict_no_ref()
         }
 
@@ -42,5 +42,5 @@ class Plan(db.Model):
             'duration': self.duration,
             'isPublic': self.is_public,
             'isTemplate': self.is_template,
-            'tasks': [task.to_dict for task in self.tasks]
+            'tasks': [task.to_dict() for task in self.tasks]
         }

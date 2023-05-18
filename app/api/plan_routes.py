@@ -7,6 +7,19 @@ from . import validation_errors_to_error_messages
 
 plan_routes = Blueprint('plans', __name__)
 
+@plan_routes.route('')
+def get_all_plans():
+    """
+    Route to get all PUBLIC reading plan TEMPLATES
+    """
+
+    plans = Plan.query.filter(Plan.is_template==True and Plan.is_public==True).all()
+
+    if not plans:
+         return {'errors': 'Plans Not Found'}, 404
+
+    return [plan.to_dict() for plan in plans]
+
 
 @plan_routes.route('', methods=['POST'])
 @login_required

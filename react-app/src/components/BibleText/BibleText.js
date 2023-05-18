@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getAllBooksThunk } from "../../store/bible";
 import NotesBox from "../NotesBox";
 import NotePopUp from "../NotePopUp";
+import PlansBox from "../PlansBox";
 import './BibleText.css'
 
 export default function BibleText() {
@@ -19,6 +20,7 @@ export default function BibleText() {
     const [y, setY] = useState(0);
     const [displayedBook, setDisplayedBook] = useState('Genesis');
     const [field, setField] = useState('allNotes')
+    const [tab, setTab] = useState('')
 
     const books = Object.values(booksObj)
 
@@ -82,8 +84,11 @@ export default function BibleText() {
 
     }
 
-    if (books.length === 0) return <h1>Loading...</h1>;
-
+    if (books.length === 0) return (
+        <div className="spinner-container">
+            <h1 id="spinner"><i className="fa-solid fa-spinner fa-spin-pulse"></i></h1>
+            <p>Loading</p>
+        </div>);
     return (
         <div className="read-page">
             <div className="left-section">
@@ -149,13 +154,23 @@ export default function BibleText() {
             </div>
 
             <div className="right-section">
-                <NotesBox
+                <div className="right-top">
+                    <div onClick={() => { setTab('notes') }} className="right-nav-bttn">Notes</div>
+                    <div onClick={() => { setTab('plans') }} className="right-nav-bttn">Plans</div>
+                </div>
+
+
+                {tab === 'notes' && <NotesBox
                     field={field}
                     setField={setField}
                     verseNum={selectedVerse}
                     book={booksObj[displayedBook]}
                     setSelectedVerse={setSelectedVerse}
-                    chapter={booksObj[displayedBook].chaptersObj[displayedChapter]} />
+                    chapter={booksObj[displayedBook].chaptersObj[displayedChapter]} />}
+
+
+                {tab === 'plans' && <PlansBox />}
+
             </div>
 
         </div>

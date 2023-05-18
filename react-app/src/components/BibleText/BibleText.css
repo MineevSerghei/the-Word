@@ -2,6 +2,21 @@
     display: flex;
 }
 
+#spinner {
+    margin: 0 auto;
+    font-size: 10rem;
+    color: rgb(244, 186, 98);
+}
+
+.fa-spinner {}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .select-book {
     overflow: scroll;
     height: 40vh;

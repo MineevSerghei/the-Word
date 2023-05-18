@@ -23,10 +23,6 @@ export default function NotesBox({ setSelectedVerse, chapter, book, field, setFi
 
     return (
         <>
-            <div className="right-top">
-                <div className="right-nav-bttn">Notes</div>
-                <div className="right-nav-bttn">Plans</div>
-            </div>
 
             {field === 'allNotes' ? <>
                 <h2>Notes</h2>

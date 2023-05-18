@@ -1,0 +1,16 @@
+.pop-up-container {
+    width: 200px;
+    height: 150px;
+    background-color: blanchedalmond;
+    position: absolute;
+}
+
+.underlined {
+    text-decoration: underline;
+}
+
+.popup-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}

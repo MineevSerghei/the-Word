@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllBooksThunk } from "../../store/bible";
 import NotesBox from "../NotesBox";
+import NotePopUp from "../NotePopUp";
 import './BibleText.css'
 
 export default function BibleText() {
@@ -12,6 +13,9 @@ export default function BibleText() {
     const [selectedBook, setSelectedBook] = useState('');
     const [booksMenuOpen, setBooksMenuOpen] = useState(false);
     const [displayedChapter, setDisplayedChapter] = useState(1);
+    const [popUpOpen, setPopUpOpen] = useState(0);
+    const [x, setX] = useState(0);
+    const [y, setY] = useState(0);
     const [displayedBook, setDisplayedBook] = useState('Genesis');
 
     const books = Object.values(booksObj)
@@ -32,6 +36,15 @@ export default function BibleText() {
         setBooksMenuOpen(false)
     }
 
+    const openPopUp = (e, verseNumber) => {
+
+        // console.log("EEE X --- >", e.clientX)
+        // console.log("EEE Y --- >", e.clientY)
+        console.log(e)
+        setX(e.pageX);
+        setY(e.pageY);
+        setPopUpOpen(verseNumber);
+    }
 
     if (books.length === 0) return <h1>Loading...</h1>;
 
@@ -57,6 +70,7 @@ export default function BibleText() {
                                         <div className="chapter-box">
                                             {Object.values(book.chaptersObj).map(chapter => <span
                                                 onClick={() => setDisplayed(chapter.number, book.name)}
+                                                key={chapter.id}
                                                 className="chapter-number">{chapter.number}</span>)}
                                         </div>
                                     }</>
@@ -69,13 +83,28 @@ export default function BibleText() {
                     {displayedBook && displayedChapter && <>
                         {Object.values(booksObj[displayedBook]
                             .chaptersObj[displayedChapter].versesObj)
-                            .map(verse => <p key={verse.id}>{verse.number === 1 ? <span className="chapter-number-in-text">{displayedChapter}</span> : verse.number} {verse.text}</p>)}</>}
+                            .map(verse => {
+                                return <p
+                                    className={popUpOpen === verse.number ? 'underlined' : ''}
+                                    onClick={(e) => openPopUp(e, verse.number)}
+                                    key={verse.id}>
+                                    {verse.number === 1 ?
+                                        <span className="chapter-number-in-text">{displayedChapter}</span> :
+                                        verse.number} {verse.text}</p>
+
+                            })}</>}
+                    {popUpOpen !== 0 && <NotePopUp
+                        verse={booksObj[displayedBook].chaptersObj[displayedChapter].versesObj[popUpOpen]}
+                        chapter={booksObj[displayedBook].chaptersObj[displayedChapter]}
+                        book={booksObj[displayedBook]}
+                        x={x} y={y} setPopUpOpen={setPopUpOpen} />}
                 </div>
             </div>
 
             <div className="right-section">
-                <NotesBox chapter={booksObj[displayedBook].chaptersObj[displayedChapter]} />
+                <NotesBox book={booksObj[displayedBook]} chapter={booksObj[displayedBook].chaptersObj[displayedChapter]} />
             </div>
+
         </div>
     );
 }

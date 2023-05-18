@@ -4,7 +4,7 @@ import NotesEditForm from "./NotesEditForm"
 import "./NotesBox.css"
 import { useState } from "react"
 
-export default function NotesBox({ chapter, book, field, setField, verseNum }) {
+export default function NotesBox({ setSelectedVerse, chapter, book, field, setField, verseNum }) {
 
     const user = useSelector(state => state.session.user)
 
@@ -49,7 +49,7 @@ export default function NotesBox({ chapter, book, field, setField, verseNum }) {
                     }
                     )}
                 </div>
-            </> : field === 'createNote' ? <NotesForm chapter={chapter} book={book} setField={setField} verseNum={verseNum} />
+            </> : field === 'createNote' ? <NotesForm setSelectedVerse={setSelectedVerse} chapter={chapter} book={book} setField={setField} verseNum={verseNum} />
 
                 : <NotesEditForm note={noteToEdit} setField={setField} />
 

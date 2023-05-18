@@ -57,6 +57,34 @@ export default function BibleText() {
             setSelectedBook('')
     }
 
+    const setNext = e => {
+        setField('allNotes');
+        setPopUpOpen(0);
+        if (booksObj[displayedBook].chaptersObj[displayedChapter + 1]) {
+            setDisplayedChapter(displayedChapter + 1)
+        } else {
+            const bookName = books.find(book => book.ordinalNumber === booksObj[displayedBook].ordinalNumber + 1).name
+            setDisplayedBook(bookName)
+            setDisplayedChapter(1)
+        }
+
+
+        // setDisplayedBook(book)
+    }
+
+    const setPrevious = e => {
+        setField('allNotes');
+        setPopUpOpen(0);
+        if (booksObj[displayedBook].chaptersObj[displayedChapter - 1]) {
+            setDisplayedChapter(displayedChapter - 1)
+        } else {
+            const previousBook = books.find(book => book.ordinalNumber === booksObj[displayedBook].ordinalNumber - 1)
+            setDisplayedBook(previousBook.name)
+            setDisplayedChapter(Object.values(previousBook.chaptersObj).length)
+        }
+
+    }
+
     if (books.length === 0) return <h1>Loading...</h1>;
 
     return (
@@ -103,7 +131,15 @@ export default function BibleText() {
                                         <span className="chapter-number-in-text">{displayedChapter}</span> :
                                         verse.number} {verse.text}</p>
 
-                            })}</>}
+                            })}
+
+                        <button
+                            disabled={booksObj[displayedBook].ordinalNumber === 1 && displayedChapter === 1}
+                            onClick={setPrevious}>Prev</button>
+                        <button
+                            disabled={booksObj[displayedBook].ordinalNumber === 66 && displayedChapter === 22}
+                            onClick={setNext}>Next</button>
+                    </>}
                     {popUpOpen !== 0 && <NotePopUp
                         field={field}
                         setField={setField}
@@ -121,6 +157,7 @@ export default function BibleText() {
                     setField={setField}
                     verseNum={selectedVerse}
                     book={booksObj[displayedBook]}
+                    setSelectedVerse={setSelectedVerse}
                     chapter={booksObj[displayedBook].chaptersObj[displayedChapter]} />
             </div>
 

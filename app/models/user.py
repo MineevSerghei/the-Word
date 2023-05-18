@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+from .plan import Plan
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -15,6 +15,9 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     notes = db.relationship('Note', back_populates='user')
+
+    enrolled_plans = db.relationship("Plan", back_populates="enrolled_user", foreign_keys=[Plan.enrolled_user_id] )
+    authored_plans = db.relationship("Plan", back_populates="author", foreign_keys=[Plan.author_id])
 
     @property
     def password(self):
@@ -32,5 +35,15 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'name': self.name,
             'email': self.email,
-            'notes': [note.to_dict_no_user() for note in self.notes]
+            'notes': [note.to_dict_no_user() for note in self.notes],
+            'enrolledPlans': [plan.to_dict() for plan in self.enrolled_plans],
+            'authoredPlans': [plan.to_dict_no_author() for plan in self.authored_plans if plan.is_template == True]
+        }
+
+    def to_dict_no_ref(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'authoredPlans': [plan.to_dict() for plan in self.enrolled_plans if plan.is_template == True]
         }

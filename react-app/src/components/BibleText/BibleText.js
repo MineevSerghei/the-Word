@@ -41,9 +41,6 @@ export default function BibleText() {
 
     const openPopUp = (e, verseNumber) => {
 
-        // console.log("EEE X --- >", e.clientX)
-        // console.log("EEE Y --- >", e.clientY)
-        console.log(e)
         setX(e.pageX);
         setY(e.pageY);
         setPopUpOpen(verseNumber);

@@ -68,10 +68,16 @@ def post_plan():
 
 @plan_routes.route('/<int:id>', methods=['PUT'])
 @login_required
-def edit_plan():
+def edit_plan(id):
     """
     Route to edit a reading plan
     """
+
+    plan_to_update = Plan.query.get(id)
+
+    if plan_to_update.author_id != current_user.id:
+        return {'errors': 'Forbidden'}, 403
+
     form = PlanForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -97,6 +103,9 @@ def edit_plan():
         tasks_to_create = []
 
         for task in tasks:
+            task_to_delete = Task.query.get(task.id)
+            db.session.delete(task_to_delete)
+
             new_task = Task(
                 description=task.description,
                 is_completed=None,
@@ -104,43 +113,30 @@ def edit_plan():
             )
             tasks_to_create.append(new_task)
 
-        plan = Plan(
-            author_id=current_user.id,
-            name=form['name'],
-            description=form['description'],
-            duration=duration,
-            is_public=is_public,
-            is_template=True,
-            start_date=None,
-            enrolled_user_id=None,
-            tasks=tasks_to_create
-        )
+        plan_to_update.name=form['name'],
+        plan_to_update.description=form['description'],
+        plan_to_update.duration=duration,
+        plan_to_update.is_public=is_public,
+        tasks=tasks_to_create
 
-        db.session.add(plan)
         db.session.commit()
 
-        return plan.to_dict()
+        return plan_to_update.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
+@plan_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_plan(id):
+    """
+    Route to delete a reading plan
+    """
+    plan_to_delete = Plan.query.get(id)
 
-# @note_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
-# def delete_note(id):
-#     """
-#     Route to delete a note by note id
-#     """
+    if plan_to_delete.author_id != current_user.id:
+        return {'errors': 'Forbidden'}, 403
 
-#     note = Note.query.get(id)
+    db.session.delete(plan_to_delete)
+    db.session.commit()
 
-#     if not note:
-#         return {'errors': 'Note Not Found'}, 404
-
-#     if note.user_id != current_user.id:
-#         return {'errors': 'Forbidden'}, 403
-
-
-#     db.session.delete(note)
-#     db.session.commit()
-
-#     return {'message': 'Successfully Deleted'}
+    return {'message': 'Successfully Deleted'}

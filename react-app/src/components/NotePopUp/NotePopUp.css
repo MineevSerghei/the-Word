@@ -1,8 +1,9 @@
 .pop-up-container {
     width: 200px;
     height: 150px;
-    background-color: blanchedalmond;
+    background-color: rgb(253, 243, 228);
     position: absolute;
+    padding: 10px 10px 0 10px;
 }
 
 .underlined {

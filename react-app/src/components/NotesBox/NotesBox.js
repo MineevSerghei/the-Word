@@ -1,13 +1,12 @@
 import { useSelector } from "react-redux"
 import NotesForm from "./NotesForm"
 import "./NotesBox.css"
-import { useState } from "react"
 
-export default function NotesBox({ chapter, book }) {
+export default function NotesBox({ chapter, book, field, setField, verseNum }) {
 
     const user = useSelector(state => state.session.user)
 
-    const [field, setField] = useState('allNotes')
+
 
     if (!user) return <h2>Please sign in to use notes</h2>
 
@@ -21,8 +20,6 @@ export default function NotesBox({ chapter, book }) {
                 <div className="right-nav-bttn">Notes</div>
                 <div className="right-nav-bttn">Plans</div>
             </div>
-
-
 
             {field === 'allNotes' ? <>
                 <h2>Notes</h2>
@@ -41,7 +38,7 @@ export default function NotesBox({ chapter, book }) {
                     }
                     )}
                 </div>
-            </> : <NotesForm chapter={chapter} book={book} setField={setField} />
+            </> : <NotesForm chapter={chapter} book={book} setField={setField} verseNum={verseNum} />
             }
         </>
     )

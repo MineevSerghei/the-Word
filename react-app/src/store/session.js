@@ -1,6 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const CREATE_NOTE = "session/CREATE_NOTE";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -11,7 +12,40 @@ const removeUser = () => ({
 	type: REMOVE_USER,
 });
 
-const initialState = { user: null };
+const createNoteAction = (note) => ({
+	type: CREATE_NOTE,
+	note
+});
+
+
+
+export const createNoteThunk = (verseId, note) => async (dispatch) => {
+	const res = await fetch("/api/notes", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			noteText: note,
+			verseId
+		})
+	});
+
+	if (res.ok) {
+		const data = await res.json();
+		dispatch(createNoteAction(data))
+		return data
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return { errors: "An error occurred. Please try again." };
+	}
+
+
+};
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -94,12 +128,16 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	}
 };
 
+const initialState = { user: null };
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
 			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
+		case CREATE_NOTE:
+			return { ...state, user: { ...state.user, notes: [...state.user.notes, action.note] } }
 		default:
 			return state;
 	}

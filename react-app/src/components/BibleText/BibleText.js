@@ -14,9 +14,11 @@ export default function BibleText() {
     const [booksMenuOpen, setBooksMenuOpen] = useState(false);
     const [displayedChapter, setDisplayedChapter] = useState(1);
     const [popUpOpen, setPopUpOpen] = useState(0);
+    const [selectedVerse, setSelectedVerse] = useState(0);
     const [x, setX] = useState(0);
     const [y, setY] = useState(0);
     const [displayedBook, setDisplayedBook] = useState('Genesis');
+    const [field, setField] = useState('allNotes')
 
     const books = Object.values(booksObj)
 
@@ -94,15 +96,23 @@ export default function BibleText() {
 
                             })}</>}
                     {popUpOpen !== 0 && <NotePopUp
+                        field={field}
+                        setField={setField}
                         verse={booksObj[displayedBook].chaptersObj[displayedChapter].versesObj[popUpOpen]}
                         chapter={booksObj[displayedBook].chaptersObj[displayedChapter]}
                         book={booksObj[displayedBook]}
+                        setSelectedVerse={setSelectedVerse}
                         x={x} y={y} setPopUpOpen={setPopUpOpen} />}
                 </div>
             </div>
 
             <div className="right-section">
-                <NotesBox book={booksObj[displayedBook]} chapter={booksObj[displayedBook].chaptersObj[displayedChapter]} />
+                <NotesBox
+                    field={field}
+                    setField={setField}
+                    verseNum={selectedVerse}
+                    book={booksObj[displayedBook]}
+                    chapter={booksObj[displayedBook].chaptersObj[displayedChapter]} />
             </div>
 
         </div>

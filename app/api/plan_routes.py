@@ -21,6 +21,8 @@ def get_all_plans():
     return [plan.to_dict() for plan in plans]
 
 
+
+
 @plan_routes.route('', methods=['POST'])
 @login_required
 def post_plan():

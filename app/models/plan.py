@@ -17,8 +17,8 @@ class Plan(db.Model):
     enrolled_user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
     tasks = db.relationship('Task', back_populates='plan')
-    enrolled_user = db.relationship("User", back_populates="enrolled_plans", foreign_keys=[author_id])
-    author = db.relationship("User", back_populates="authored_plans", foreign_keys=[enrolled_user_id])
+    enrolled_user = db.relationship("User", back_populates="enrolled_plans", foreign_keys=[enrolled_user_id])
+    author = db.relationship("User", back_populates="authored_plans", foreign_keys=[author_id])
 
     def to_dict(self):
         return {

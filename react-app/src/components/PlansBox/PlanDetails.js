@@ -1,10 +1,15 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleCompletedThunk } from '../../store/session';
 // import './PlansBox.css'
 
-export default function PlanDetails({ plan }) {
+export default function PlanDetails({ plan, setPlansField }) {
+
+    const user = useSelector(state => state.session.user);
 
     const [selectedDay, setSelectedDay] = useState(0)
-
+    const [, forceRerender] = useState('')
+    const dispatch = useDispatch();
 
     const daysRef = Array(plan.duration).fill([])
     const days = daysRef.map(arr => Array.from(arr));
@@ -13,10 +18,21 @@ export default function PlanDetails({ plan }) {
         days[task.day - 1].push(task);
     }
 
+    const toggleCompleted = async (e, taskId, planId) => {
+
+        await dispatch(toggleCompletedThunk(taskId, planId))
+    }
+
+    let competed = 0;
+    for (let task of plan.tasks) {
+        if (task.isCompleted) competed++
+    }
+
     return (
         <div>
+            <i onClick={() => setPlansField('myPlans')} className="fa-solid fa-chevron-left"></i>
             <h2>Plan Details</h2>
-            <h3>{plan.name}</h3>
+            <h3>{plan.name} ({competed / plan.tasks.length * 100}%)</h3>
             <div className='days'>
                 {days.map((day, i) => {
                     return (
@@ -30,7 +46,7 @@ export default function PlanDetails({ plan }) {
                 return (
                     <div key={task.id}>
                         <label>
-                            <input type="checkbox" />
+                            <input checked={task.isCompleted} onChange={e => toggleCompleted(e, task.id, plan.id)} type="checkbox" />
                             {task.description}
                         </label>
                     </div>

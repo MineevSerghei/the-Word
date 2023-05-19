@@ -9,10 +9,10 @@ export default function PlansBox() {
 
 
     const [plansField, setPlansField] = useState('myPlans')
-    const [selectedPlan, setSelectedPlan] = useState({})
+    const [selectedPlan, setSelectedPlan] = useState(null)
 
-    const openPlanDetails = plan => {
-        setSelectedPlan({ ...plan })
+    const openPlanDetails = planIndex => {
+        setSelectedPlan(planIndex)
         setPlansField('planDetails')
     }
 
@@ -25,7 +25,7 @@ export default function PlansBox() {
             {plansField === 'myPlans' &&
                 <div>
                     <h2>My Plans</h2>
-                    {myPlans.map(plan => {
+                    {myPlans.map((plan, planIndex) => {
 
                         let competed = 0;
                         for (let task of plan.tasks) {
@@ -33,7 +33,7 @@ export default function PlansBox() {
                         }
 
                         return (<div className='plan-box' key={plan.id}>
-                            <h4 onClick={() => openPlanDetails(plan)}>{plan.name} ({competed / plan.tasks.length * 100}%)</h4>
+                            <h4 onClick={() => openPlanDetails(planIndex)}>{plan.name} ({competed / plan.tasks.length * 100}%)</h4>
                             <p>{plan.description}</p>
                         </div>)
                     })}
@@ -41,7 +41,7 @@ export default function PlansBox() {
 
             {plansField === 'planDetails' &&
                 <div>
-                    <PlanDetails plan={selectedPlan} />
+                    <PlanDetails plan={myPlans[selectedPlan]} setPlansField={setPlansField} />
                 </div>}
 
         </div>

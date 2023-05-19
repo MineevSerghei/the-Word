@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getAllBooksThunk } from "../../store/bible";
 import NotesBox from "../NotesBox";
 import NotePopUp from "../NotePopUp";
+import PlansBox from "../PlansBox";
 import './BibleText.css'
 
 export default function BibleText() {
@@ -19,6 +20,7 @@ export default function BibleText() {
     const [y, setY] = useState(0);
     const [displayedBook, setDisplayedBook] = useState('Genesis');
     const [field, setField] = useState('allNotes')
+    const [tab, setTab] = useState('')
 
     const books = Object.values(booksObj)
 
@@ -41,9 +43,6 @@ export default function BibleText() {
 
     const openPopUp = (e, verseNumber) => {
 
-        // console.log("EEE X --- >", e.clientX)
-        // console.log("EEE Y --- >", e.clientY)
-        console.log(e)
         setX(e.pageX);
         setY(e.pageY);
         setPopUpOpen(verseNumber);
@@ -57,8 +56,39 @@ export default function BibleText() {
             setSelectedBook('')
     }
 
-    if (books.length === 0) return <h1>Loading...</h1>;
+    const setNext = e => {
+        setField('allNotes');
+        setPopUpOpen(0);
+        if (booksObj[displayedBook].chaptersObj[displayedChapter + 1]) {
+            setDisplayedChapter(displayedChapter + 1)
+        } else {
+            const bookName = books.find(book => book.ordinalNumber === booksObj[displayedBook].ordinalNumber + 1).name
+            setDisplayedBook(bookName)
+            setDisplayedChapter(1)
+        }
 
+
+        // setDisplayedBook(book)
+    }
+
+    const setPrevious = e => {
+        setField('allNotes');
+        setPopUpOpen(0);
+        if (booksObj[displayedBook].chaptersObj[displayedChapter - 1]) {
+            setDisplayedChapter(displayedChapter - 1)
+        } else {
+            const previousBook = books.find(book => book.ordinalNumber === booksObj[displayedBook].ordinalNumber - 1)
+            setDisplayedBook(previousBook.name)
+            setDisplayedChapter(Object.values(previousBook.chaptersObj).length)
+        }
+
+    }
+
+    if (books.length === 0) return (
+        <div className="spinner-container">
+            <h1 id="spinner"><i className="fa-solid fa-spinner fa-spin-pulse"></i></h1>
+            <p>Loading</p>
+        </div>);
     return (
         <div className="read-page">
             <div className="left-section">
@@ -103,25 +133,46 @@ export default function BibleText() {
                                         <span className="chapter-number-in-text">{displayedChapter}</span> :
                                         verse.number} {verse.text}</p>
 
-                            })}</>}
+                            })}
+
+                        <button
+                            disabled={booksObj[displayedBook].ordinalNumber === 1 && displayedChapter === 1}
+                            onClick={setPrevious}>Prev</button>
+                        <button
+                            disabled={booksObj[displayedBook].ordinalNumber === 66 && displayedChapter === 22}
+                            onClick={setNext}>Next</button>
+                    </>}
                     {popUpOpen !== 0 && <NotePopUp
                         field={field}
                         setField={setField}
                         verse={booksObj[displayedBook].chaptersObj[displayedChapter].versesObj[popUpOpen]}
                         chapter={booksObj[displayedBook].chaptersObj[displayedChapter]}
                         book={booksObj[displayedBook]}
+                        setTab={setTab}
                         setSelectedVerse={setSelectedVerse}
                         x={x} y={y} setPopUpOpen={setPopUpOpen} />}
                 </div>
             </div>
 
             <div className="right-section">
-                <NotesBox
+                <div className="right-top">
+                    <div onClick={() => { setTab('notes') }} className="right-nav-bttn">Notes</div>
+                    <div onClick={() => { setTab('plans') }} className="right-nav-bttn">Plans</div>
+                    <div onClick={() => { setTab('') }} className="right-nav-bttn">Close</div>
+                </div>
+
+
+                {tab === 'notes' && <NotesBox
                     field={field}
                     setField={setField}
                     verseNum={selectedVerse}
                     book={booksObj[displayedBook]}
-                    chapter={booksObj[displayedBook].chaptersObj[displayedChapter]} />
+                    setSelectedVerse={setSelectedVerse}
+                    chapter={booksObj[displayedBook].chaptersObj[displayedChapter]} />}
+
+
+                {tab === 'plans' && <PlansBox />}
+
             </div>
 
         </div>

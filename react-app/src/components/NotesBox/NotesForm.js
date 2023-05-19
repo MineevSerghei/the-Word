@@ -1,14 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { createNoteThunk } from "../../store/session";
 import './NotesBox.css'
 
-export default function NotesForm({ verseNum, chapter, book, setField }) {
+export default function NotesForm({ verseNum, chapter, book, setField, setSelectedVerse }) {
 
     const verse = useSelector(state => state.bible[book.name].chaptersObj[chapter.number].versesObj[verseNum || 1])
 
     const [note, setNote] = useState('');
     const dispatch = useDispatch();
+
+    useEffect(() => {
+
+        return () => {
+            setSelectedVerse(0)
+        }
+
+    }, [])
 
     const saveNote = async e => {
 

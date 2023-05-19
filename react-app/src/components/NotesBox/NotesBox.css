@@ -1,5 +1,11 @@
 .right-nav-bttn {
     border: #3c3c3c 1px solid;
+    padding: 3px;
+}
+
+.right-nav-bttn:hover {
+    background-color: beige;
+    cursor: pointer;
 }
 
 .right-top {
@@ -12,7 +18,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
+    width: 70vw;
 }
 
 .note-title:hover {

@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux"
 import NotesForm from "./NotesForm"
 import NotesEditForm from "./NotesEditForm"
+import NoteDetails from "./NoteDetails"
 import "./NotesBox.css"
 import { useState } from "react"
 
-export default function NotesBox({ chapter, book, field, setField, verseNum }) {
+export default function NotesBox({ setSelectedVerse, chapter, book, field, setField, verseNum }) {
 
     const user = useSelector(state => state.session.user)
 
@@ -16,17 +17,15 @@ export default function NotesBox({ chapter, book, field, setField, verseNum }) {
         setField('createNote')
     }
 
-    const openEditNote = note => {
+    const openNoteDetails = note => {
         setNoteToEdit({ ...note })
-        setField('editNote')
+        setField('noteDetails')
     }
+
+
 
     return (
         <>
-            <div className="right-top">
-                <div className="right-nav-bttn">Notes</div>
-                <div className="right-nav-bttn">Plans</div>
-            </div>
 
             {field === 'allNotes' ? <>
                 <h2>Notes</h2>
@@ -40,7 +39,7 @@ export default function NotesBox({ chapter, book, field, setField, verseNum }) {
                             <div key={note.id}>
                                 <span
                                     className="note-title"
-                                    onClick={() => openEditNote(note)}
+                                    onClick={() => openNoteDetails(note)}
 
                                 >{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</span>
                                 <p>{note.noteText}</p>
@@ -49,9 +48,11 @@ export default function NotesBox({ chapter, book, field, setField, verseNum }) {
                     }
                     )}
                 </div>
-            </> : field === 'createNote' ? <NotesForm chapter={chapter} book={book} setField={setField} verseNum={verseNum} />
+            </> : field === 'createNote' ? <NotesForm setSelectedVerse={setSelectedVerse} chapter={chapter} book={book} setField={setField} verseNum={verseNum} />
 
-                : <NotesEditForm note={noteToEdit} setField={setField} />
+                : field === 'noteDetails' ? <NoteDetails note={noteToEdit} setField={setField} />
+
+                    : <NotesEditForm note={noteToEdit} setField={setField} />
 
             }
         </>

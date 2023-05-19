@@ -30,7 +30,6 @@ def post_note():
 
         return note.to_dict()
 
-    print("IS IT HERE? --> ", form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 

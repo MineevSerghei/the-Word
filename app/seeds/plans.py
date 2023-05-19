@@ -76,6 +76,7 @@ def seed_plans():
         duration=5,
         is_public=True,
         is_template=True,
+        template_id=None,
         start_date=None,
         enrolled_user_id=None,
         tasks=template_tasks
@@ -85,6 +86,7 @@ def seed_plans():
         name='Genesis in 5 days',
         description='Read the book of Genesis in 5 days, 5 chapters in the morning and 5 chapters in the evening each day.',
         duration=5,
+        template_id=1,
         is_public=False,
         is_template=False,
         start_date=datetime.now(),

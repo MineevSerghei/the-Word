@@ -3,14 +3,16 @@ import './PlansBox.css'
 import { useSelector } from 'react-redux'
 import PlanDetails from './PlanDetails'
 import AllPlans from './AllPlans'
+import PlanOverview from './PlanOverview';
 
 export default function PlansBox() {
 
     const user = useSelector(state => state.session.user)
-
+    const allPlans = useSelector(state => state.plans.allPublicPlans);
 
     const [plansField, setPlansField] = useState('myPlans')
     const [selectedPlan, setSelectedPlan] = useState(null)
+    const [selectedPublicPlan, setSelectedPublicPlan] = useState(null)
 
     const openPlanDetails = planIndex => {
         setSelectedPlan(planIndex)
@@ -50,7 +52,12 @@ export default function PlansBox() {
 
             {plansField === 'allPlans' &&
                 <div>
-                    <AllPlans setPlansField={setPlansField} />
+                    <AllPlans setPlansField={setPlansField} setSelectedPublicPlan={setSelectedPublicPlan} />
+                </div>}
+
+            {plansField === 'planOverview' && allPlans &&
+                <div>
+                    <PlanOverview setPlansField={setPlansField} plan={allPlans[selectedPublicPlan]} />
                 </div>}
 
         </div>

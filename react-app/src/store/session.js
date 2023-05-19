@@ -237,17 +237,9 @@ export default function reducer(state = initialState, action) {
 
 		case TOGGLE_COMPLETED:
 			{
-
-
-
 				const planIndex = state.user.enrolledPlans.findIndex(plan => {
-					console.log('plan.id --- >', plan.id)
-					console.log('action.planId --- >', action.planId)
 					return plan.id === action.planId
 				})
-
-
-				console.log('INDEX OF PLAN --- >', planIndex)
 
 				const taskIndex = state.user.enrolledPlans[planIndex].tasks.findIndex(task => task.id === action.task.id)
 

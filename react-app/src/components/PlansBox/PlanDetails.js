@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCompletedThunk } from '../../store/session';
+
 // import './PlansBox.css'
 
 export default function PlanDetails({ plan, setPlansField }) {
 
     const user = useSelector(state => state.session.user);
 
-    const [selectedDay, setSelectedDay] = useState(0)
+
+    const [selectedDay, setSelectedDay] = useState(1)
     const [, forceRerender] = useState('')
     const dispatch = useDispatch();
 

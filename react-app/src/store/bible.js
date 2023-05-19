@@ -24,19 +24,24 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_BOOKS:
             const booksObject = {};
+
             for (let book of action.books) {
                 booksObject[book.name] = book;
+
                 for (let chapter of book.chapters) {
                     if (!booksObject[book.name].chaptersObj)
                         booksObject[book.name].chaptersObj = {};
                     booksObject[book.name].chaptersObj[chapter.number] = chapter;
+
                     for (let verse of chapter.verses) {
                         if (!booksObject[book.name].chaptersObj[chapter.number].versesObj)
                             booksObject[book.name].chaptersObj[chapter.number].versesObj = {}
                         booksObject[book.name].chaptersObj[chapter.number].versesObj[verse.number] = verse;
                     }
+
                     delete booksObject[book.name].chaptersObj[chapter.number].verses;
                 }
+
                 delete booksObject[book.name].chapters;
             }
 

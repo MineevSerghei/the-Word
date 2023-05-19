@@ -1,6 +1,12 @@
 .plan-box {
     padding: 20px;
-    border: 1px solid burlywood;
+    border: 1px solid transparent;
+    margin: 10px;
+}
+
+.plan-box:hover {
+    cursor: pointer;
+    border: 1px solid brown;
 }
 
 .days {
@@ -19,4 +25,12 @@
 .day-div:hover {
     cursor: pointer;
     background-color: rgb(255, 195, 195);
+}
+
+.plan-name {
+    display: inline;
+}
+
+.fa-chevron-left {
+    cursor: pointer;
 }

@@ -13,10 +13,12 @@ def get_all_plans():
     Route to get all PUBLIC reading plan TEMPLATES
     """
 
+    print('am i hitting this???')
+
     plans = Plan.query.filter(Plan.is_template==True and Plan.is_public==True).all()
 
-    if not plans:
-         return {'errors': 'Plans Not Found'}, 404
+    # if not plans:
+    #      return {'errors': 'Plans Not Found'}, 404
 
     return [plan.to_dict() for plan in plans]
 

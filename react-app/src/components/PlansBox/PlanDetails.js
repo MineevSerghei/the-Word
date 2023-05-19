@@ -30,8 +30,7 @@ export default function PlanDetails({ plan, setPlansField }) {
 
     return (
         <div>
-            <i onClick={() => setPlansField('myPlans')} className="fa-solid fa-chevron-left"></i>
-            <h2>Plan Details</h2>
+            <div><i onClick={() => setPlansField('myPlans')} className="fa-solid fa-chevron-left"></i><h2 className='plan-name'> Plan Details</h2></div>
             <h3>{plan.name} ({competed / plan.tasks.length * 100}%)</h3>
             <div className='days'>
                 {days.map((day, i) => {

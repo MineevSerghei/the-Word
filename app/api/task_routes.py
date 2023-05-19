@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Task, db
 
-task_routes = Blueprint('plans', __name__)
+task_routes = Blueprint('tasks', __name__)
 
 @task_routes.route('/<int:id>', methods=['PUT'])
 @login_required

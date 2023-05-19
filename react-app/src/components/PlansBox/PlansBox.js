@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './PlansBox.css'
 import { useSelector } from 'react-redux'
 import PlanDetails from './PlanDetails'
+import AllPlans from './AllPlans'
 
 export default function PlansBox() {
 
@@ -24,7 +25,9 @@ export default function PlansBox() {
 
             {plansField === 'myPlans' &&
                 <div>
-                    <h2>My Plans</h2>
+                    <h2>My Plans<span><button onClick={() => setPlansField('allPlans')}>all plans</button></span></h2>
+
+
                     {myPlans.map((plan, planIndex) => {
 
                         let competed = 0;
@@ -32,16 +35,22 @@ export default function PlansBox() {
                             if (task.isCompleted) competed++
                         }
 
-                        return (<div className='plan-box' key={plan.id}>
-                            <h4 onClick={() => openPlanDetails(planIndex)}>{plan.name} ({competed / plan.tasks.length * 100}%)</h4>
+                        return (<div className='plan-box' key={plan.id} onClick={() => openPlanDetails(planIndex)}>
+                            <h4 >{plan.name} ({competed / plan.tasks.length * 100}%)</h4>
                             <p>{plan.description}</p>
                         </div>)
                     })}
+
                 </div>}
 
             {plansField === 'planDetails' &&
                 <div>
                     <PlanDetails plan={myPlans[selectedPlan]} setPlansField={setPlansField} />
+                </div>}
+
+            {plansField === 'allPlans' &&
+                <div>
+                    <AllPlans setPlansField={setPlansField} />
                 </div>}
 
         </div>

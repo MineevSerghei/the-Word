@@ -2,3 +2,21 @@
     padding: 20px;
     border: 1px solid burlywood;
 }
+
+.days {
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    gap: 3px;
+}
+
+.day-div {
+    border: 1px brown solid;
+    height: 2rem;
+    width: 2rem;
+}
+
+.day-div:hover {
+    cursor: pointer;
+    background-color: rgb(255, 195, 195);
+}

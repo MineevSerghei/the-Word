@@ -19,6 +19,7 @@ class Task(db.Model):
         return {
             'id': self.id,
             'planId': self.plan_id,
+            'day': self.day,
             'description': self.description,
             'isCompleted': self.is_completed
         }

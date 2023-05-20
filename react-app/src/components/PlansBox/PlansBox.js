@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import PlanDetails from './PlanDetails'
 import AllPlans from './AllPlans'
 import PlanOverview from './PlanOverview';
+import PlanSettings from './PlanSettings'
 
 export default function PlansBox() {
 
@@ -57,7 +58,12 @@ export default function PlansBox() {
 
             {plansField === 'planOverview' && allPlans &&
                 <div>
-                    <PlanOverview setPlansField={setPlansField} plan={allPlans[selectedPublicPlan]} />
+                    <PlanOverview setPlansField={setPlansField} plan={allPlans[selectedPublicPlan]} setSelectedPlan={setSelectedPlan} />
+                </div>}
+
+            {plansField === 'planSettings' &&
+                <div>
+                    <PlanSettings setPlansField={setPlansField} plan={myPlans[selectedPlan]} setSelectedPlan={setSelectedPlan} />
                 </div>}
 
         </div>

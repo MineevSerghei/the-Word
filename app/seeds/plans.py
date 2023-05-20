@@ -94,8 +94,34 @@ def seed_plans():
         tasks=task_instances
     )
 
+    tasksStrings=["Matthew 1 to Matthew 9","Matthew 10 to Matthew 16","Matthew 17 to Matthew 23","Matthew 24 to Mark 1","Mark 2 to Mark 8","Mark 9 to Mark 13","Mark 14 to Luke 2","Luke 3 to Luke 7","Luke 8 to Luke 13","Luke 14 to Luke 20","Luke 21 to Luke 24","John 1 to John 6","John 7 to John 12","John 13 to John 20","John 21 to Acts 7","Acts 8 to Acts 14","Acts 15 to Acts 20","Acts 21 to Acts 28","Romans 1 to Romans 8","Romans 9 to 1 Corinthians 3","1 Corinthians 4 to 1 Corinthians 13","1 Corinthians 14 to 2 Corinthians 7","2 Corinthians 8 to Galatians 6","Ephesians 1 to 1 Thessalonians 2","1 Thessalonians 3 to 2 Timothy 4","Titus 1 to Hebrews 10","Hebrews 11 to 1 Peter 3","1 Peter 4 to Jude 1","Revelation 1 to Revelation 12","Revelation 13 to Revelation 22"]
+
+    tasks30 = []
+
+    for i in range(30):
+        new_task = Task(
+            description=f'Read {tasksStrings[i]}',
+            is_completed=None,
+            day=i+1
+        )
+        tasks30.append(new_task)
+
+    plan_template2 = Plan(
+        author_id=1,
+        name='New Testament in 30 days',
+        description='Read the whole of the New Testament in 30 days, ~5,000-7,000 words a day',
+        duration=30,
+        is_public=True,
+        is_template=True,
+        template_id=None,
+        start_date=None,
+        enrolled_user_id=None,
+        tasks=tasks30
+    )
+
     db.session.add(plan_template1)
     db.session.add(plan_instance1)
+    db.session.add(plan_template2)
     db.session.commit()
 
 def undo_plans():

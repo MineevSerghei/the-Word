@@ -5,6 +5,8 @@ const CREATE_NOTE = "session/CREATE_NOTE";
 const EDIT_NOTE = "session/EDIT_NOTE";
 const DELETE_NOTE = "session/DELETE_NOTE";
 const TOGGLE_COMPLETED = "session/TOGGLE_COMPLETED";
+const ENROLL_PLAN = "session/ENROLL_PLAN";
+const UNENROLL_PLAN = "session/UNENROLL_PLAN";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -35,6 +37,51 @@ const toggleCompletedAction = (task, planId) => ({
 	task,
 	planId
 });
+
+const enrollPlanAction = (plan) => ({
+	type: ENROLL_PLAN,
+	plan
+});
+
+const unenrollPlanAction = (planId) => ({
+	type: UNENROLL_PLAN,
+	planId
+});
+
+export const unenrollPlanThunk = (planId) => async dispatch => {
+	const res = await fetch(`/api/plans/${planId}/unenroll`, { method: "DELETE" });
+
+	if (res.ok) {
+		const data = await res.json();
+		dispatch(unenrollPlanAction(planId));
+		return data;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
+
+export const enrollPlanThunk = (planId) => async dispatch => {
+	const res = await fetch(`/api/plans/${planId}/enroll`, { method: "POST" });
+
+	if (res.ok) {
+		const plan = await res.json();
+		console.log("MYY PLAN!--->", plan)
+		dispatch(enrollPlanAction(plan));
+		return plan;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
 
 export const toggleCompletedThunk = (taskId, planId) => async dispatch => {
 	const res = await fetch(`/api/tasks/${taskId}`, { method: "PUT" });
@@ -249,6 +296,16 @@ export default function reducer(state = initialState, action) {
 				newState.user.enrolledPlans[planIndex].tasks[taskIndex] = { ...action.task }
 
 				return newState;
+			}
+		case ENROLL_PLAN:
+			{
+				return { ...state, user: { ...state.user, enrolledPlans: [...state.user.enrolledPlans, action.plan] } }
+			}
+
+		case UNENROLL_PLAN:
+			{
+				const newEnrolledPlans = state.user.enrolledPlans.filter(plan => plan.id !== action.planId)
+				return { ...state, user: { ...state.user, enrolledPlans: newEnrolledPlans } }
 			}
 		default:
 			return state;

@@ -1,7 +1,18 @@
+import { useDispatch, useSelector } from "react-redux"
+import { enrollPlanThunk } from "../../store/session"
 
-export default function PlanOverview({ plan, setPlansField }) {
 
+export default function PlanOverview({ plan, setPlansField, setSelectedPlan }) {
 
+    const user = useSelector(state => state.session.user)
+
+    const dispatch = useDispatch()
+
+    const enroll = async e => {
+        await dispatch(enrollPlanThunk(plan.id));
+        setSelectedPlan(user.enrolledPlans.length - 1)
+        setPlansField('planDetails')
+    }
 
     return (
         <div>
@@ -11,7 +22,7 @@ export default function PlanOverview({ plan, setPlansField }) {
                 <p>{plan.duration} days</p>
                 <p>{plan.description}</p>
             </div>
-            <button>Begin</button>
+            <button onClick={enroll}>Begin</button>
         </div>
     )
 }

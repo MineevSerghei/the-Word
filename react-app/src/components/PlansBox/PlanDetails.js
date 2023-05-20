@@ -10,7 +10,6 @@ export default function PlanDetails({ plan, setPlansField }) {
 
 
     const [selectedDay, setSelectedDay] = useState(1)
-    const [, forceRerender] = useState('')
     const dispatch = useDispatch();
 
     const daysRef = Array(plan.duration).fill([])

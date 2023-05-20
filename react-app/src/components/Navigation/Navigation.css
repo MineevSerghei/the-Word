@@ -5,3 +5,10 @@
 .hidden {
   display: none;
 }
+
+.nav-ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px;
+}

@@ -70,9 +70,8 @@ export const enrollPlanThunk = (planId) => async dispatch => {
 
 	if (res.ok) {
 		const plan = await res.json();
-		console.log("MYY PLAN!--->", plan)
 		dispatch(enrollPlanAction(plan));
-		return plan;
+		return {'message': 'Success!'};
 	} else if (res.status < 500) {
 		const data = await res.json();
 		if (data.errors) {

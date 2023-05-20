@@ -9,9 +9,16 @@ export default function PlanOverview({ plan, setPlansField, setSelectedPlan }) {
     const dispatch = useDispatch()
 
     const enroll = async e => {
-        await dispatch(enrollPlanThunk(plan.id));
-        setSelectedPlan(user.enrolledPlans.length - 1)
-        setPlansField('planDetails')
+        const res = await dispatch(enrollPlanThunk(plan.id));
+
+        if (res.message && res.message === 'Success!') {
+
+            setSelectedPlan(user.enrolledPlans.length)
+            setPlansField('planDetails')
+        } else {
+            alert('Something went wrong')
+        }
+
     }
 
     return (

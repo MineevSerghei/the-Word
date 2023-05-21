@@ -8,22 +8,25 @@ import { editNoteThunk } from "../../store/session";
 export default function NotesEditForm({ note, setField }) {
 
     const [noteText, setNoteText] = useState(note.noteText);
+    const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
 
     const saveNote = async e => {
 
-        if (note.length <= 0) {
-            console.log('error')
-            return
-        }
-        if (note.length > 700) {
-            console.log('error')
-            return
-        }
 
-        await dispatch(editNoteThunk(note.id, noteText))
-        setField('allNotes')
+        const validationErrors = {}
 
+        if (noteText.length <= 0) {
+            validationErrors.note = 'The note cannot be empty'
+        }
+        if (noteText.length > 700) {
+            validationErrors.note = 'The note cannot be longer than 700 characters'
+        }
+        if (validationErrors.note) setErrors(validationErrors)
+        else {
+            await dispatch(editNoteThunk(note.id, noteText))
+            setField('allNotes')
+        }
     }
 
     return (
@@ -34,6 +37,7 @@ export default function NotesEditForm({ note, setField }) {
                 <button onClick={() => setField('allNotes')} >Close</button>
                 <button onClick={saveNote}>Save Edit</button>
                 <p>{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</p>
+                {errors.note && <p>{errors.note}</p>}
                 <textarea
                     value={noteText}
                     onChange={e => setNoteText(e.target.value)}

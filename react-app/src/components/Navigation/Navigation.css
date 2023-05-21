@@ -1,5 +1,7 @@
 .profile-dropdown {
   position: absolute;
+  list-style: none;
+  right: 30px
 }
 
 .hidden {
@@ -10,5 +12,22 @@
   list-style: none;
   display: flex;
   justify-content: space-between;
-  margin: 30px;
+  margin: 15px 30px 30px 30px;
+  align-items: center;
+}
+
+.profile-bttn {
+  padding: 10px 20px;
+  border: 1px transparent solid;
+  font-size: 1.3rem;
+}
+
+.profile-bttn:hover {
+  border: 1px brown solid;
+  cursor: pointer;
+}
+
+.nav-left-links {
+  padding: 10px;
+  margin-right: 70px;
 }

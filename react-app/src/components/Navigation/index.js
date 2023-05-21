@@ -13,7 +13,8 @@ function Navigation({ isLoaded }) {
 	return (
 		<ul className='nav-ul'>
 			<li>
-				<NavLink exact to="/">Home</NavLink>
+				<NavLink className='nav-left-links' exact to="/">Home</NavLink>
+				<NavLink className='nav-left-links' to="/read">Read</NavLink>
 			</li>
 			{isLoaded && (
 				<>

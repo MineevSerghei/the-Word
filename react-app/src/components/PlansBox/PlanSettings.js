@@ -16,6 +16,7 @@ export default function PlanSettings({ plan, setPlansField }) {
 
     return (
         <div>
+            <i onClick={() => setPlansField('planDetails')} className="fa-solid fa-chevron-left"></i>
             <button onClick={unenroll}>unenroll</button>
         </div>
     )

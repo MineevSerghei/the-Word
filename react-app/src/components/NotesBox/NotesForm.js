@@ -9,6 +9,7 @@ export default function NotesForm({ verseNum, chapter, book, setField, setSelect
 
     const [note, setNote] = useState('');
     const dispatch = useDispatch();
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
 
@@ -20,18 +21,19 @@ export default function NotesForm({ verseNum, chapter, book, setField, setSelect
 
     const saveNote = async e => {
 
+        const validationErrors = {}
+
         if (note.length <= 0) {
-            console.log('error')
-            return
+            validationErrors.note = 'The note cannot be empty'
         }
         if (note.length > 700) {
-            console.log('error')
-            return
+            validationErrors.note = 'The note cannot be longer than 700 characters'
         }
-
-        await dispatch(createNoteThunk(verse.id, note))
-        setField('allNotes')
-
+        if (validationErrors.note) setErrors(validationErrors)
+        else {
+            await dispatch(createNoteThunk(verse.id, note))
+            setField('allNotes')
+        }
     }
 
     if (!verse) return <h1>NO VERSE</h1>
@@ -44,6 +46,7 @@ export default function NotesForm({ verseNum, chapter, book, setField, setSelect
                 <button onClick={() => setField('allNotes')} >Close</button>
                 <button onClick={saveNote}>Save Note</button>
                 <p>{book.name} {chapter.number}:{verse.number}</p>
+                {errors.note && <p>{errors.note}</p>}
                 <textarea
                     value={note}
                     onChange={e => setNote(e.target.value)}

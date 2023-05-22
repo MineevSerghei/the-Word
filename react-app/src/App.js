@@ -5,6 +5,8 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import BibleText from "./components/BibleText";
 import LandingPage from "./components/LandingPage";
+import PlansPage from "./components/PlansPage";
+import PlansForm from "./components/PlansPage/PlansForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +22,12 @@ function App() {
         <Switch>
           <Route path="/read" >
             <BibleText />
+          </Route>
+          <Route path="/plans/custom" >
+            <PlansForm />
+          </Route>
+          <Route path="/plans" >
+            <PlansPage />
           </Route>
           <Route path="/" >
             <LandingPage />

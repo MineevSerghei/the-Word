@@ -3,15 +3,49 @@
     justify-content: space-around;
 }
 
-.form-plan-details,
+.form-plan-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 .form-tasks {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: flex-end;
 }
 
 .tasks-list {
     display: flex;
     flex-direction: column;
+    gap: 10px;
+}
+
+.task-textarea {
+    max-height: 150px;
+    width: 150px;
+    max-width: 200px;
+    min-width: 100px;
+}
+
+.fa-xmark,
+.fa-plus {
+    display: inline;
+}
+
+.fa-xmark:hover,
+.fa-plus:hover {
+    cursor: pointer;
+}
+
+.fa-plus {
+    align-self: flex-end;
+}
+
+.task {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid brown;
+    gap: 5px;
 }

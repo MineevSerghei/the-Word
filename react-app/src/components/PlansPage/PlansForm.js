@@ -6,10 +6,12 @@ export default function PlansForm() {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [duration, setDuration] = useState('3');
+    const [appliedDuration, setAppliedDuration] = useState('3');
     const [isPublic, setIsPublic] = useState(false);
-
-    const [tasks, setTasks] = useState(Array(parseInt(duration)).fill(['']).map(arr => Array.from(arr)));
+    const [tasks, setTasks] = useState(Array(parseInt(appliedDuration)).fill(['']).map(arr => Array.from(arr)));
     const [daySelected, setDaySelected] = useState(0);
+    const [errors, setErrors] = useState({});
+    const [durationError, setDurationError] = useState({});
 
 
     useEffect(() => {
@@ -17,20 +19,22 @@ export default function PlansForm() {
 
         let newArr;
 
-        if (len < duration) {
+        if (len < parseInt(appliedDuration)) {
 
-            newArr = Array(parseInt(duration) - len).fill(['']).map(arr => Array.from(arr))
-            setTasks([...tasks, ...newArr])
+            newArr = Array(parseInt(appliedDuration) - len).fill(['']).map(arr => Array.from(arr));
+            setTasks([...tasks, ...newArr]);
         } else {
-            if (daySelected + 1 > parseInt(duration)) {
-                setDaySelected(parseInt(duration) - 1)
+            if (daySelected + 1 > parseInt(appliedDuration)) {
+                setDaySelected(parseInt(appliedDuration) - 1);
             }
-            setTasks(tasks.slice(0, parseInt(duration)))
+            setTasks(tasks.slice(0, parseInt(appliedDuration)));
         }
 
-    }, [duration])
+    }, [appliedDuration]);
 
-
+    const createPlan = e => {
+        
+    }
 
     const updateTasks = (e, day, i) => {
         const newTasks = [...tasks];
@@ -46,30 +50,52 @@ export default function PlansForm() {
         setTasks(newTasks);
     }
 
-    const removeTask = (e, day) => {
+    const removeTask = (e, day, i) => {
         const newTasks = [...tasks];
         newTasks[day] = [...newTasks[day]];
-        newTasks[day].pop()
+        newTasks[day].splice(i, 1)
         setTasks(newTasks);
     }
 
 
     const changeDuration = e => {
 
-        if (parseInt(e.target.value) <= 365 && parseInt(e.target.value) >= 3) {
-            setDuration(e.target.value)
+        setDurationError({});
+
+        const err = {};
+
+
+        if (parseInt(duration) > 365) {
+            err.duration = 'Duration cannot be greater than 365 days'
         }
+
+        if (parseInt(duration) < 3) {
+            err.duration = 'Duration cannot be less than 3 days'
+
+        }
+
+        if (err.duration) {
+            setDurationError(err)
+        } else {
+            setAppliedDuration(duration);
+        }
+
+
     }
 
     return (
         <div>
-            <form className="plan-form">
+            <form className="plan-form" onSubmit={createPlan}>
                 <div className="form-plan-details">
                     <h2>Create plan</h2>
                     <label>Name <input value={name} onChange={e => setName(e.target.value)} /></label>
                     <label>Description <input value={description} onChange={e => setDescription(e.target.value)} /></label>
-                    <label>{duration} duration <input type="number" value={duration} onChange={changeDuration} /></label>
+                    <label>{appliedDuration} Curret Duration <input type="number" value={duration} onChange={e => setDuration(e.target.value)} /><button onClick={changeDuration} type="button">Apply</button></label>
+                    {durationError.duration && <p>{durationError.duration}</p>}
+
                     <label>Public <input type="checkbox" checked={isPublic} onChange={e => setIsPublic(!isPublic)} /></label>
+
+                    <button type="submit">Create Plan</button>
                 </div>
                 <div className="form-tasks">
                     <h2>Add tasks</h2>
@@ -90,12 +116,17 @@ export default function PlansForm() {
                     <div className="tasks-list">
                         {tasks[daySelected].map((task, i) => {
                             return (
-                                <label>Task {i + 1}<input value={task} onChange={e => updateTasks(e, daySelected, i)} /></label>
+                                <div key={i} className="task">
+                                    <label>Task {i + 1}</label>
+                                    <textarea className="task-textarea" value={task} onChange={e => updateTasks(e, daySelected, i)} />
+                                    {i !== 0 && <i className="fa-solid fa-xmark" onClick={e => removeTask(e, daySelected, i)}></i>}
+                                </div>
                             )
                         })}
-                        <button type="button" onClick={e => addTask(e, daySelected)}>add task</button>
-                        {tasks[daySelected].length > 1 && <button type="button" onClick={e => removeTask(e, daySelected)}>remove task</button>}
+                        <i className="fa-solid fa-plus" onClick={e => addTask(e, daySelected)}></i>
+
                     </div>
+
                 </div>
             </form >
 

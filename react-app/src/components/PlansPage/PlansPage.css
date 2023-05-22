@@ -1,0 +1,17 @@
+.plan-form {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-plan-details,
+.form-tasks {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.tasks-list {
+    display: flex;
+    flex-direction: column;
+}

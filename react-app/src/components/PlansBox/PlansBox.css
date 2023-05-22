@@ -23,6 +23,13 @@
     padding: 10px;
 }
 
+.large {
+    border: 5px brown solid;
+    padding: 15px;
+
+}
+
+
 .day-div>p {
     margin: 0;
 }

@@ -1,11 +1,19 @@
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import OpenModalButton from "../OpenModalButton";
+import { useEffect } from "react";
 
 export default function NoteDetails({ setField, note }) {
 
     const openEditNote = e => {
         setField('editNote')
     }
+
+    if (!note || !note.verse || !note.verse.chapter) {
+        setField('allNotes')
+        return null;
+    }
+
+
 
     return (
         <>

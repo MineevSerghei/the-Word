@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+import { Link } from "react-router-dom";
+
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -39,31 +38,19 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
+      <div className="profile-bttn" onClick={openMenu}>
+        <i className="fa-regular fa-user"></i>
+      </div>
       <ul className={ulClassName} ref={ulRef}>
-        {user ? (
+        {user && (
           <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
+            <li>{user.name}</li>
+            <li><Link to='/account'>Account</Link></li>
+            <li><Link to='/notes'>Notes</Link></li>
+            <li><Link to='/plans'>Plans</Link></li>
             <li>
               <button onClick={handleLogout}>Log Out</button>
             </li>
-          </>
-        ) : (
-          <>
-            <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
           </>
         )}
       </ul>

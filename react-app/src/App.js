@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import BibleText from "./components/BibleText";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ function App() {
         <Switch>
           <Route path="/read" >
             <BibleText />
+          </Route>
+          <Route path="/" >
+            <LandingPage />
           </Route>
         </Switch>
       )}

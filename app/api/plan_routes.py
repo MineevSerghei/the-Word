@@ -7,6 +7,77 @@ from . import validation_errors_to_error_messages
 
 plan_routes = Blueprint('plans', __name__)
 
+
+@plan_routes.route('/<int:id>/enroll', methods=['POST'])
+def enroll_plan(id):
+
+    """
+    Route to enroll (create a personal copy of) a plan by the template's plan_id
+    """
+
+    template = Plan.query.get(id)
+    if not template:
+        return {'errors': 'Plan Not Found'}, 404
+    if template.is_public == False or template.is_template == False:
+        return {'errors': 'Forbidden'}, 403
+
+    enrolled_plans = Plan.query.filter(Plan.template_id == template.id and Plan.enrolled_user.id == current_user.id).all()
+
+    enrolled_plans_ids = [plan.template_id for plan in enrolled_plans]
+
+    if template.id in enrolled_plans_ids:
+        return {'errors': 'You are already following this plan'}, 400
+
+    task_instances = []
+
+    for task in template.tasks:
+        new_task = Task(
+            description=task.description,
+            is_completed=False,
+            day=task.day
+        )
+        task_instances.append(new_task)
+
+    new_plan = Plan(
+        author_id=template.author_id,
+        name=template.name,
+        description=template.description,
+        duration=template.duration,
+        template_id=template.id,
+        is_public=False,
+        is_template=False,
+        start_date=datetime.now(),
+        enrolled_user=current_user,
+        tasks=task_instances
+    )
+
+    db.session.add(new_plan)
+    db.session.commit()
+
+    return new_plan.to_dict()
+
+
+@plan_routes.route('/<int:id>/unenroll', methods=['DELETE'])
+def unenroll_plan(id):
+    """
+    Route to unenroll a plan by plan_id
+    """
+    plan = Plan.query.get(id)
+
+    if not plan:
+        return {'errors': 'Plan Not Found'}, 404
+
+    if plan.enrolled_user.id != current_user.id:
+        return {'errors': 'Forbidden'}, 403
+
+    db.session.delete(plan)
+    db.session.commit()
+
+    return {'message': 'Successfully Unenrolled'}
+
+
+
+
 @plan_routes.route('')
 def get_all_plans():
     """
@@ -15,10 +86,12 @@ def get_all_plans():
 
     plans = Plan.query.filter(Plan.is_template==True and Plan.is_public==True).all()
 
-    if not plans:
-         return {'errors': 'Plans Not Found'}, 404
+    # if not plans:
+    #      return {'errors': 'Plans Not Found'}, 404
 
     return [plan.to_dict() for plan in plans]
+
+
 
 
 @plan_routes.route('', methods=['POST'])

@@ -4,6 +4,9 @@ const REMOVE_USER = "session/REMOVE_USER";
 const CREATE_NOTE = "session/CREATE_NOTE";
 const EDIT_NOTE = "session/EDIT_NOTE";
 const DELETE_NOTE = "session/DELETE_NOTE";
+const TOGGLE_COMPLETED = "session/TOGGLE_COMPLETED";
+const ENROLL_PLAN = "session/ENROLL_PLAN";
+const UNENROLL_PLAN = "session/UNENROLL_PLAN";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -28,6 +31,73 @@ const deleteNoteAction = (noteId) => ({
 	type: DELETE_NOTE,
 	noteId
 });
+
+const toggleCompletedAction = (task, planId) => ({
+	type: TOGGLE_COMPLETED,
+	task,
+	planId
+});
+
+const enrollPlanAction = (plan) => ({
+	type: ENROLL_PLAN,
+	plan
+});
+
+const unenrollPlanAction = (planId) => ({
+	type: UNENROLL_PLAN,
+	planId
+});
+
+export const unenrollPlanThunk = (planId) => async dispatch => {
+	const res = await fetch(`/api/plans/${planId}/unenroll`, { method: "DELETE" });
+
+	if (res.ok) {
+		const data = await res.json();
+		dispatch(unenrollPlanAction(planId));
+		return data;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
+
+export const enrollPlanThunk = (planId) => async dispatch => {
+	const res = await fetch(`/api/plans/${planId}/enroll`, { method: "POST" });
+
+	if (res.ok) {
+		const plan = await res.json();
+		dispatch(enrollPlanAction(plan));
+		return {'message': 'Success!'};
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
+
+export const toggleCompletedThunk = (taskId, planId) => async dispatch => {
+	const res = await fetch(`/api/tasks/${taskId}`, { method: "PUT" });
+
+	if (res.ok) {
+		const task = await res.json();
+		dispatch(toggleCompletedAction(task, planId));
+		return task;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
 
 export const deleteNoteThunk = (id) => async (dispatch) => {
 	const res = await fetch(`/api/notes/${id}`, { method: "DELETE" });
@@ -209,6 +279,32 @@ export default function reducer(state = initialState, action) {
 				const newState = { ...state, user: { ...state.user, notes: [...state.user.notes] } }
 				newState.user.notes = state.user.notes.filter(note => note.id !== action.noteId);
 				return newState
+			}
+
+		case TOGGLE_COMPLETED:
+			{
+				const planIndex = state.user.enrolledPlans.findIndex(plan => {
+					return plan.id === action.planId
+				})
+
+				const taskIndex = state.user.enrolledPlans[planIndex].tasks.findIndex(task => task.id === action.task.id)
+
+				const newState = { ...state, user: { ...state.user, enrolledPlans: [...state.user.enrolledPlans] } }
+				newState.user.enrolledPlans[planIndex] = { ...state.user.enrolledPlans[planIndex] }
+				newState.user.enrolledPlans[planIndex].tasks = [...state.user.enrolledPlans[planIndex].tasks]
+				newState.user.enrolledPlans[planIndex].tasks[taskIndex] = { ...action.task }
+
+				return newState;
+			}
+		case ENROLL_PLAN:
+			{
+				return { ...state, user: { ...state.user, enrolledPlans: [...state.user.enrolledPlans, action.plan] } }
+			}
+
+		case UNENROLL_PLAN:
+			{
+				const newEnrolledPlans = state.user.enrolledPlans.filter(plan => plan.id !== action.planId)
+				return { ...state, user: { ...state.user, enrolledPlans: newEnrolledPlans } }
 			}
 		default:
 			return state;

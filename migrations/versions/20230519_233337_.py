@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 23dc475e6b13
+Revision ID: cdb36d63613b
 Revises:
-Create Date: 2023-05-19 11:11:51.327601
+Create Date: 2023-05-19 23:33:37.229562
 
 """
 from alembic import op
@@ -15,7 +15,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '23dc475e6b13'
+revision = 'cdb36d63613b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -53,10 +53,12 @@ def upgrade():
     sa.Column('duration', sa.Integer(), nullable=False),
     sa.Column('is_public', sa.Boolean(), nullable=True),
     sa.Column('is_template', sa.Boolean(), nullable=False),
+    sa.Column('template_id', sa.Integer(), nullable=True),
     sa.Column('start_date', sa.DateTime(), nullable=True),
     sa.Column('enrolled_user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['author_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['enrolled_user_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['template_id'], ['plans.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('tasks',

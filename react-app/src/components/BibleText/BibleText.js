@@ -84,11 +84,18 @@ export default function BibleText() {
 
     }
 
-    if (books.length === 0) return (
-        <div className="spinner-container">
-            <h1 id="spinner"><i className="fa-solid fa-spinner fa-spin-pulse"></i></h1>
-            <p>Loading</p>
-        </div>);
+    if (books.length === 0) {
+
+        return (
+            <div className="spinner-container">
+                <h1 id="spinner"><i className="fa-solid fa-spinner fa-spin-pulse"></i></h1>
+                <p>Loading</p>
+
+                <progress value={null} />
+            </div>);
+    }
+
+
     return (
         <div className="read-page">
             <div className="left-section">

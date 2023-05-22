@@ -1,22 +1,41 @@
 .plan-box {
     padding: 20px;
-    border: 1px solid burlywood;
+    border: 1px solid transparent;
+    margin: 10px;
+}
+
+.plan-box:hover {
+    cursor: pointer;
+    border: 1px solid brown;
 }
 
 .days {
     display: flex;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow: scroll;
     gap: 3px;
+    max-width: 300px;
 }
 
 .day-div {
     border: 1px brown solid;
-    height: 2rem;
-    width: 2rem;
+    padding: 10px;
+}
+
+.day-div>p {
+    margin: 0;
 }
 
 .day-div:hover {
     cursor: pointer;
     background-color: rgb(255, 195, 195);
+}
+
+.plan-name {
+    display: inline;
+}
+
+.fa-chevron-left {
+    cursor: pointer;
 }

@@ -13,12 +13,14 @@ class Plan(db.Model):
     duration = db.Column(db.Integer, nullable=False)
     is_public = db.Column(db.Boolean)
     is_template = db.Column(db.Boolean, nullable=False)
+    template_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('plans.id')))
     start_date = db.Column(db.DateTime)
     enrolled_user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
-    tasks = db.relationship('Task', back_populates='plan')
-    enrolled_user = db.relationship("User", back_populates="enrolled_plans", foreign_keys=[author_id])
-    author = db.relationship("User", back_populates="authored_plans", foreign_keys=[enrolled_user_id])
+    tasks = db.relationship('Task', back_populates='plan', cascade="all, delete-orphan")
+    enrolled_user = db.relationship("User", back_populates="enrolled_plans", foreign_keys=[enrolled_user_id])
+    author = db.relationship("User", back_populates="authored_plans", foreign_keys=[author_id])
+
 
     def to_dict(self):
         return {
@@ -29,6 +31,7 @@ class Plan(db.Model):
             'duration': self.duration,
             'isPublic': self.is_public,
             'isTemplate': self.is_template,
+            'templateId': self.template_id,
             'tasks': [task.to_dict() for task in self.tasks],
             'author': self.author.to_dict_no_ref()
         }
@@ -42,5 +45,6 @@ class Plan(db.Model):
             'duration': self.duration,
             'isPublic': self.is_public,
             'isTemplate': self.is_template,
+            'templateId': self.template_id,
             'tasks': [task.to_dict() for task in self.tasks]
         }

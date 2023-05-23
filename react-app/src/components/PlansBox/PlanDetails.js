@@ -30,29 +30,32 @@ export default function PlanDetails({ plan, setPlansField }) {
     }
 
     return (
-        <div>
-            <div><i onClick={() => setPlansField('myPlans')} className="fa-solid fa-chevron-left"></i><h2 className='plan-name'> Plan Details</h2></div>
-            <h3>{plan.name} ({competed / plan.tasks.length * 100}%)</h3>
-            <i onClick={(e) => setPlansField('planSettings')} className="fa-solid fa-gear"></i>
-            <div className='days'>
-                {days.map((day, i) => {
+        <>
+            <h2 className='plan-name'><i onClick={() => setPlansField('myPlans')} className="fa-solid fa-chevron-left"></i> Plan Details</h2>
+            <div className='plan-field'>
+
+                <h3>{plan.name} ({competed / plan.tasks.length * 100}%)</h3>
+                <i onClick={(e) => setPlansField('planSettings')} className="fa-solid fa-gear"></i>
+                <div className='days'>
+                    {days.map((day, i) => {
+                        return (
+                            <div onClick={() => setSelectedDay(i + 1)} key={i} className='day-div' >
+                                <p>{i + 1}</p>
+                            </div>
+                        )
+                    })}
+                </div>
+                {selectedDay && days[selectedDay - 1].map(task => {
                     return (
-                        <div onClick={() => setSelectedDay(i + 1)} key={i} className='day-div' >
-                            <p>{i + 1}</p>
+                        <div key={task.id}>
+                            <label>
+                                <input checked={task.isCompleted} onChange={e => toggleCompleted(e, task.id, plan.id)} type="checkbox" />
+                                {task.description}
+                            </label>
                         </div>
                     )
                 })}
             </div>
-            {selectedDay && days[selectedDay - 1].map(task => {
-                return (
-                    <div key={task.id}>
-                        <label>
-                            <input checked={task.isCompleted} onChange={e => toggleCompleted(e, task.id, plan.id)} type="checkbox" />
-                            {task.description}
-                        </label>
-                    </div>
-                )
-            })}
-        </div>
+        </>
     )
 }

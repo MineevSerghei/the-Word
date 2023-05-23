@@ -24,10 +24,10 @@ export default function PlansBox() {
 
     const myPlans = user.enrolledPlans;
     return (
-        <div>
+        <div className='plans-box'>
 
             {plansField === 'myPlans' &&
-                <div>
+                <div className='plan-field my-plans'>
                     <h2>My Plans<span><button onClick={() => setPlansField('allPlans')}>all plans</button></span></h2>
 
 
@@ -47,22 +47,22 @@ export default function PlansBox() {
                 </div>}
 
             {plansField === 'planDetails' &&
-                <div>
+                <div className='plan-field plan-details'>
                     <PlanDetails plan={myPlans[selectedPlan]} setPlansField={setPlansField} />
                 </div>}
 
             {plansField === 'allPlans' &&
-                <div>
+                <div className='plan-field all-plans'>
                     <AllPlans setPlansField={setPlansField} setSelectedPublicPlan={setSelectedPublicPlan} />
                 </div>}
 
             {plansField === 'planOverview' && allPlans &&
-                <div>
+                <div className='plan-field plan-overview'>
                     <PlanOverview setPlansField={setPlansField} plan={allPlans[selectedPublicPlan]} setSelectedPlan={setSelectedPlan} />
                 </div>}
 
             {plansField === 'planSettings' &&
-                <div>
+                <div className='plan-field plan-settings'>
                     <PlanSettings setPlansField={setPlansField} plan={myPlans[selectedPlan]} setSelectedPlan={setSelectedPlan} />
                 </div>}
 

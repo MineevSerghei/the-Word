@@ -32,7 +32,7 @@ export default function NotesBox({ setSelectedVerse, chapter, book, field, setFi
 
                 <button onClick={renderField}>Create Note</button>
 
-                <div>
+                <div className="notes-container">
                     {user.notes.map(note => {
 
                         return note.verse.chapter.id === chapter.id ?
@@ -42,7 +42,7 @@ export default function NotesBox({ setSelectedVerse, chapter, book, field, setFi
                                     onClick={() => openNoteDetails(note)}
 
                                 >{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</span>
-                                <p>{note.noteText}</p>
+                                <p className="note-text">{note.noteText}</p>
                             </div>
                             : null
                     }

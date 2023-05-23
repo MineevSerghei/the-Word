@@ -8,6 +8,7 @@ import LandingPage from "./components/LandingPage";
 import PlansPage from "./components/PlansPage";
 import PlansForm from "./components/PlansPage/PlansForm";
 import PlansEditForm from "./components/PlansPage/PlansEditForm";
+import PlanDetailsPage from "./components/PlansPage/PlanDetailsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/plans/custom" >
             <PlansForm />
+          </Route>
+          <Route path="/plans/:planId" >
+            <PlanDetailsPage />
           </Route>
           <Route path="/plans" >
             <PlansPage />

@@ -66,6 +66,23 @@
     margin-top: 25px;
 }
 
+.p-plan-form {
+    margin-top: 25px;
+}
+
+.bttn-smaller {
+    font-size: 1rem;
+    margin: 5px;
+    padding: 5px 10px;
+    font-family: inherit;
+    background-color: inherit;
+}
+
+.bttn-smaller:hover {
+    cursor: pointer;
+    box-shadow: 5px 5px 1px;
+}
+
 .bttn {
     font-size: 1.5rem;
     margin: 15px;
@@ -110,4 +127,22 @@
 
 .create-plan-link:hover {
     text-decoration: underline;
+}
+
+.custom-plans-title {
+    color: #3A98B9;
+}
+
+.custom-plans-title:hover {
+    cursor: pointer;
+}
+
+.plan-page-details {
+    gap: 100px;
+    padding: 20px 100px;
+
+}
+
+.plan-page-details-left {
+    align-items: flex-start;
 }

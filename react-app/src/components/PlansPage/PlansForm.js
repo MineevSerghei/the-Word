@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import './PlansPage.css'
+import { createPlanThunk } from "../../store/session";
+import { useDispatch } from "react-redux";
 
 export default function PlansForm() {
 
@@ -12,6 +14,8 @@ export default function PlansForm() {
     const [daySelected, setDaySelected] = useState(0);
     const [errors, setErrors] = useState({});
     const [durationError, setDurationError] = useState({});
+
+    const dispatch = useDispatch();
 
 
     useEffect(() => {
@@ -32,8 +36,60 @@ export default function PlansForm() {
 
     }, [appliedDuration]);
 
-    const createPlan = e => {
-        
+    const createPlan = async e => {
+
+
+        e.preventDefault();
+        const err = {};
+
+        if (name.length > 70) err.name = 'Plan name cannot be over 70 characters'
+        if (name.length <= 0) err.name = 'Plan name cannot be empty'
+
+        if (description.length > 700) err.description = 'Plan description cannot be over 700 characters'
+        if (description.length <= 0) err.description = 'Plan description cannot be empty'
+
+        if (parseInt(appliedDuration) < 3) err.appliedDuration = 'Duration cannot be less than 3 days'
+        if (parseInt(appliedDuration) > 365) err.appliedDuration = 'Duration cannot be more than 365 days'
+
+        for (let day = 0; day < tasks.length; day++) {
+            // console.log('tasks[day] ---> ', tasks[day])
+            for (let i = 0; i < tasks[day].length; i++) {
+                if (tasks[day][i].length <= 0) {
+                    if (err.tasks) {
+                        err.tasks += `;Task descriptions cannot be empty (day ${day + 1}, task ${i + 1})`
+                    } else {
+                        err.tasks = `Task descriptions cannot be empty (day ${day + 1}, task ${i + 1})`
+                    }
+                }
+                if (tasks[day][i].length > 500) {
+                    if (err.tasks) {
+                        err.tasks += `;Task descriptions cannot be over 500 characters (day ${day + 1}, task ${i + 1})`
+                    } else {
+                        err.tasks = `Task descriptions cannot be over 500 characters (day ${day + 1}, task ${i + 1})`
+                    }
+                }
+            }
+        }
+        // console.log("tasksss --->>>", tasks)
+        // console.log("errerrerr --->>>", err)
+
+        if (Object.keys(err).length > 0) {
+            setErrors(err)
+        } else {
+
+            const plan = {
+                name,
+                description,
+                duration: appliedDuration,
+                isPublic,
+                tasks
+            }
+            // console.log("MY PLAN??? ---> ", plan)
+
+            const res = await dispatch(createPlanThunk(plan));
+
+        }
+
     }
 
     const updateTasks = (e, day, i) => {
@@ -89,8 +145,11 @@ export default function PlansForm() {
                 <div className="form-plan-details">
                     <h2>Create plan</h2>
                     <label>Name <input value={name} onChange={e => setName(e.target.value)} /></label>
+                    {errors.name && <p>{errors.name}</p>}
                     <label>Description <input value={description} onChange={e => setDescription(e.target.value)} /></label>
+                    {errors.description && <p>{errors.description}</p>}
                     <label>{appliedDuration} Curret Duration <input type="number" value={duration} onChange={e => setDuration(e.target.value)} /><button onClick={changeDuration} type="button">Apply</button></label>
+                    {errors.duration && <p>{errors.duration}</p>}
                     {durationError.duration && <p>{durationError.duration}</p>}
 
                     <label>Public <input type="checkbox" checked={isPublic} onChange={e => setIsPublic(!isPublic)} /></label>
@@ -114,6 +173,7 @@ export default function PlansForm() {
                     </div>
 
                     <div className="tasks-list">
+                        {errors.tasks && errors.tasks.split(';').map((err) => <p>{err}</p>)}
                         {tasks[daySelected].map((task, i) => {
                             return (
                                 <div key={i} className="task">

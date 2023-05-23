@@ -9,6 +9,8 @@ const ENROLL_PLAN = "session/ENROLL_PLAN";
 const UNENROLL_PLAN = "session/UNENROLL_PLAN";
 const CREATE_PLAN = "session/CREATE_PLAN";
 const EDIT_PLAN = "session/EDIT_PLAN";
+const DELETE_PLAN = "session/DELETE_PLAN";
+
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -59,6 +61,29 @@ const editPlanAction = (plan) => ({
 	type: EDIT_PLAN,
 	plan
 });
+
+const deletePlanAction = (planId) => ({
+	type: DELETE_PLAN,
+	planId
+});
+
+
+
+export const deletePlanThunk = (planId) => async dispatch => {
+	const res = await fetch(`/api/plans/${planId}`, { method: "DELETE" });
+
+	if (res.ok) {
+		dispatch(deletePlanAction(planId));
+		return planId;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
 
 export const editPlanThunk = (plan, planId) => async dispatch => {
 	const res = await fetch(`/api/plans/${planId}`, {
@@ -382,6 +407,15 @@ export default function reducer(state = initialState, action) {
 				const newState = { ...state, user: { ...state.user, authoredPlans: [...state.user.authoredPlans] } }
 
 				newState.user.authoredPlans[index] = action.plan;
+
+				return newState;
+			}
+
+		case DELETE_PLAN:
+			{
+
+				const newPlans = state.user.authoredPlans.filter(plan => plan.id !== parseInt(action.planId));
+				const newState = { ...state, user: { ...state.user, authoredPlans: newPlans } }
 
 				return newState;
 			}

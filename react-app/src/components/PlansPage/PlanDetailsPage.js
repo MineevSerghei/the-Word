@@ -2,17 +2,20 @@ import { useEffect, useState } from "react"
 import './PlansPage.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import ConfirmPlanDeleteModal from "./ConfirmPlanDeleteModal";
 
 export default function PlanDetailsPage() {
 
     const { planId } = useParams();
     const plan = useSelector(state => state.session.user.authoredPlans).find(plan => plan.id === parseInt(planId));
     const dispatch = useDispatch();
-
+    const [daySelected, setDaySelected] = useState(0);
     const history = useHistory();
 
     if (!plan) {
-        history.push('/plans')
+        history.push('/plans');
+        return null;
     }
 
     const incomingTasks = Array(parseInt(plan.duration)).fill([]).map(arr => Array.from(arr));
@@ -20,13 +23,6 @@ export default function PlanDetailsPage() {
     for (let task of plan.tasks) {
         incomingTasks[task.day - 1].push(task.description)
     }
-
-    const [tasks, setTasks] = useState(incomingTasks);
-    const [daySelected, setDaySelected] = useState(0);
-
-
-
-
 
     return (
         <div>
@@ -42,14 +38,18 @@ export default function PlanDetailsPage() {
 
                     <div>
                         <button className="bttn-smaller" onClick={() => history.push(`/plans/${planId}/edit`)}>Edit Plan</button>
-                        <button className="bttn-smaller">Delete Plan</button>
+                        <OpenModalButton
+                            className='bttn-smaller'
+                            buttonText="Delete Plan"
+                            modalComponent={<ConfirmPlanDeleteModal planId={planId} />}
+                        />
                     </div>
 
                 </div>
                 <div className="form-tasks">
                     <h2>Tasks</h2>
                     <div className='days'>
-                        {tasks.map((day, i) => {
+                        {incomingTasks.map((day, i) => {
 
                             const large = daySelected === i ? ' large' : ''
                             return (
@@ -63,7 +63,7 @@ export default function PlanDetailsPage() {
                     </div>
 
                     <div className="tasks-list">
-                        {tasks[daySelected].map((task, i) => {
+                        {incomingTasks[daySelected].map((task, i) => {
                             return (
                                 <div key={i} className="task">
                                     <p>{task}</p>

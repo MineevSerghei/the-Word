@@ -43,8 +43,7 @@
   margin-right: 70px;
   text-decoration: none;
   color: #3A98B9;
-  font-family: 'DMSans-Bold', sans-serif;
-  font-weight: 500;
+  font-family: 'DMSans-Medium', sans-serif;
   border: 1px transparent solid;
 }
 
@@ -55,4 +54,18 @@
 
 .drop-down-link-li {
   padding: 10px;
+}
+
+.bttn-face {
+  font-family: inherit;
+  color: black;
+  background-color: rgb(255, 209, 131);
+  border: 1px solid transparent;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.bttn-face:hover {
+  cursor: pointer;
+  border: 1px solid brown;
 }

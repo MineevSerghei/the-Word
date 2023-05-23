@@ -30,7 +30,7 @@ export default function NotesBox({ setSelectedVerse, chapter, book, field, setFi
             {field === 'allNotes' ? <>
                 <h2>Notes</h2>
 
-                <button onClick={renderField}>Create Note</button>
+                <button className="bttn-face wider" onClick={renderField}>New Note</button>
 
                 <div className="notes-container">
                     {user.notes.map(note => {

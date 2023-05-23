@@ -7,6 +7,7 @@ import BibleText from "./components/BibleText";
 import LandingPage from "./components/LandingPage";
 import PlansPage from "./components/PlansPage";
 import PlansForm from "./components/PlansPage/PlansForm";
+import PlansEditForm from "./components/PlansPage/PlansEditForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,9 @@ function App() {
         <Switch>
           <Route path="/read" >
             <BibleText />
+          </Route>
+          <Route path="/plans/:planId/edit" >
+            <PlansEditForm />
           </Route>
           <Route path="/plans/custom" >
             <PlansForm />

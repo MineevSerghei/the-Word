@@ -1,17 +1,32 @@
 import { useEffect, useState } from "react"
 import './PlansPage.css'
-import { createPlanThunk } from "../../store/session";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { editPlanThunk } from "../../store/session";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
 
-export default function PlansForm() {
+export default function PlansEditForm() {
 
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [duration, setDuration] = useState('3');
-    const [appliedDuration, setAppliedDuration] = useState('3');
-    const [isPublic, setIsPublic] = useState(false);
-    const [tasks, setTasks] = useState(Array(parseInt(appliedDuration)).fill(['']).map(arr => Array.from(arr)));
+    const { planId } = useParams();
+    const plan = useSelector(state => state.session.user.authoredPlans).find(plan => plan.id === parseInt(planId));
+
+    if (!plan) {
+        history.push('/')
+    }
+
+    const incomingTasks = Array(parseInt(plan.duration)).fill([]).map(arr => Array.from(arr));
+
+    for (let task of plan.tasks) {
+        incomingTasks[task.day - 1].push(task.description)
+    }
+
+
+
+    const [name, setName] = useState(plan.name);
+    const [description, setDescription] = useState(plan.description);
+    const [duration, setDuration] = useState(`${plan.duration}`);
+    const [appliedDuration, setAppliedDuration] = useState(`${plan.duration}`);
+    const [isPublic, setIsPublic] = useState(plan.isPublic);
+    const [tasks, setTasks] = useState(incomingTasks);
     const [daySelected, setDaySelected] = useState(0);
     const [errors, setErrors] = useState({});
     const [durationError, setDurationError] = useState({});
@@ -85,7 +100,7 @@ export default function PlansForm() {
                 tasks
             }
 
-            const res = await dispatch(createPlanThunk(plan));
+            const res = await dispatch(editPlanThunk(plan, planId));
 
             history.push('/plans')
 
@@ -156,7 +171,7 @@ export default function PlansForm() {
 
                     <label className="label-plan-form">Do you want to make your plan public?  <input type="checkbox" checked={isPublic} onChange={e => setIsPublic(!isPublic)} /></label>
 
-                    <button className="bttn" type="submit">Create Plan</button>
+                    <button className="bttn" type="submit">Save Edit</button>
                 </div>
                 <div className="form-tasks">
                     <h2>Add tasks</h2>

@@ -8,6 +8,7 @@ const TOGGLE_COMPLETED = "session/TOGGLE_COMPLETED";
 const ENROLL_PLAN = "session/ENROLL_PLAN";
 const UNENROLL_PLAN = "session/UNENROLL_PLAN";
 const CREATE_PLAN = "session/CREATE_PLAN";
+const EDIT_PLAN = "session/EDIT_PLAN";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -53,6 +54,37 @@ const createPlanAction = (plan) => ({
 	type: CREATE_PLAN,
 	plan
 });
+
+const editPlanAction = (plan) => ({
+	type: EDIT_PLAN,
+	plan
+});
+
+export const editPlanThunk = (plan, planId) => async dispatch => {
+	const res = await fetch(`/api/plans/${planId}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			...plan
+		})
+	});
+
+	if (res.ok) {
+		const returnedPlan = await res.json();
+		dispatch(editPlanAction(returnedPlan));
+		return returnedPlan;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
+
 
 export const createPlanThunk = plan => async dispatch => {
 	const res = await fetch("/api/plans", {
@@ -341,6 +373,17 @@ export default function reducer(state = initialState, action) {
 		case CREATE_PLAN:
 			{
 				return { ...state, user: { ...state.user, authoredPlans: [...state.user.authoredPlans, action.plan] } }
+			}
+
+		case EDIT_PLAN:
+			{
+				const newState = { ...state, user: { ...state.user, authoredPlans: [...state.user.authoredPlans] } }
+
+				let plan = newState.user.authoredPlans.find(plan => plan.id === action.plan.id);
+
+				plan = action.plan;
+
+				return newState;
 			}
 		default:
 			return state;

@@ -52,7 +52,6 @@ export default function PlansForm() {
         if (parseInt(appliedDuration) > 365) err.appliedDuration = 'Duration cannot be more than 365 days'
 
         for (let day = 0; day < tasks.length; day++) {
-            // console.log('tasks[day] ---> ', tasks[day])
             for (let i = 0; i < tasks[day].length; i++) {
                 if (tasks[day][i].length <= 0) {
                     if (err.tasks) {
@@ -70,8 +69,6 @@ export default function PlansForm() {
                 }
             }
         }
-        // console.log("tasksss --->>>", tasks)
-        // console.log("errerrerr --->>>", err)
 
         if (Object.keys(err).length > 0) {
             setErrors(err)
@@ -84,7 +81,6 @@ export default function PlansForm() {
                 isPublic,
                 tasks
             }
-            // console.log("MY PLAN??? ---> ", plan)
 
             const res = await dispatch(createPlanThunk(plan));
 
@@ -144,17 +140,18 @@ export default function PlansForm() {
             <form className="plan-form" onSubmit={createPlan}>
                 <div className="form-plan-details">
                     <h2>Create plan</h2>
-                    <label>Name <input value={name} onChange={e => setName(e.target.value)} /></label>
-                    {errors.name && <p>{errors.name}</p>}
-                    <label>Description <input value={description} onChange={e => setDescription(e.target.value)} /></label>
-                    {errors.description && <p>{errors.description}</p>}
-                    <label>{appliedDuration} Curret Duration <input type="number" value={duration} onChange={e => setDuration(e.target.value)} /><button onClick={changeDuration} type="button">Apply</button></label>
+                    <label className="label-plan-form">Name <input value={name} onChange={e => setName(e.target.value)} /></label>
+                    {errors.name && <p className="error">{errors.name}</p>}
+                    <label className="label-plan-form">Description <textarea className="task-textarea" value={description} onChange={e => setDescription(e.target.value)} /></label>
+                    {errors.description && <p className="error">{errors.description}</p>}
+                    <label className="label-plan-form"><input type="number" value={duration} onChange={e => setDuration(e.target.value)} /><button onClick={changeDuration} type="button">Apply</button></label>
+                    <span>Current Duration: <span className="bold">{appliedDuration}</span>  </span>
                     {errors.duration && <p>{errors.duration}</p>}
-                    {durationError.duration && <p>{durationError.duration}</p>}
+                    {durationError.duration && <p className="error">{durationError.duration}</p>}
 
-                    <label>Public <input type="checkbox" checked={isPublic} onChange={e => setIsPublic(!isPublic)} /></label>
+                    <label className="label-plan-form">Do you want to make your plan public?  <input type="checkbox" checked={isPublic} onChange={e => setIsPublic(!isPublic)} /></label>
 
-                    <button type="submit">Create Plan</button>
+                    <button className="bttn" type="submit">Create Plan</button>
                 </div>
                 <div className="form-tasks">
                     <h2>Add tasks</h2>
@@ -173,7 +170,7 @@ export default function PlansForm() {
                     </div>
 
                     <div className="tasks-list">
-                        {errors.tasks && errors.tasks.split(';').map((err) => <p>{err}</p>)}
+                        {errors.tasks && errors.tasks.split(';').map((err, i) => <p className="small error" key={i}>{err}</p>)}
                         {tasks[daySelected].map((task, i) => {
                             return (
                                 <div key={i} className="task">

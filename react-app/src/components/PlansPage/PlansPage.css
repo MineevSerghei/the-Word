@@ -49,3 +49,37 @@
     border-bottom: 1px solid brown;
     gap: 5px;
 }
+
+
+.error {
+    font-size: .8rem;
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.small {
+    font-size: .7rem;
+}
+
+.label-plan-form {
+    margin-top: 25px;
+}
+
+.bttn {
+    font-size: 1.5rem;
+    margin: 15px;
+    padding: 10px 20px;
+    font-family: inherit;
+    background-color: inherit;
+}
+
+.bttn:hover {
+    cursor: pointer;
+    box-shadow: 5px 5px 1px;
+}
+
+.bold {
+    font-family: 'DMSans-Bold', sans-serif;
+    font-weight: 900;
+}

@@ -25,3 +25,18 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+.note-title {
+    box-sizing: border-box;
+    color: #3A98B9;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.note-div {
+    padding: 15px;
+    margin: 5px;
+    box-sizing: border-box;
+    border: 1px solid rgb(219, 192, 158);
+    border-radius: 10px;
+}

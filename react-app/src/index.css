@@ -21,4 +21,17 @@
 
 body {
     font-family: 'DMSans-Regular', sans-serif;
+    background-color: whitesmoke;
+}
+
+.italics {
+    font-family: 'DMSans-Italic', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'DMSans-Bold', sans-serif;
 }

@@ -1,7 +1,11 @@
 .profile-dropdown {
   position: absolute;
   list-style: none;
-  right: 30px
+  right: 30px;
+  background-color: whitesmoke;
+  border: 1px solid burlywood;
+  padding: 20px;
+
 }
 
 .hidden {
@@ -30,4 +34,13 @@
 .nav-left-links {
   padding: 10px;
   margin-right: 70px;
+}
+
+.drop-down-link-Link {
+  text-decoration: none;
+  color: #537188;
+}
+
+.drop-down-link-li {
+  padding: 10px;
 }

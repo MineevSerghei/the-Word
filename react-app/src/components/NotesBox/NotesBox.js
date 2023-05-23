@@ -36,7 +36,7 @@ export default function NotesBox({ setSelectedVerse, chapter, book, field, setFi
                     {user.notes.map(note => {
 
                         return note.verse.chapter.id === chapter.id ?
-                            <div key={note.id}>
+                            <div key={note.id} className="note-div">
                                 <span
                                     className="note-title"
                                     onClick={() => openNoteDetails(note)}

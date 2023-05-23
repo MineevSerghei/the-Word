@@ -2,14 +2,14 @@
     display: flex;
     flex-direction: column;
     width: 200px;
-    height: 150px;
-    background-color: whitesmoke;
+    height: 157px;
+    background-color: rgb(255, 245, 213);
     position: absolute;
     padding: 0 20px 0 20px;
     border-radius: 10px;
 
-    border: 1px solid rgb(168, 168, 168);
-
+    /* border: 1px solid rgb(168, 168, 168); */
+    box-shadow: 1px 1px 5px;
 }
 
 .underlined {
@@ -20,13 +20,50 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    gap: 3px;
 }
 
 .note-close {
     align-self: flex-end;
-    padding: 20px 10px 10px 10px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: transparent 1px solid;
+    border-radius: 10px;
+}
+
+.note-close:hover {
+    border: #3A98B9 1px solid;
+    border-radius: 10px;
 }
 
 .verse-ref-note {
     margin-top: 0;
+}
+
+.fa-note-sticky {
+    color: #3A98B9;
+    font-size: 1.7rem;
+}
+
+.popup-button {
+    background-color: inherit;
+    height: 27px;
+    border: 2px solid #3A98B9;
+    font-family: inherit;
+}
+
+.popup-button:hover {
+    cursor: pointer;
+    background-color: aliceblue;
+}
+
+.popup-button:disabled {
+    cursor: pointer;
+    border: 2px solid gray;
+}
+
+.popup-button:disabled:hover {
+    cursor: default;
+    border: 2px solid gray;
+    background-color: inherit;
 }

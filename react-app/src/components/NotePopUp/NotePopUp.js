@@ -32,10 +32,10 @@ export default function NotePopUp({ verse, chapter, book, x, y, setPopUpOpen, se
 
             <div className="popup-buttons">
 
-                <button disabled={!user} onClick={openNoteField}>Note</button>
-                <button onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
-                <button disabled>Send</button>
-                <button disabled>Bookmark</button>
+                <button className="popup-button" disabled>Send</button>
+                <button className="popup-button" disabled>Bookmark</button>
+                <button className="popup-button" disabled={!user} onClick={openNoteField}>Note</button>
+                <button className="popup-button" onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
             </div>
 
         </div >

@@ -26,11 +26,13 @@ function Navigation({ isLoaded }) {
 						<li>
 
 							<OpenModalButton
+								className='log-in-sign-up-bttns'
 								buttonText="Log In"
 								modalComponent={<LoginFormModal />}
 							/>
 
 							<OpenModalButton
+								className='log-in-sign-up-bttns'
 								buttonText="Sign Up"
 								modalComponent={<SignupFormModal />}
 							/>

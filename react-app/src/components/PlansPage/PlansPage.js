@@ -10,7 +10,7 @@ export default function PlansPage() {
 
     return (
         <div className="plans-page-wrapper">
-            <h2>My plans</h2>
+            {/* <h2>My plans</h2>
             <p className="plan-kind-p-tag">These are the plans that you are currently enrolled in</p>
             {user.enrolledPlans.map((plan, planIndex) => {
 
@@ -24,7 +24,7 @@ export default function PlansPage() {
                 </div>)
             })}
             <br></br>
-            <br></br>
+            <br></br> */}
             <h2>My custom plans</h2>
             <Link to='/plans/custom' className='create-plan-link'><i className="fa-solid fa-plus"></i> Create Custom Plan</Link>
             <p className="plan-kind-p-tag">These are the plans that you have created yourself</p>

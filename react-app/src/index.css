@@ -21,7 +21,8 @@
 
 body {
     font-family: 'DMSans-Regular', sans-serif;
-    background-color: whitesmoke;
+    background-color: rgb(245, 245, 245);
+    margin: 0;
 }
 
 .italics {

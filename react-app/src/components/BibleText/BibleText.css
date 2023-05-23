@@ -1,6 +1,7 @@
 .read-page {
     display: grid;
     grid-template-columns: auto 30vw;
+    margin: 10px;
 }
 
 #spinner {

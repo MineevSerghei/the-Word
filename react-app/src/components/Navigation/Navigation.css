@@ -3,7 +3,7 @@
   list-style: none;
   right: 30px;
   background-color: whitesmoke;
-  border: 1px solid burlywood;
+  border: 1px solid rgb(224, 202, 173);
   padding: 20px;
 
 }
@@ -16,14 +16,17 @@
   list-style: none;
   display: flex;
   justify-content: space-between;
-  margin: 15px 30px 30px 30px;
+  padding: 15px 30px 15px 30px;
+  margin: 0;
   align-items: center;
+  background-color: rgb(255, 245, 213);
 }
 
 .profile-bttn {
   padding: 10px 20px;
   border: 1px transparent solid;
   font-size: 1.3rem;
+  color: #3A98B9;
 }
 
 .profile-bttn:hover {
@@ -31,14 +34,23 @@
   cursor: pointer;
 }
 
+.nav-left-links:hover {
+  border: 1px brown solid;
+}
+
 .nav-left-links {
   padding: 10px;
   margin-right: 70px;
+  text-decoration: none;
+  color: #3A98B9;
+  font-family: 'DMSans-Bold', sans-serif;
+  font-weight: 500;
+  border: 1px transparent solid;
 }
 
 .drop-down-link-Link {
   text-decoration: none;
-  color: #537188;
+  color: #3A98B9
 }
 
 .drop-down-link-li {

@@ -39,7 +39,7 @@ export default function PlansBox() {
                         }
 
                         return (<div className='plan-box' key={plan.id} onClick={() => openPlanDetails(planIndex)}>
-                            <h4 >{plan.name} ({competed / plan.tasks.length * 100}%)</h4>
+                            <h4 >{plan.name} ({Math.round(competed / plan.tasks.length * 100)}%)</h4>
                             <p>{plan.description}</p>
                         </div>)
                     })}

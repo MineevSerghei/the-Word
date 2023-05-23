@@ -83,3 +83,31 @@
     font-family: 'DMSans-Bold', sans-serif;
     font-weight: 900;
 }
+
+.plan-page-box {
+    border-bottom: 1px brown solid;
+    margin: 30px;
+    padding-bottom: 20px;
+
+}
+
+.plans-page-wrapper {
+    margin: 30px;
+}
+
+.plan-kind-p-tag {
+    border-bottom: 1px brown solid;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+}
+
+.create-plan-link {
+    text-decoration: none;
+    color: #3A98B9;
+    font-family: 'DMSans-Bold', sans-serif;
+    font-size: 1.2rem;
+}
+
+.create-plan-link:hover {
+    text-decoration: underline;
+}

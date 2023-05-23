@@ -13,6 +13,7 @@
     padding: 20px;
     border: 1px solid transparent;
     margin: 10px;
+    border-bottom: 1px solid brown;
 }
 
 .plan-field {
@@ -29,21 +30,29 @@
 
 .days {
     display: flex;
-    justify-content: center;
     flex-wrap: nowrap;
-    overflow: scroll;
+    overflow-x: scroll;
     gap: 3px;
-    max-width: 300px;
+    max-width: 400px;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    padding-bottom: 20px;
 }
 
 .day-div {
     border: 1px brown solid;
-    padding: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    justify-content: center;
 }
 
 .large {
     border: 5px brown solid;
-    padding: 15px;
+    padding: 20px;
+    height: 25px;
+    font-family: 'DMSans-Bold', sans-serif;
 
 }
 

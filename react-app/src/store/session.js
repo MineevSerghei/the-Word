@@ -377,11 +377,11 @@ export default function reducer(state = initialState, action) {
 
 		case EDIT_PLAN:
 			{
+				const index = state.user.authoredPlans.findIndex(plan => plan.id === action.plan.id);
+
 				const newState = { ...state, user: { ...state.user, authoredPlans: [...state.user.authoredPlans] } }
 
-				let plan = newState.user.authoredPlans.find(plan => plan.id === action.plan.id);
-
-				plan = action.plan;
+				newState.user.authoredPlans[index] = action.plan;
 
 				return newState;
 			}

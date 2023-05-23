@@ -7,6 +7,9 @@ export default function PlanDetailsPage() {
 
     const { planId } = useParams();
     const plan = useSelector(state => state.session.user.authoredPlans).find(plan => plan.id === parseInt(planId));
+    const dispatch = useDispatch();
+
+    const history = useHistory();
 
     if (!plan) {
         history.push('/plans')
@@ -21,9 +24,9 @@ export default function PlanDetailsPage() {
     const [tasks, setTasks] = useState(incomingTasks);
     const [daySelected, setDaySelected] = useState(0);
 
-    const dispatch = useDispatch();
 
-    const history = useHistory();
+
+
 
     return (
         <div>
@@ -38,7 +41,7 @@ export default function PlanDetailsPage() {
                     <p className="p-plan-form">Public:  {plan.isPublic ? 'Yes' : 'No'}</p>
 
                     <div>
-                        <button className="bttn-smaller">Edit Plan</button>
+                        <button className="bttn-smaller" onClick={() => history.push(`/plans/${planId}/edit`)}>Edit Plan</button>
                         <button className="bttn-smaller">Delete Plan</button>
                     </div>
 

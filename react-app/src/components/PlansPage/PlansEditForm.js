@@ -102,7 +102,7 @@ export default function PlansEditForm() {
 
             const res = await dispatch(editPlanThunk(plan, planId));
 
-            history.push('/plans')
+            history.push(`/plans/${planId}`)
 
         }
 
@@ -159,7 +159,7 @@ export default function PlansEditForm() {
         <div>
             <form className="plan-form" onSubmit={createPlan}>
                 <div className="form-plan-details">
-                    <h2>Create plan</h2>
+                    <h2>Edit plan</h2>
                     <label className="label-plan-form">Name <input value={name} onChange={e => setName(e.target.value)} /></label>
                     {errors.name && <p className="error">{errors.name}</p>}
                     <label className="label-plan-form">Description <textarea className="task-textarea" value={description} onChange={e => setDescription(e.target.value)} /></label>

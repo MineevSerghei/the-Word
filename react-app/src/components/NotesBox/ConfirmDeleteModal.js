@@ -11,7 +11,8 @@ export default function ConfirmDeleteModal({ noteId, setField }) {
     const deleteNote = async (e) => {
         await dispatch(deleteNoteThunk(noteId));
         closeModal()
-        setField('allNotes')
+        if (setField)
+            setField('allNotes')
 
     };
 

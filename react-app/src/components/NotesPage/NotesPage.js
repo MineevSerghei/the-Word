@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
 import './NotesPage.css';
 import { useState } from 'react';
+import OpenModalButton from '../OpenModalButton';
+import ConfirmDeleteModal from '../NotesBox/ConfirmDeleteModal';
 
 
 export default function NotesPage() {
@@ -43,12 +45,18 @@ export default function NotesPage() {
         }
     }
 
+    const openNoteVerse = () => {
+
+    }
+
 
     const user = useSelector(state => state.session.user);
 
     return (
         <div className="plans-page-wrapper">
             <h2>Notes</h2>
+
+            <p>{`You have ${user.notes.length} notes`}</p>
 
             <div className='sort-option-div'>
                 <span>Sort by: </span>
@@ -60,10 +68,20 @@ export default function NotesPage() {
 
             {sortNotes(user.notes).map(note => {
                 return (
-                    <div key={note.id} className="note-div">
-                        <span>{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</span>
-                        <p className="note-text">{note.noteText}</p>
-                        <p className="smaller">{new Date(note.createdAt).toDateString()}</p>
+                    <div key={note.id} className="note-div page-note-div">
+                        <span className='verse-title-notes-page'
+                        >{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</span>
+                        <p className='italics'>"{note.verse.text}"</p>
+                        <p className="note-text page-note-text">{note.noteText}</p>
+
+                        <div className='grid-date-trash'>
+                            <p className="smaller">{new Date(note.createdAt).toDateString()}</p>
+                            <OpenModalButton
+                                modalComponent={<ConfirmDeleteModal noteId={note.id} />}
+                                className="fa-solid fa-trash-can"
+                                isIcon={true} />
+
+                        </div>
                     </div>
                 )
             })}

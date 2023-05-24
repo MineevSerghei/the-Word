@@ -71,3 +71,31 @@
 .fa-chevron-left {
     cursor: pointer;
 }
+
+.view-all-plans-bttn {
+    font-family: inherit;
+    color: black;
+    background-color: rgb(255, 209, 131);
+    border: 1px solid transparent;
+    width: 100%;
+    font-size: 1rem;
+}
+
+
+.view-all-plans-bttn:hover {
+    cursor: pointer;
+    border: 1px solid brown;
+}
+
+.unenroll-bttn {
+    background-color: red;
+    color: whitesmoke;
+}
+
+.fa-gear:hover {
+    cursor: pointer;
+}
+
+.plan-details {
+    align-items: flex-start;
+}

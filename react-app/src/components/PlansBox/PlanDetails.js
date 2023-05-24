@@ -31,15 +31,22 @@ export default function PlanDetails({ plan, setPlansField }) {
 
     return (
         <>
-            <h2 className='plan-name'><i onClick={() => setPlansField('myPlans')} className="fa-solid fa-chevron-left"></i> Plan Details</h2>
-            <div className='plan-field'>
+            <div className="title-and-back-arrow">
+                <i className="fa-solid fa-arrow-left back-arrow" onClick={() => setPlansField('myPlans')} ></i>
+                <h2>Plan Details</h2>
+            </div>
 
-                <h3>{plan.name} ({Math.round(competed / plan.tasks.length * 100)}%)</h3>
-                <i onClick={(e) => setPlansField('planSettings')} className="fa-solid fa-gear"></i>
+            <div className='plan-field plan-details'>
+
+                <h3>{plan.name} ({Math.round(competed / plan.tasks.length * 100)}%) <i onClick={(e) => setPlansField('planSettings')} className="fa-solid fa-gear"></i></h3>
+
+
                 <div className='days'>
                     {days.map((day, i) => {
+                        let className = selectedDay === i + 1 ? 'large day-div' : "day-div"
                         return (
-                            <div onClick={() => setSelectedDay(i + 1)} key={i} className='day-div' >
+
+                            <div onClick={() => setSelectedDay(i + 1)} key={i} className={className} >
                                 <p>{i + 1}</p>
                             </div>
                         )

@@ -1,23 +1,27 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { unenrollPlanThunk } from '../../store/session';
+import ConfirmUnenrollModal from './ConfirmUnenrollModal';
+import OpenModalButton from "../OpenModalButton";
 
 export default function PlanSettings({ plan, setPlansField }) {
 
     const dispatch = useDispatch();
 
-    const unenroll = async e => {
-        await dispatch(unenrollPlanThunk(plan.id))
-        setPlansField('myPlans')
-
-        console.log("RESULT--->",)
-    }
-
 
     return (
         <div>
-            <i onClick={() => setPlansField('planDetails')} className="fa-solid fa-chevron-left"></i>
-            <button onClick={unenroll}>unenroll</button>
+
+            <div className="title-and-back-arrow">
+                <i className="fa-solid fa-arrow-left back-arrow" onClick={() => setPlansField('planDetails')} ></i>
+                <h2>Plan Settings</h2>
+            </div>
+
+            <OpenModalButton
+                className='bttn-face unenroll-bttn'
+                buttonText="UNENROLL"
+                modalComponent={<ConfirmUnenrollModal plan={plan} setPlansField={setPlansField} />}
+            />
         </div>
     )
 }

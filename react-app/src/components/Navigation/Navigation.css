@@ -1,7 +1,11 @@
 .profile-dropdown {
   position: absolute;
   list-style: none;
-  right: 30px
+  right: 30px;
+  background-color: whitesmoke;
+  border: 1px solid rgb(224, 202, 173);
+  padding: 20px;
+
 }
 
 .hidden {
@@ -12,14 +16,19 @@
   list-style: none;
   display: flex;
   justify-content: space-between;
-  margin: 15px 30px 30px 30px;
+  padding: 5px 30px 5px 30px;
+  margin: 0;
   align-items: center;
+  background-color: rgb(255, 245, 213);
 }
+
+
 
 .profile-bttn {
   padding: 10px 20px;
   border: 1px transparent solid;
   font-size: 1.3rem;
+  color: #3A98B9;
 }
 
 .profile-bttn:hover {
@@ -27,7 +36,52 @@
   cursor: pointer;
 }
 
+.log-in-sign-up-bttns {
+  background-color: inherit;
+  color: #3A98B9;
+  padding: 10px;
+  font-family: 'DMSans-Medium', sans-serif;
+  border: 1px transparent solid;
+}
+
+.nav-left-links:hover,
+.log-in-sign-up-bttns:hover {
+  cursor: pointer;
+  border: 1px brown solid;
+}
+
 .nav-left-links {
   padding: 10px;
   margin-right: 70px;
+  text-decoration: none;
+  color: #3A98B9;
+  font-family: 'DMSans-Medium', sans-serif;
+  border: 1px transparent solid;
+}
+
+.drop-down-link-Link {
+  text-decoration: none;
+  color: #3A98B9
+}
+
+.drop-down-link-li {
+  padding: 10px;
+}
+
+.bttn-face {
+  font-family: inherit;
+  color: black;
+  background-color: rgb(255, 209, 131);
+  border: 1px solid transparent;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.bttn-face:hover {
+  cursor: pointer;
+  border: 1px solid brown;
+}
+
+.log-out-bttn {
+  margin-top: 10px;
 }

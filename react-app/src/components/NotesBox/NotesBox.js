@@ -30,19 +30,19 @@ export default function NotesBox({ setSelectedVerse, chapter, book, field, setFi
             {field === 'allNotes' ? <>
                 <h2>Notes</h2>
 
-                <button onClick={renderField}>Create Note</button>
+                <button className="bttn-face wider" onClick={renderField}>New Note</button>
 
-                <div>
+                <div className="notes-container">
                     {user.notes.map(note => {
 
                         return note.verse.chapter.id === chapter.id ?
-                            <div key={note.id}>
+                            <div key={note.id} className="note-div">
                                 <span
                                     className="note-title"
                                     onClick={() => openNoteDetails(note)}
 
                                 >{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</span>
-                                <p>{note.noteText}</p>
+                                <p className="note-text">{note.noteText}</p>
                             </div>
                             : null
                     }

@@ -104,18 +104,20 @@ def post_plan():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     req = request.get_json()
+
     tasks = req['tasks']
     duration = req['duration']
     is_public = req['isPublic']
 
-
     task_errors = {}
 
-    for task in tasks:
-        if len(task.description) <= 0:
-            task_errors[task.day] = 'Task description is required'
-        if  len(task.description) > 500:
-            task_errors[task.day] = 'Task description has to be 500 characters or less'
+
+    for i in range(len(tasks)):
+        for task in tasks[i]:
+            if len(task) <= 0:
+                task_errors[i+1] = 'Task description is required'
+            if  len(task) > 500:
+                task_errors[i+1] = 'Task description has to be 500 characters or less'
 
     if task_errors:
         return {'task_errors': task_errors}, 400
@@ -124,18 +126,19 @@ def post_plan():
 
         tasks_to_create = []
 
-        for task in tasks:
-            new_task = Task(
-                description=task.description,
-                is_completed=None,
-                day=task.day
-            )
-            tasks_to_create.append(new_task)
+        for i in range(len(tasks)):
+            for task in tasks[i]:
+                new_task = Task(
+                    description=task,
+                    is_completed=None,
+                    day=i+1
+                )
+                tasks_to_create.append(new_task)
 
         plan = Plan(
             author_id=current_user.id,
-            name=form['name'],
-            description=form['description'],
+            name=form.data['name'],
+            description=form.data['description'],
             duration=duration,
             is_public=is_public,
             is_template=True,
@@ -148,7 +151,6 @@ def post_plan():
         db.session.commit()
 
         return plan.to_dict()
-
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
@@ -175,35 +177,37 @@ def edit_plan(id):
 
     task_errors = {}
 
-    for task in tasks:
-        if len(task.description) <= 0:
-            task_errors[task.day] = 'Task description is required'
-        if  len(task.description) > 500:
-            task_errors[task.day] = 'Task description has to be 500 characters or less'
+    for i in range(len(tasks)):
+        for task in tasks[i]:
+            if len(task) <= 0:
+                task_errors[i+1] = 'Task description is required'
+            if  len(task) > 500:
+                task_errors[i+1] = 'Task description has to be 500 characters or less'
 
     if task_errors:
         return {'task_errors': task_errors}, 400
 
     if form.validate_on_submit():
 
+        tasks_to_delete = Task.query.filter(Task.plan_id == plan_to_update.id).all()
+        [db.session.delete(task_to_delete) for task_to_delete in tasks_to_delete]
+
         tasks_to_create = []
 
-        for task in tasks:
-            task_to_delete = Task.query.get(task.id)
-            db.session.delete(task_to_delete)
+        for i in range(len(tasks)):
+            for task in tasks[i]:
+                new_task = Task(
+                    description=task,
+                    is_completed=None,
+                    day=i+1
+                )
+                tasks_to_create.append(new_task)
 
-            new_task = Task(
-                description=task.description,
-                is_completed=None,
-                day=task.day
-            )
-            tasks_to_create.append(new_task)
-
-        plan_to_update.name=form['name'],
-        plan_to_update.description=form['description'],
-        plan_to_update.duration=duration,
-        plan_to_update.is_public=is_public,
-        tasks=tasks_to_create
+        plan_to_update.name=form.data['name']
+        plan_to_update.description=form.data['description']
+        plan_to_update.duration=duration
+        plan_to_update.is_public=is_public
+        plan_to_update.tasks=tasks_to_create
 
         db.session.commit()
 

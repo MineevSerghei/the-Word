@@ -45,11 +45,11 @@ function ProfileButton({ user }) {
         {user && (
           <>
             <li>{user.name}</li>
-            <li><Link to='/account'>Account</Link></li>
-            <li><Link to='/notes'>Notes</Link></li>
-            <li><Link to='/plans'>Plans</Link></li>
+            <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/account'>Account</Link></li>
+            <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/notes'>Notes</Link></li>
+            <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/plans'>Custom Plans</Link></li>
             <li>
-              <button onClick={handleLogout}>Log Out</button>
+              <button className="bttn-face log-out-bttn" onClick={handleLogout}>Log Out</button>
             </li>
           </>
         )}

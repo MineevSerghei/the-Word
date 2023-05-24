@@ -1,7 +1,26 @@
+.plans-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 30vw;
+}
+
 .plan-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: flex-start;
     padding: 20px;
     border: 1px solid transparent;
     margin: 10px;
+    border-bottom: 1px solid brown;
+}
+
+.plan-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 30vw;
 }
 
 .plan-box:hover {
@@ -11,17 +30,32 @@
 
 .days {
     display: flex;
-    justify-content: center;
     flex-wrap: nowrap;
-    overflow: scroll;
+    overflow-x: scroll;
     gap: 3px;
-    max-width: 300px;
+    max-width: 30vw;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    padding-bottom: 20px;
 }
 
 .day-div {
     border: 1px brown solid;
-    padding: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    justify-content: center;
 }
+
+.large {
+    border: 5px brown solid;
+    padding: 20px;
+    height: 25px;
+    font-family: 'DMSans-Bold', sans-serif;
+
+}
+
 
 .day-div>p {
     margin: 0;
@@ -32,9 +66,7 @@
     background-color: rgb(255, 195, 195);
 }
 
-.plan-name {
-    display: inline;
-}
+.plan-name {}
 
 .fa-chevron-left {
     cursor: pointer;

@@ -1,0 +1,148 @@
+.plan-form {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-plan-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.form-tasks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-textarea {
+    max-height: 150px;
+    width: 150px;
+    max-width: 200px;
+    min-width: 100px;
+}
+
+.fa-xmark,
+.fa-plus {
+    display: inline;
+}
+
+.fa-xmark:hover,
+.fa-plus:hover {
+    cursor: pointer;
+}
+
+.fa-plus {
+    align-self: flex-end;
+}
+
+.task {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid brown;
+    gap: 5px;
+}
+
+
+.error {
+    font-size: .8rem;
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.small {
+    font-size: .7rem;
+}
+
+.label-plan-form {
+    margin-top: 25px;
+}
+
+.p-plan-form {
+    margin-top: 25px;
+}
+
+.bttn-smaller {
+    font-size: 1rem;
+    margin: 5px;
+    padding: 5px 10px;
+    font-family: inherit;
+    background-color: inherit;
+}
+
+.bttn-smaller:hover {
+    cursor: pointer;
+    box-shadow: 5px 5px 1px;
+}
+
+.bttn {
+    font-size: 1.5rem;
+    margin: 15px;
+    padding: 10px 20px;
+    font-family: inherit;
+    background-color: inherit;
+}
+
+.bttn:hover {
+    cursor: pointer;
+    box-shadow: 5px 5px 1px;
+}
+
+.bold {
+    font-family: 'DMSans-Bold', sans-serif;
+    font-weight: 900;
+}
+
+.plan-page-box {
+    border-bottom: 1px brown solid;
+    margin: 30px;
+    padding-bottom: 20px;
+
+}
+
+.plans-page-wrapper {
+    margin: 30px;
+}
+
+.plan-kind-p-tag {
+    border-bottom: 1px brown solid;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+}
+
+.create-plan-link {
+    text-decoration: none;
+    color: #3A98B9;
+    font-family: 'DMSans-Bold', sans-serif;
+    font-size: 1.2rem;
+}
+
+.create-plan-link:hover {
+    text-decoration: underline;
+}
+
+.custom-plans-title {
+    color: #3A98B9;
+}
+
+.custom-plans-title:hover {
+    cursor: pointer;
+}
+
+.plan-page-details {
+    gap: 100px;
+    padding: 20px 100px;
+
+}
+
+.plan-page-details-left {
+    align-items: flex-start;
+}

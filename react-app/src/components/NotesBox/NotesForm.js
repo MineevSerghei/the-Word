@@ -40,14 +40,18 @@ export default function NotesForm({ verseNum, chapter, book, setField, setSelect
 
     return (
         <>
-            <h2>Create Note</h2>
+            <div className="title-and-back-arrow">
+                <i className="fa-solid fa-arrow-left back-arrow" onClick={() => setField('allNotes')} ></i>
+                <h2>New Note</h2>
+            </div>
 
-            <div>
-                <button onClick={() => setField('allNotes')} >Close</button>
-                <button onClick={saveNote}>Save Note</button>
+            <button className="bttn-face wider" onClick={saveNote}>Save Note</button>
+            <br></br>
+            <div className="note-div" >
                 <p>{book.name} {chapter.number}:{verse.number}</p>
                 {errors.note && <p>{errors.note}</p>}
                 <textarea
+                    className="note-input"
                     value={note}
                     onChange={e => setNote(e.target.value)}
                 ></textarea>

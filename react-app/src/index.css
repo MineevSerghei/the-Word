@@ -1,1 +1,38 @@
-/* TODO Add site wide styles */
+@font-face {
+    font-family: 'DMSans-Regular';
+    src: local('DMSans-Regular'), url(./fonts/dmsans/DMSans-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'DMSans-Medium';
+    src: local('DMSans-Medium'), url(./fonts/dmsans/DMSans-Medium.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'DMSans-Bold';
+    src: local('DMSans-Bold'), url(./fonts/dmsans/DMSans-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'DMSans-Italic';
+    src: local('DMSans-Italic'), url(./fonts/dmsans/DMSans-Italic.ttf) format('truetype');
+}
+
+
+body {
+    font-family: 'DMSans-Regular', sans-serif;
+    background-color: rgb(245, 245, 245);
+    margin: 0;
+}
+
+.italics {
+    font-family: 'DMSans-Italic', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'DMSans-Bold', sans-serif;
+}

@@ -1,14 +1,19 @@
 .read-page {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 30vw;
+    margin: 10px;
+}
+
+.verse {
+    margin-block-start: .7em;
+    margin-block-end: .7em;
 }
 
 #spinner {
     margin: 0 auto;
     font-size: 3rem;
-    color: rgb(42, 63, 255);
+    color: #3A98B9;
 }
-
-.fa-spinner {}
 
 .spinner-container {
     display: flex;

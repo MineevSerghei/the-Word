@@ -31,14 +31,23 @@ export default function NotesEditForm({ note, setField }) {
 
     return (
         <>
-            <h2>Edit Note</h2>
 
-            <div>
-                <button onClick={() => setField('allNotes')} >Close</button>
-                <button onClick={saveNote}>Save Edit</button>
+            <div className="title-and-back-arrow">
+                <i className="fa-solid fa-arrow-left back-arrow" onClick={() => setField('allNotes')} ></i>
+                <h2>Edit Note</h2>
+            </div>
+
+
+            <button className="bttn-face wider" onClick={saveNote}>Save Edit</button>
+
+
+            <br></br>
+
+            <div className="note-div">
                 <p>{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</p>
                 {errors.note && <p>{errors.note}</p>}
                 <textarea
+                    className="note-input"
                     value={noteText}
                     onChange={e => setNoteText(e.target.value)}
                 ></textarea>

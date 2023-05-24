@@ -23,7 +23,10 @@ export default function LandingPage() {
 
     return (
         <div className='landing-page'>
-            <Link to="/read">Read Now</Link>
+            <section className='image-div'>
+                <h1 className='read-bible-online'>Read the Bible Online</h1>
+                <Link className='nav-left-links read-now-bttn' to="/read">Read Now</Link>
+            </section>
         </div>
     )
 }

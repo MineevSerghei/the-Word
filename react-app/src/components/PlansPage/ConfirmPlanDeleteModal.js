@@ -19,6 +19,7 @@ export default function ConfirmPlanDeleteModal({ planId }) {
         <>
             <h5>Are you sure you want to delete the plan?</h5>
             <p>It will disappear from the public repository of plans as well as your custom plans and WILL NOT be recoverable</p>
+            <p>Anyone who is enrolled in this plan however (including you) will be able to complete it </p>
             <div>
                 <button className="bttn-smaller" onClick={deletePlan}>Yes (DELETE)</button>
                 <button className="bttn-smaller" onClick={() => closeModal()}>No (Keep)</button>

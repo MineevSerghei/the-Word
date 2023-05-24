@@ -28,7 +28,6 @@ def enroll_plan(id):
     enrolled_plans_ids = [plan.template_id for plan in enrolled_plans]
 
     if template.id in enrolled_plans_ids:
-        print('is it this???')
         return {'errors': 'You are already following this plan'}, 400
 
     task_instances = []

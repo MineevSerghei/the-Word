@@ -26,10 +26,6 @@ export default function PlanDetailsPage() {
         userEnrolledTemplateIds.push(plan.templateId);
     }
 
-    console.log('userEnrolledTemplateIds', userEnrolledTemplateIds)
-    console.log('plan --> ', plan)
-    console.log()
-
     const incomingTasks = Array(parseInt(plan.duration)).fill([]).map(arr => Array.from(arr));
 
     for (let task of plan.tasks) {

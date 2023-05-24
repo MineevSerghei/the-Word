@@ -41,6 +41,9 @@ function App() {
             <Route path="/plans" >
               <PlansPage />
             </Route>
+            <Route path="/" >
+              <LandingPage />
+            </Route>
           </>
           }
 

@@ -133,7 +133,7 @@ export default function BibleText() {
                             .chaptersObj[displayedChapter].versesObj)
                             .map(verse => {
                                 return <p
-                                    className={popUpOpen === verse.number ? 'underlined' : ''}
+                                    className={popUpOpen === verse.number ? 'verse underlined' : 'verse'}
                                     onClick={(e) => openPopUp(e, verse.number)}
                                     key={verse.id}>
                                     {verse.number === 1 ?

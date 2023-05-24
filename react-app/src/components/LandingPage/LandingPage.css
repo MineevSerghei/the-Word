@@ -2,3 +2,42 @@
     display: flex;
     justify-content: center;
 }
+
+.read-now-bttn {
+    font-size: 1.5rem;
+    margin: 100px;
+    color: #88272f;
+    background-color: rgb(255, 245, 213);
+    padding: 10px 20px;
+    border: 1px solid #88272f;
+    box-shadow: 1px 1px 1px #88272f;
+    font-family: 'DMSans-Medium', sans-serif;
+}
+
+.read-now-bttn:active {
+    background-color: rgb(253, 241, 201);
+}
+
+.read-now-bttn:hover {
+    box-shadow: 2px 2px 2px #88272f;
+}
+
+.image-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./wisconsinpictures-sqyQNuOUl8g-unsplash.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 90vh;
+}
+
+.read-bible-online {
+    font-size: 3rem;
+    color: #88272f;
+    text-shadow: 2px 2px 15px whitesmoke;
+    background-color: rgba(174, 172, 172, 0.487);
+
+
+}

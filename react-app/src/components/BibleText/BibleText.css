@@ -4,6 +4,11 @@
     margin: 10px;
 }
 
+.verse {
+    margin-block-start: .7em;
+    margin-block-end: .7em;
+}
+
 #spinner {
     margin: 0 auto;
     font-size: 3rem;

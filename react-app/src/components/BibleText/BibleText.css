@@ -26,7 +26,7 @@
     overflow: scroll;
     height: 40vh;
     border: 1px solid brown;
-    width: 10rem;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -49,18 +49,23 @@
 }
 
 .chapter-box {
-    display: flex;
-    flex-wrap: wrap;
-
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: start;
+    max-width: 15vw;
+    margin-left: 10px;
 }
 
 .chapter-number {
     padding: 5px;
+    border: 1px solid transparent;
+    text-align: center;
 }
 
 .chapter-number:hover {
     cursor: pointer;
-    color: #3c3c3c;
+    color: #3A98B9;
 }
 
 .selected-book-title {

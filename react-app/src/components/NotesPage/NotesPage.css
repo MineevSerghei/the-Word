@@ -1,0 +1,52 @@
+.selected-sort {
+    font-family: 'DMSans-Bold', sans-serif;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.sort-option {
+    color: #3A98B9;
+    padding: 10px;
+}
+
+.sort-option-div {
+    margin: 20px;
+}
+
+.verse-title-notes-page {
+    margin-left: 10px;
+    font-family: 'DMSans-Bold', sans-serif;
+    font-weight: bold;
+}
+
+.sort-option:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.page-note-div {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 0;
+    width: 90vw;
+
+}
+
+.page-note-text {
+    width: 80vw;
+    margin-left: 30px;
+}
+
+.fa-trash-can {
+    justify-self: end;
+}
+
+.fa-trash-can:hover {
+    cursor: pointer;
+}
+
+.grid-date-trash {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

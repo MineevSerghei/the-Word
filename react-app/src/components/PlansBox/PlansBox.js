@@ -28,7 +28,7 @@ export default function PlansBox() {
 
             {plansField === 'myPlans' &&
                 <div className='plan-field my-plans'>
-                    <h2>My Plans<span><button onClick={() => setPlansField('allPlans')}>all plans</button></span></h2>
+                    <h2>My Plans</h2>
 
 
                     {myPlans.map((plan, planIndex) => {
@@ -43,7 +43,7 @@ export default function PlansBox() {
                             <p>{plan.description}</p>
                         </div>)
                     })}
-
+                    <span><button className='view-all-plans-bttn' onClick={() => setPlansField('allPlans')}>View All Available Plans</button></span>
                 </div>}
 
             {plansField === 'planDetails' &&

@@ -7,7 +7,7 @@ import "./SignupForm.css";
 function SignupFormModal() {
 	const dispatch = useDispatch();
 	const [email, setEmail] = useState("");
-	const [username, setUsername] = useState("");
+	const [name, setName] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
@@ -16,7 +16,7 @@ function SignupFormModal() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password));
+			const data = await dispatch(signUp(name, email, password));
 			if (data) {
 				setErrors(data);
 			} else {
@@ -35,24 +35,26 @@ function SignupFormModal() {
 			<form onSubmit={handleSubmit}>
 				<ul>
 					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
+						<li className="error" key={idx}>{error}</li>
 					))}
 				</ul>
 				<label>
 					Email
 					<input
 						type="text"
+						name="Email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required
 					/>
 				</label>
 				<label>
-					Username
+					Name
 					<input
 						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
+						name="Name"
+						value={name}
+						onChange={(e) => setName(e.target.value)}
 						required
 					/>
 				</label>
@@ -60,6 +62,7 @@ function SignupFormModal() {
 					Password
 					<input
 						type="password"
+						name="Password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required

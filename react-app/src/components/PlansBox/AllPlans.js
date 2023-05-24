@@ -37,7 +37,12 @@ export default function AllPlans({ setPlansField, setSelectedPublicPlan }) {
     return (
 
         <div className='plan-field inner-all-plans'>
-            <h2><i onClick={() => setPlansField('myPlans')} className="fa-solid fa-chevron-left"></i>All plans</h2>
+
+            <div className="title-and-back-arrow">
+                <i className="fa-solid fa-arrow-left back-arrow" onClick={() => setPlansField('myPlans')} ></i>
+                <h2>All plans</h2>
+            </div>
+
             {Object.values(plans).map(plan => {
                 return (
 

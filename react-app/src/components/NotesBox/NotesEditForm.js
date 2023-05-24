@@ -38,7 +38,6 @@ export default function NotesEditForm({ note, setField }) {
             </div>
 
 
-            <button className="bttn-face wider" onClick={saveNote}>Save Edit</button>
 
 
             <br></br>
@@ -51,6 +50,7 @@ export default function NotesEditForm({ note, setField }) {
                     value={noteText}
                     onChange={e => setNoteText(e.target.value)}
                 ></textarea>
+                <button className="bttn-face" onClick={saveNote}>Save Edit</button>
             </div>
         </>
     )

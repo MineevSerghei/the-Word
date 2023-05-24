@@ -15,9 +15,19 @@ function LoginFormModal() {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {
-      setErrors(data);
+      setErrors(['Incorrect email or password']);
     } else {
-        closeModal()
+      closeModal()
+    }
+  };
+
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login('serghei@aa.io', 'password'));
+    if (data) {
+      setErrors(['Incorrect email or password']);
+    } else {
+      closeModal()
     }
   };
 
@@ -27,7 +37,7 @@ function LoginFormModal() {
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li className="error" key={idx}>{error}</li>
           ))}
         </ul>
         <label>
@@ -49,6 +59,7 @@ function LoginFormModal() {
           />
         </label>
         <button type="submit">Log In</button>
+        <button type="button" onClick={demoLogin}>Demo</button>
       </form>
     </>
   );

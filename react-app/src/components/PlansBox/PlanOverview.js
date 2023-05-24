@@ -23,15 +23,19 @@ export default function PlanOverview({ plan, setPlansField, setSelectedPlan }) {
 
     return (
         <>
-            <h2 className='plan-name'><i onClick={() => setPlansField('allPlans')} className="fa-solid fa-chevron-left"></i> Plan Overview</h2>
+            <div className="title-and-back-arrow">
+                <i className="fa-solid fa-arrow-left back-arrow" onClick={() => setPlansField('allPlans')} ></i>
+                <h2>Plan Overview</h2>
+            </div>
 
             <div className="plan-field">
                 <h3>{plan.name}</h3>
                 <div>
                     <p>{plan.duration} days</p>
                     <p>{plan.description}</p>
+                    <p>Author: {plan.author.name}</p>
                 </div>
-                <button onClick={enroll}>Begin</button>
+                <button className="bttn-face" onClick={enroll}>Begin</button>
             </div>
         </>
     )

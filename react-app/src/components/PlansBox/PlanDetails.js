@@ -2,14 +2,22 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCompletedThunk } from '../../store/session';
 
-// import './PlansBox.css'
-
 export default function PlanDetails({ plan, setPlansField }) {
 
     const user = useSelector(state => state.session.user);
 
+    const today = () => {
 
-    const [selectedDay, setSelectedDay] = useState(1)
+        const startDate = new Date(plan.startDate);
+        // const pseudoToday = new Date();
+        // pseudoToday.setDate(pseudoToday.getDate() + 10)
+        const todayDate = new Date();
+        return Math.floor((todayDate - startDate) / (1000 * 60 * 60 * 24));
+
+    }
+
+    const [selectedDay, setSelectedDay] = useState(today() + 1)
+    const [todayIndex, setTodayIndex] = useState(today() + 1)
     const dispatch = useDispatch();
 
     const daysRef = Array(plan.duration).fill([])
@@ -18,6 +26,8 @@ export default function PlanDetails({ plan, setPlansField }) {
     for (let task of plan.tasks) {
         days[task.day - 1].push(task);
     }
+
+    const startDate = new Date(plan.startDate);
 
     const toggleCompleted = async (e, taskId, planId) => {
 
@@ -44,10 +54,16 @@ export default function PlanDetails({ plan, setPlansField }) {
                 <div className='days'>
                     {days.map((day, i) => {
                         let className = selectedDay === i + 1 ? 'large day-div' : "day-div"
+
+                        const date = new Date(new Date().setDate(startDate.getDate() + i));
+                        const displayDate = date.getDate();
+                        const displayMonth = date.getMonth() + 1;
+
                         return (
 
                             <div onClick={() => setSelectedDay(i + 1)} key={i} className={className} >
-                                <p>{i + 1}</p>
+                                <p>{displayMonth}/{displayDate}</p>
+                                {todayIndex === i + 1 && <span>today</span>}
                             </div>
                         )
                     })}

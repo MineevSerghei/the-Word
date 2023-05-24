@@ -86,7 +86,6 @@
 
 .no-margin {
     margin: 0;
-    color: #3A98B9;
 }
 
 .bttn-face-delete {
@@ -100,4 +99,10 @@
 
 .note-wrapper {
     width: 30vw;
+}
+
+.edit-delete-note-bttns {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px
 }

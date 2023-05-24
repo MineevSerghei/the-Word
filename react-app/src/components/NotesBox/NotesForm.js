@@ -45,7 +45,6 @@ export default function NotesForm({ verseNum, chapter, book, setField, setSelect
                 <h2>New Note</h2>
             </div>
 
-            <button className="bttn-face wider" onClick={saveNote}>Save Note</button>
             <br></br>
             <div className="note-div" >
                 <p>{book.name} {chapter.number}:{verse.number}</p>
@@ -55,6 +54,7 @@ export default function NotesForm({ verseNum, chapter, book, setField, setSelect
                     value={note}
                     onChange={e => setNote(e.target.value)}
                 ></textarea>
+                <button className="bttn-face" onClick={saveNote}>Save Note</button>
             </div>
         </>
     )

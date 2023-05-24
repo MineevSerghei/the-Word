@@ -31,12 +31,15 @@ export default function NoteDetails({ setField, note }) {
                     <p className="no-margin">{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</p>
                     <p>{note.noteText}</p>
                     <p className="smaller">{new Date(note.createdAt).toDateString()}</p>
-                    <button className='bttn-face' onClick={openEditNote} >Edit</button>
-                    <OpenModalButton
-                        className='bttn-face bttn-face-delete'
-                        buttonText="Delete"
-                        modalComponent={<ConfirmDeleteModal noteId={note.id} setField={setField} />}
-                    />
+
+                    <div className="edit-delete-note-bttns">
+                        <button className='bttn-face' onClick={openEditNote} >Edit</button>
+                        <OpenModalButton
+                            className='bttn-face bttn-face-delete'
+                            buttonText="Delete"
+                            modalComponent={<ConfirmDeleteModal noteId={note.id} setField={setField} />}
+                        />
+                    </div>
                 </div>
 
             </div>

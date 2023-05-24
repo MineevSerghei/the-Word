@@ -1,0 +1,19 @@
+.selected-sort {
+    font-family: 'DMSans-Bold', sans-serif;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.sort-option {
+    color: #3A98B9;
+    padding: 10px;
+}
+
+.sort-option-div {
+    margin: 20px;
+}
+
+.sort-option:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

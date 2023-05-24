@@ -18,10 +18,12 @@ def enroll_plan(id):
     template = Plan.query.get(id)
     if not template:
         return {'errors': 'Plan Not Found'}, 404
-    if template.is_public == False or template.is_template == False:
+    if template.is_template == False:
+        return {'errors': 'Not a Template'}, 400
+    if template.is_public == False and template.author.id != current_user.id:
         return {'errors': 'Forbidden'}, 403
 
-    enrolled_plans = Plan.query.filter(Plan.template_id == template.id and Plan.enrolled_user.id == current_user.id).all()
+    enrolled_plans = Plan.query.filter(Plan.template_id == template.id, Plan.enrolled_user_id == current_user.id).all()
 
     enrolled_plans_ids = [plan.template_id for plan in enrolled_plans]
 
@@ -84,7 +86,7 @@ def get_all_plans():
     Route to get all PUBLIC reading plan TEMPLATES
     """
 
-    plans = Plan.query.filter(Plan.is_template==True and Plan.is_public==True).all()
+    plans = Plan.query.filter(Plan.is_template==True, Plan.is_public==True).all()
 
     # if not plans:
     #      return {'errors': 'Plans Not Found'}, 404

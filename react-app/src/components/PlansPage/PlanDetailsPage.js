@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import ConfirmPlanDeleteModal from "./ConfirmPlanDeleteModal";
+import { enrollPlanThunk } from "../../store/session";
 
 export default function PlanDetailsPage() {
 
     const { planId } = useParams();
+    const user = useSelector(state => state.session.user);
     const plan = useSelector(state => state.session.user.authoredPlans).find(plan => plan.id === parseInt(planId));
     const dispatch = useDispatch();
     const [daySelected, setDaySelected] = useState(0);
@@ -18,10 +20,31 @@ export default function PlanDetailsPage() {
         return null;
     }
 
+    const userEnrolledTemplateIds = [];
+
+    for (let plan of user.enrolledPlans) {
+        userEnrolledTemplateIds.push(plan.templateId);
+    }
+
+    console.log('userEnrolledTemplateIds', userEnrolledTemplateIds)
+    console.log('plan --> ', plan)
+    console.log()
+
     const incomingTasks = Array(parseInt(plan.duration)).fill([]).map(arr => Array.from(arr));
 
     for (let task of plan.tasks) {
         incomingTasks[task.day - 1].push(task.description)
+    }
+
+    const enroll = async e => {
+        const res = await dispatch(enrollPlanThunk(plan.id));
+
+        if (res.message && res.message === 'Success!') {
+
+        } else {
+            alert('Something went wrong')
+        }
+
     }
 
     return (
@@ -37,6 +60,8 @@ export default function PlanDetailsPage() {
                     <p className="p-plan-form">Public:  {plan.isPublic ? 'Yes' : 'No'}</p>
 
                     <div>
+                        {userEnrolledTemplateIds.includes(plan.id) ? <p>You are following this plan!</p> :
+                            <button className="bttn-smaller" onClick={enroll}>Begin</button>}
                         <button className="bttn-smaller" onClick={() => history.push(`/plans/${planId}/edit`)}>Edit Plan</button>
                         <OpenModalButton
                             className='bttn-smaller'

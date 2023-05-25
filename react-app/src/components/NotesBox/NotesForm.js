@@ -13,6 +13,8 @@ export default function NotesForm({ verseNum, chapter, book, setField, setSelect
 
     useEffect(() => {
 
+        document.getElementById("noteTextarea").focus();
+
         return () => {
             setSelectedVerse(0)
         }
@@ -50,6 +52,7 @@ export default function NotesForm({ verseNum, chapter, book, setField, setSelect
                 <p>{book.name} {chapter.number}:{verse.number}</p>
                 {errors.note && <p>{errors.note}</p>}
                 <textarea
+                    id='noteTextarea'
                     className="note-input"
                     value={note}
                     onChange={e => setNote(e.target.value)}

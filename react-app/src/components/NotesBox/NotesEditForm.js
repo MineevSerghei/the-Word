@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux";
 import './NotesBox.css'
 import { editNoteThunk } from "../../store/session";
@@ -10,6 +10,15 @@ export default function NotesEditForm({ note, setField }) {
     const [noteText, setNoteText] = useState(note.noteText);
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
+
+    useEffect(() => {
+
+        const textArea = document.getElementById("noteEditTextarea");
+        textArea.focus();
+        textArea.setSelectionRange(-1, -1);
+
+    }, [])
+
 
     const saveNote = async e => {
 
@@ -46,6 +55,7 @@ export default function NotesEditForm({ note, setField }) {
                 <p>{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</p>
                 {errors.note && <p>{errors.note}</p>}
                 <textarea
+                    id="noteEditTextarea"
                     className="note-input"
                     value={noteText}
                     onChange={e => setNoteText(e.target.value)}

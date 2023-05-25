@@ -17,10 +17,10 @@ export default function ConfirmUnenrollModal({ setPlansField, plan }) {
     return (
         <>
             <h3>Are you sure you want to unenroll this plan?</h3>
-            <p>Your completed tasks will be lost and if the plan isn't publically available anymore (or isn't your own custom plan), then you might not be able to enroll it again</p>
-            <div>
-                <button onClick={unenroll}>Yes (DELETE)</button>
-                <button onClick={() => closeModal()}>No (Keep)</button>
+            <p>Your completed tasks will be lost and if the plan isn't publically available anymore <br></br> (or isn't your own custom plan), then you will not be able to enroll it again</p>
+            <div className="flex-col gap10">
+                <button className="bttn-face unenroll-bttn" onClick={unenroll}>Yes (DELETE)</button>
+                <button className="bttn-face" onClick={() => closeModal()}>No (Keep)</button>
             </div>
         </>
     );

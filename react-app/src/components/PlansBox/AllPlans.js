@@ -49,7 +49,7 @@ export default function AllPlans({ setPlansField, setSelectedPublicPlan }) {
 
                     <div className='plan-box' key={plan.id} onClick={() => openPlanDetails(plan.id)}>
                         <h4 >{plan.name}</h4>
-                        {(plan.id in currentPlanTemplateIds) && <p>You're enrolled in this plan</p>}
+                        {(plan.id in currentPlanTemplateIds) && <p className='enrolled-flag'>You're enrolled in this plan</p>}
                         <p className='italics'>{plan.duration} days</p>
                         <p>{plan.description}</p>
                     </div>

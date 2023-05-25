@@ -20,7 +20,10 @@ export default function PlansBox() {
         setPlansField('planDetails')
     }
 
-    if (!user) return <h2>Please sign in to see your Plans</h2>
+    if (!user) {
+        return <h2>Please sign in to see your Plans</h2>
+    }
+
 
     const myPlans = user.enrolledPlans;
     return (

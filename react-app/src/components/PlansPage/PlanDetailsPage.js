@@ -15,10 +15,17 @@ export default function PlanDetailsPage() {
     const [daySelected, setDaySelected] = useState(0);
     const history = useHistory();
 
+
+    useEffect(() => {
+        const selectedDiv = document.getElementById("selected-div");
+        if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
+    }, [daySelected])
+
     if (!plan) {
         history.push('/plans');
         return null;
     }
+
 
     const userEnrolledTemplateIds = [];
 
@@ -59,7 +66,7 @@ export default function PlanDetailsPage() {
                     <p className="p-plan-form">Public:  {plan.isPublic ? 'Yes' : 'No'}</p>
 
                     <div>
-                        {userEnrolledTemplateIds.includes(plan.id) ? <p>You are following this plan!</p> :
+                        {userEnrolledTemplateIds.includes(plan.id) ? <p className="enrolled-flag">You are following this plan!</p> :
                             <button className="bttn-smaller" onClick={enroll}>Begin</button>}
                         <button className="bttn-smaller" onClick={() => history.push(`/plans/${planId}/edit`)}>Edit Plan</button>
                         <OpenModalButton
@@ -79,7 +86,9 @@ export default function PlanDetailsPage() {
                             return (
 
 
-                                < div key={i} className={`day-div${large}`} onClick={() => setDaySelected(i)} >
+                                < div key={i}
+                                    id={daySelected === i ? 'selected-div' : null}
+                                    className={`day-div${large}`} onClick={() => setDaySelected(i)} >
                                     <p>{i + 1}</p>
                                 </div>
                             )

@@ -34,7 +34,7 @@ export default function PlanOverview({ plan, setPlansField, setSelectedPlan }) {
             <div className="plan-field">
                 <h3>{plan.name}</h3>
                 <div>
-                    <p>{plan.duration} days</p>
+                    <p>Duration: {plan.duration} days</p>
                     <p>{plan.description}</p>
                     <p>Author: {plan.author.name}</p>
                 </div>

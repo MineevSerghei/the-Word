@@ -1,10 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCompletedThunk } from '../../store/session';
 
 export default function PlanDetails({ plan, setPlansField }) {
-
-    const user = useSelector(state => state.session.user);
 
     const today = () => {
 
@@ -12,13 +10,33 @@ export default function PlanDetails({ plan, setPlansField }) {
         // const pseudoToday = new Date();
         // pseudoToday.setDate(pseudoToday.getDate() + 10)
         const todayDate = new Date();
-        return Math.floor((todayDate - startDate) / (1000 * 60 * 60 * 24));
 
+        const diff = Math.floor((todayDate - startDate) / (1000 * 60 * 60 * 24));
+
+        if (diff > plan.duration - 1 || diff < 0) {
+            return null;
+        }
+        return diff + 1;
     }
 
-    const [selectedDay, setSelectedDay] = useState(today() + 1)
-    const [todayIndex, setTodayIndex] = useState(today() + 1)
+    const findFirstNonCompletedDay = () => {
+        for (let task of plan.tasks) {
+            if (task.isCompleted === false) {
+                return task.day;
+            }
+        }
+        return plan.duration;
+    }
+
+
+    const [todayIndex, setTodayIndex] = useState(today());
+    const [selectedDay, setSelectedDay] = useState(findFirstNonCompletedDay());
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const selectedDiv = document.getElementById("selected-div");
+        if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
+    }, [selectedDay])
 
     const daysRef = Array(plan.duration).fill([])
     const days = daysRef.map(arr => Array.from(arr));
@@ -53,17 +71,31 @@ export default function PlanDetails({ plan, setPlansField }) {
 
                 <div className='days'>
                     {days.map((day, i) => {
-                        let className = selectedDay === i + 1 ? 'large day-div' : "day-div"
+                        let className = selectedDay === i + 1 ? 'large day-div flex-col' : "day-div flex-col"
 
-                        const date = new Date(new Date().setDate(startDate.getDate() + i));
+
+                        const date = new Date(new Date().setDate(startDate.getDate() + i + 1));
                         const displayDate = date.getDate();
                         const displayMonth = date.getMonth() + 1;
 
+                        let completed = true;
+
+                        for (let task of day) {
+                            if (!task.isCompleted) {
+                                completed = false;
+                                break;
+                            }
+                        }
+
                         return (
 
-                            <div onClick={() => setSelectedDay(i + 1)} key={i} className={className} >
+                            <div onClick={() => setSelectedDay(i + 1)}
+                                key={i}
+                                id={selectedDay === i + 1 ? 'selected-div' : null}
+                                className={className} >
+                                {todayIndex === i + 1 && <span className='small'>today</span>}
                                 <p>{displayMonth}/{displayDate}</p>
-                                {todayIndex === i + 1 && <span>today</span>}
+                                {completed && <i className="fa-solid fa-check done-mark"></i>}
                             </div>
                         )
                     })}

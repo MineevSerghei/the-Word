@@ -17,12 +17,12 @@ export default function ConfirmPlanDeleteModal({ planId }) {
 
     return (
         <>
-            <h5>Are you sure you want to delete the plan?</h5>
+            <h3>Are you sure you want to delete the plan?</h3>
             <p>It will disappear from the public repository of plans as well as your custom plans and WILL NOT be recoverable</p>
             <p>Anyone who is enrolled in this plan however (including you) will be able to complete it </p>
-            <div>
-                <button className="bttn-smaller" onClick={deletePlan}>Yes (DELETE)</button>
-                <button className="bttn-smaller" onClick={() => closeModal()}>No (Keep)</button>
+            <div className="flex-col gap10">
+                <button className="bttn-face unenroll-bttn" onClick={deletePlan}>Yes (DELETE)</button>
+                <button className="bttn-face" onClick={() => closeModal()}>No (Keep)</button>
             </div>
         </>
     );

@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Plan, Task, db
-from datetime import datetime
+from datetime import date
 from app.forms import PlanForm
 from . import validation_errors_to_error_messages
 
@@ -48,7 +48,7 @@ def enroll_plan(id):
         template_id=template.id,
         is_public=False,
         is_template=False,
-        start_date=datetime.now(),
+        start_date=date.today(),
         enrolled_user=current_user,
         tasks=task_instances
     )

@@ -1,6 +1,6 @@
 from app.models import db, Plan, Task, environment, SCHEMA
 from sqlalchemy.sql import text
-from datetime import datetime
+from datetime import date
 
 def seed_plans():
 
@@ -89,7 +89,7 @@ def seed_plans():
         template_id=1,
         is_public=False,
         is_template=False,
-        start_date=datetime.now(),
+        start_date=date.today(),
         enrolled_user_id=1,
         tasks=task_instances
     )

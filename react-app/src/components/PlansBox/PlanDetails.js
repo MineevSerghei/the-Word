@@ -12,12 +12,17 @@ export default function PlanDetails({ plan, setPlansField }) {
         // const pseudoToday = new Date();
         // pseudoToday.setDate(pseudoToday.getDate() + 10)
         const todayDate = new Date();
-        return Math.floor((todayDate - startDate) / (1000 * 60 * 60 * 24));
 
+        const diff = Math.floor((todayDate - startDate) / (1000 * 60 * 60 * 24));
+
+        if (diff > plan.duration - 1 || diff < 0) {
+            return null;
+        }
+        return diff + 1;
     }
 
-    const [selectedDay, setSelectedDay] = useState(today() + 1)
-    const [todayIndex, setTodayIndex] = useState(today() + 1)
+    const [todayIndex, setTodayIndex] = useState(today())
+    const [selectedDay, setSelectedDay] = useState(todayIndex || plan.duration)
     const dispatch = useDispatch();
 
     const daysRef = Array(plan.duration).fill([])
@@ -55,7 +60,8 @@ export default function PlanDetails({ plan, setPlansField }) {
                     {days.map((day, i) => {
                         let className = selectedDay === i + 1 ? 'large day-div' : "day-div"
 
-                        const date = new Date(new Date().setDate(startDate.getDate() + i));
+                        const date = new Date(new Date().setDate(startDate.getDate() + i + 1));
+
                         const displayDate = date.getDate();
                         const displayMonth = date.getMonth() + 1;
 

@@ -4,8 +4,6 @@ import { toggleCompletedThunk } from '../../store/session';
 
 export default function PlanDetails({ plan, setPlansField }) {
 
-    const user = useSelector(state => state.session.user);
-
     const today = () => {
 
         const startDate = new Date(plan.startDate);
@@ -21,8 +19,18 @@ export default function PlanDetails({ plan, setPlansField }) {
         return diff + 1;
     }
 
-    const [todayIndex, setTodayIndex] = useState(today())
-    const [selectedDay, setSelectedDay] = useState(todayIndex || plan.duration)
+    const findFirstNonCompletedDay = () => {
+        for (let task of plan.tasks) {
+            if (task.isCompleted === false) {
+                return task.day;
+            }
+        }
+        return plan.duration;
+    }
+
+
+    const [todayIndex, setTodayIndex] = useState(today());
+    const [selectedDay, setSelectedDay] = useState(findFirstNonCompletedDay());
     const dispatch = useDispatch();
 
     const daysRef = Array(plan.duration).fill([])
@@ -61,15 +69,24 @@ export default function PlanDetails({ plan, setPlansField }) {
                         let className = selectedDay === i + 1 ? 'large day-div' : "day-div"
 
                         const date = new Date(new Date().setDate(startDate.getDate() + i + 1));
-
                         const displayDate = date.getDate();
                         const displayMonth = date.getMonth() + 1;
+
+                        let completed = true;
+
+                        for (let task of day) {
+                            if (!task.isCompleted) {
+                                completed = false;
+                                break;
+                            }
+                        }
 
                         return (
 
                             <div onClick={() => setSelectedDay(i + 1)} key={i} className={className} >
                                 <p>{displayMonth}/{displayDate}</p>
                                 {todayIndex === i + 1 && <span>today</span>}
+                                {completed && <span>Done</span>}
                             </div>
                         )
                     })}

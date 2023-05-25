@@ -1,0 +1,14 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.modal-title {
+    margin: 0;
+}
+
+.no-margin-bttm {
+    margin-bottom: 0;
+}

@@ -18,10 +18,10 @@ export default function ConfirmDeleteModal({ noteId, setField }) {
 
     return (
         <>
-            <h5>Are you sure you want to delete this note?</h5>
-            <div>
-                <button onClick={deleteNote}>Yes (DELETE)</button>
-                <button onClick={() => closeModal()}>No (Keep)</button>
+            <h3>Are you sure you want to delete this note?</h3>
+            <div className="flex-col gap10">
+                <button className="bttn-face unenroll-bttn" onClick={deleteNote}>Yes (DELETE)</button>
+                <button className="bttn-face" onClick={() => closeModal()}>No (Keep)</button>
             </div>
         </>
     );

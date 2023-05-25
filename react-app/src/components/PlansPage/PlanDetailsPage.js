@@ -66,7 +66,7 @@ export default function PlanDetailsPage() {
                     <p className="p-plan-form">Public:  {plan.isPublic ? 'Yes' : 'No'}</p>
 
                     <div>
-                        {userEnrolledTemplateIds.includes(plan.id) ? <p>You are following this plan!</p> :
+                        {userEnrolledTemplateIds.includes(plan.id) ? <p className="enrolled-flag">You are following this plan!</p> :
                             <button className="bttn-smaller" onClick={enroll}>Begin</button>}
                         <button className="bttn-smaller" onClick={() => history.push(`/plans/${planId}/edit`)}>Edit Plan</button>
                         <OpenModalButton

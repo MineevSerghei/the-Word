@@ -36,3 +36,8 @@ h4,
 h5 {
     font-family: 'DMSans-Bold', sans-serif;
 }
+
+textarea,
+input {
+    font-family: 'DMSans-Regular', sans-serif;
+}

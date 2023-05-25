@@ -1,10 +1,16 @@
 .right-nav-bttn {
-    border: #3c3c3c 1px solid;
-    padding: 3px;
+    border: transparent 1px solid;
+    color: #3A98B9;
+    background-color: rgb(255, 245, 213);
+    padding: 7px 10px;
+}
+
+.tab-open {
+    background-color: rgb(255, 209, 131);
 }
 
 .right-nav-bttn:hover {
-    background-color: beige;
+    border: 1px brown solid;
     cursor: pointer;
 }
 
@@ -12,6 +18,8 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
+    background-color: rgb(255, 245, 213);
+    border-radius: 5px;
 }
 
 .right-section {

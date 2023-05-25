@@ -172,9 +172,9 @@ export default function BibleText() {
 
             <div className="right-section">
                 <div className="right-top">
-                    <div onClick={() => { setTab('notes') }} className="right-nav-bttn">Notes</div>
-                    <div onClick={() => { setTab('plans') }} className="right-nav-bttn">Plans</div>
-                    <div onClick={() => { setTab('') }} className="right-nav-bttn">Close</div>
+                    <div onClick={() => { setTab('notes') }} className={`right-nav-bttn${tab === 'notes' ? ' tab-open' : ''}`}>Notes</div>
+                    <div onClick={() => { setTab('plans') }} className={`right-nav-bttn${tab === 'plans' ? ' tab-open' : ''}`}>Plans</div>
+                    <div onClick={() => { setTab('') }} className="right-nav-bttn"><i className="fa-solid fa-xmark"></i></div>
                 </div>
 
 

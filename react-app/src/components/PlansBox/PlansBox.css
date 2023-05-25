@@ -53,6 +53,10 @@
     scroll-snap-type: x mandatory;
 }
 
+.enrolled-flag {
+    color: rgb(247, 166, 26);
+}
+
 .day-div {
     border: 1px brown solid;
     padding: 15px;
@@ -106,7 +110,7 @@
 }
 
 .unenroll-bttn {
-    background-color: red;
+    background-color: rgb(230, 38, 38);
     color: whitesmoke;
 }
 
@@ -121,4 +125,8 @@
 .flex-col {
     display: flex;
     flex-direction: column;
+}
+
+.gap10 {
+    gap: 10px
 }

@@ -87,9 +87,11 @@ export default function PlansForm() {
                 tasks
             }
 
-            const res = await dispatch(createPlanThunk(plan));
+            const returnedPlan = await dispatch(createPlanThunk(plan));
 
-            history.push('/plans')
+
+
+            history.push(`/plans/${returnedPlan.id}`)
 
         }
 

@@ -13,7 +13,7 @@ class Plan(db.Model):
     duration = db.Column(db.Integer, nullable=False)
     is_public = db.Column(db.Boolean)
     is_template = db.Column(db.Boolean, nullable=False)
-    template_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('plans.id')))
+    template_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('plans.id'), ondelete='SET NULL'))
     start_date = db.Column(db.DateTime)
     enrolled_user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 

@@ -163,7 +163,7 @@ export const enrollPlanThunk = (planId) => async dispatch => {
 	} else if (res.status < 500) {
 		const data = await res.json();
 		if (data.errors) {
-			return data.errors;
+			return data;
 		}
 	} else {
 		return ["An error occurred. Please try again."];

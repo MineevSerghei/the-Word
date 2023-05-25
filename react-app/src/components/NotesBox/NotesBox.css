@@ -52,6 +52,7 @@
 
 .note-text {
     overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .title-and-back-arrow {
@@ -66,12 +67,24 @@
 .back-arrow {
     padding: 10px 20px;
     justify-self: center;
+    border: transparent 1px solid;
 }
 
 .back-arrow:hover {
     cursor: pointer;
     border: #3A98B9 1px solid;
     border-radius: 10px;
+}
+
+.back-arrow[disabled] {
+    pointer-events: none;
+    color: gray;
+}
+
+.back-arrow[disabled]:hover {
+    pointer-events: none;
+    border: transparent 1px solid;
+    color: gray;
 }
 
 .wider {

@@ -37,8 +37,11 @@ export default function PlanDetailsPage() {
 
         if (res.message && res.message === 'Success!') {
 
+        } else if (res.errors && res.errors === 'Plan Not Found') {
+            alert("Plan is no longer available")
+            history.push('/plans')
         } else {
-            alert('Something went wrong')
+            alert("Something went wrong")
         }
 
     }

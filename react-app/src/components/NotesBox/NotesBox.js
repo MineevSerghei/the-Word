@@ -33,7 +33,7 @@ export default function NotesBox({ setSelectedVerse, chapter, book, field, setFi
                 <button className="bttn-face wider" onClick={renderField}>New Note</button>
 
                 <div className="notes-container">
-                    {user.notes.map(note => {
+                    {user.notes.slice(0).reverse().map(note => {
 
                         return note.verse.chapter.id === chapter.id ?
                             <div key={note.id} className="note-div">

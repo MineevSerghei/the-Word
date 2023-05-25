@@ -57,6 +57,11 @@ export default function BibleText() {
     }
 
     const setNext = e => {
+
+        if (booksObj[displayedBook].ordinalNumber === 66 && displayedChapter === 22)
+            return;
+
+
         setField('allNotes');
         setPopUpOpen(0);
         if (booksObj[displayedBook].chaptersObj[displayedChapter + 1]) {
@@ -72,6 +77,10 @@ export default function BibleText() {
     }
 
     const setPrevious = e => {
+
+        if (booksObj[displayedBook].ordinalNumber === 1 && displayedChapter === 1)
+            return;
+
         setField('allNotes');
         setPopUpOpen(0);
         if (booksObj[displayedBook].chaptersObj[displayedChapter - 1]) {
@@ -142,12 +151,12 @@ export default function BibleText() {
 
                             })}
 
-                        <button
-                            disabled={booksObj[displayedBook].ordinalNumber === 1 && displayedChapter === 1}
-                            onClick={setPrevious}>Prev</button>
-                        <button
-                            disabled={booksObj[displayedBook].ordinalNumber === 66 && displayedChapter === 22}
-                            onClick={setNext}>Next</button>
+                        <i className="fa-solid fa-arrow-left back-arrow"
+                            disabled={booksObj[displayedBook].ordinalNumber === 1 && displayedChapter === 1 ? 'disabled' : ''}
+                            onClick={setPrevious}></i>
+                        <i className="fa-solid fa-arrow-left back-arrow fa-flip-horizontal"
+                            disabled={booksObj[displayedBook].ordinalNumber === 66 && displayedChapter === 22 ? 'disabled' : ''}
+                            onClick={setNext}></i>
                     </>}
                     {popUpOpen !== 0 && <NotePopUp
                         field={field}

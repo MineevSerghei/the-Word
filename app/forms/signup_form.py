@@ -22,5 +22,5 @@ def user_exists(form, field):
 
 class SignUpForm(FlaskForm):
     name = StringField('name', validators=[Length(max=50, message='Name has to be 50 characters or less.')])
-    email = StringField('email', validators=[DataRequired(), Length(max=255, message='Email can not exceed 255 characters.'), user_exists])
+    email = StringField('email', validators=[DataRequired(), Email(), Length(max=255, message='Email can not exceed 255 characters.'), user_exists])
     password = StringField('password', validators=[DataRequired(), Length(max=20, message='Password has to be 20 characters or less.')])

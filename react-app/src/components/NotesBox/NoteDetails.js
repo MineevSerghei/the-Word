@@ -29,7 +29,7 @@ export default function NoteDetails({ setField, note }) {
 
                 <div className="note-div">
                     <p className="no-margin">{note.verse.chapter.book.name} {note.verse.chapter.number}:{note.verse.number}</p>
-                    <p>{note.noteText}</p>
+                    <p className="note-text">{note.noteText}</p>
                     <p className="smaller">{new Date(note.createdAt).toDateString()}</p>
 
                     <div className="edit-delete-note-bttns">

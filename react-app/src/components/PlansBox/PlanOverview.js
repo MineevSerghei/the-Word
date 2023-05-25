@@ -15,8 +15,11 @@ export default function PlanOverview({ plan, setPlansField, setSelectedPlan }) {
 
             setSelectedPlan(user.enrolledPlans.length)
             setPlansField('planDetails')
+        } else if (res.errors && res.errors === 'Plan Not Found') {
+            alert("Plan is no longer available")
+            setPlansField('allPlans')
         } else {
-            alert('Something went wrong')
+            alert("Something went wrong")
         }
 
     }

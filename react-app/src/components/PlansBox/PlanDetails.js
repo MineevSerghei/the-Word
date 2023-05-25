@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCompletedThunk } from '../../store/session';
 
@@ -33,6 +33,11 @@ export default function PlanDetails({ plan, setPlansField }) {
     const [selectedDay, setSelectedDay] = useState(findFirstNonCompletedDay());
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        const selectedDiv = document.getElementById("selected-div");
+        if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
+    }, [selectedDay])
+
     const daysRef = Array(plan.duration).fill([])
     const days = daysRef.map(arr => Array.from(arr));
 
@@ -66,7 +71,8 @@ export default function PlanDetails({ plan, setPlansField }) {
 
                 <div className='days'>
                     {days.map((day, i) => {
-                        let className = selectedDay === i + 1 ? 'large day-div' : "day-div"
+                        let className = selectedDay === i + 1 ? 'large day-div flex-col' : "day-div flex-col"
+
 
                         const date = new Date(new Date().setDate(startDate.getDate() + i + 1));
                         const displayDate = date.getDate();
@@ -83,10 +89,13 @@ export default function PlanDetails({ plan, setPlansField }) {
 
                         return (
 
-                            <div onClick={() => setSelectedDay(i + 1)} key={i} className={className} >
+                            <div onClick={() => setSelectedDay(i + 1)}
+                                key={i}
+                                id={selectedDay === i + 1 ? 'selected-div' : null}
+                                className={className} >
+                                {todayIndex === i + 1 && <span className='small'>today</span>}
                                 <p>{displayMonth}/{displayDate}</p>
-                                {todayIndex === i + 1 && <span>today</span>}
-                                {completed && <span>Done</span>}
+                                {completed && <i className="fa-solid fa-check done-mark"></i>}
                             </div>
                         )
                     })}

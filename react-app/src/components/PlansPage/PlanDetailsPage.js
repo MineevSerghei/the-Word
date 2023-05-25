@@ -15,10 +15,17 @@ export default function PlanDetailsPage() {
     const [daySelected, setDaySelected] = useState(0);
     const history = useHistory();
 
+
+    useEffect(() => {
+        const selectedDiv = document.getElementById("selected-div");
+        if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
+    }, [daySelected])
+
     if (!plan) {
         history.push('/plans');
         return null;
     }
+
 
     const userEnrolledTemplateIds = [];
 
@@ -79,7 +86,9 @@ export default function PlanDetailsPage() {
                             return (
 
 
-                                < div key={i} className={`day-div${large}`} onClick={() => setDaySelected(i)} >
+                                < div key={i}
+                                    id={daySelected === i ? 'selected-div' : null}
+                                    className={`day-div${large}`} onClick={() => setDaySelected(i)} >
                                     <p>{i + 1}</p>
                                 </div>
                             )

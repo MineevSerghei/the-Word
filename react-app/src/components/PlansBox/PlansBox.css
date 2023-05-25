@@ -32,11 +32,25 @@
     display: flex;
     flex-wrap: nowrap;
     overflow-x: scroll;
+    scroll-behavior: smooth;
     gap: 3px;
     max-width: 30vw;
     align-items: flex-end;
     margin-bottom: 15px;
     padding-bottom: 20px;
+}
+
+.done-mark {
+    color: #63d228;
+
+}
+
+.prox-snap {
+    scroll-snap-type: x proximity;
+}
+
+.mand-snap {
+    scroll-snap-type: x mandatory;
 }
 
 .day-div {
@@ -46,6 +60,10 @@
     align-items: center;
     height: 20px;
     justify-content: center;
+}
+
+.snapped {
+    scroll-snap-align: center;
 }
 
 .large {
@@ -98,4 +116,9 @@
 
 .plan-details {
     align-items: flex-start;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
 }

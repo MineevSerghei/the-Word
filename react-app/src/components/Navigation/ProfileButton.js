@@ -46,6 +46,7 @@ function ProfileButton({ user }) {
           <>
             <li className="name-profile">{user.name}</li>
             {/* <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/account'>Account</Link></li> */}
+            <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/read'>The Bible</Link></li>
             <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/notes'>All Notes</Link></li>
             <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/plans'>Custom Plans</Link></li>
             <li>

@@ -53,6 +53,11 @@ export default function PlansEditForm() {
 
     }, [appliedDuration]);
 
+    useEffect(() => {
+        const selectedDiv = document.getElementById("selected-div");
+        if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
+    }, [daySelected])
+
 
     const createPlan = async e => {
 
@@ -182,7 +187,9 @@ export default function PlansEditForm() {
                             return (
 
 
-                                < div key={i} className={`day-div${large}`} onClick={() => setDaySelected(i)} >
+                                < div key={i}
+                                    id={daySelected === i ? 'selected-div' : null}
+                                    className={`day-div${large}`} onClick={() => setDaySelected(i)} >
                                     <p>{i + 1}</p>
                                 </div>
                             )

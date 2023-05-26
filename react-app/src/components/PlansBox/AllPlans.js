@@ -20,7 +20,7 @@ export default function AllPlans({ setPlansField, setSelectedPublicPlan }) {
 
         dispatch(getAllPlansThunk());
 
-    }, [])
+    }, [dispatch])
 
 
     const openPlanDetails = planId => {

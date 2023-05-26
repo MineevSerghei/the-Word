@@ -1,12 +1,7 @@
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { unenrollPlanThunk } from '../../store/session';
 import ConfirmUnenrollModal from './ConfirmUnenrollModal';
 import OpenModalButton from "../OpenModalButton";
 
 export default function PlanSettings({ plan, setPlansField }) {
-
-    const dispatch = useDispatch();
 
 
     return (

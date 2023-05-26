@@ -9,6 +9,8 @@ export default function PlansEditForm() {
     const { planId } = useParams();
     const plan = useSelector(state => state.session.user.authoredPlans).find(plan => plan.id === parseInt(planId));
 
+    const history = useHistory();
+
     if (!plan) {
         history.push('/')
     }
@@ -33,7 +35,7 @@ export default function PlansEditForm() {
 
     const dispatch = useDispatch();
 
-    const history = useHistory();
+
 
     useEffect(() => {
         const len = tasks.length;
@@ -105,7 +107,7 @@ export default function PlansEditForm() {
                 tasks
             }
 
-            const res = await dispatch(editPlanThunk(plan, planId));
+            await dispatch(editPlanThunk(plan, planId));
 
             history.push(`/plans/${planId}`)
 

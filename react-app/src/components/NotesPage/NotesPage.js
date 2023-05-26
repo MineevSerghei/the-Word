@@ -45,11 +45,6 @@ export default function NotesPage() {
         }
     }
 
-    const openNoteVerse = () => {
-
-    }
-
-
     const user = useSelector(state => state.session.user);
 
     return (

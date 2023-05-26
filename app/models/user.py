@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     notes = db.relationship('Note', back_populates='user')
-    bookmarks = db.relationship('User', back_populates='user')
+    bookmarks = db.relationship('Bookmark', back_populates='user')
 
     enrolled_plans = db.relationship("Plan", back_populates="enrolled_user", foreign_keys=[Plan.enrolled_user_id] )
     authored_plans = db.relationship("Plan", back_populates="author", foreign_keys=[Plan.author_id])

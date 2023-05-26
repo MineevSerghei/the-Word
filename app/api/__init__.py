@@ -4,3 +4,4 @@ from .bible_routes import bible_routes
 from .note_routes import note_routes
 from .task_routes import task_routes
 from .plan_routes import plan_routes
+from .bookmark_routes import bookmark_routes

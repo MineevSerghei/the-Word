@@ -28,7 +28,7 @@ def post_note():
         db.session.add(note)
         db.session.commit()
 
-        return note.to_dict()
+        return note.to_dict_no_user()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 

@@ -1,6 +1,5 @@
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import OpenModalButton from "../OpenModalButton";
-import { useEffect } from "react";
 
 export default function NoteDetails({ setField, note }) {
 

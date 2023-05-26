@@ -14,7 +14,7 @@ class Plan(db.Model):
     is_public = db.Column(db.Boolean)
     is_template = db.Column(db.Boolean, nullable=False)
     template_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('plans.id'), ondelete='SET NULL'))
-    start_date = db.Column(db.DateTime)
+    start_date = db.Column(db.Date)
     enrolled_user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
     tasks = db.relationship('Task', back_populates='plan', cascade="all, delete-orphan")

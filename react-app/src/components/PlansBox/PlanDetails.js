@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toggleCompletedThunk } from '../../store/session';
 
 export default function PlanDetails({ plan, setPlansField }) {
@@ -7,10 +7,13 @@ export default function PlanDetails({ plan, setPlansField }) {
     const today = () => {
 
         const startDate = new Date(plan.startDate);
+        console.log('plan.startDate ------> ', plan.startDate)
+        console.log('startDate --------> ', startDate)
         // const pseudoToday = new Date();
         // pseudoToday.setDate(pseudoToday.getDate() + 10)
         const todayDate = new Date();
 
+        console.log('todayDate --------> ', todayDate)
         const diff = Math.floor((todayDate - startDate) / (1000 * 60 * 60 * 24));
 
         if (diff > plan.duration - 1 || diff < 0) {

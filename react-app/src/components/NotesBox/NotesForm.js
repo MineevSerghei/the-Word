@@ -50,7 +50,7 @@ export default function NotesForm({ verseNum, chapter, book, setField, setSelect
             <br></br>
             <div className="note-div" >
                 <p>{book.name} {chapter.number}:{verse.number}</p>
-                {errors.note && <p>{errors.note}</p>}
+                {errors.note && <p className="error">{errors.note}</p>}
                 <textarea
                     id='noteTextarea'
                     className="note-input"

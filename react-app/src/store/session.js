@@ -74,7 +74,30 @@ const createBookmarkAction = (bookmark) => ({
 	bookmark
 });
 
+export const createBookmarkThunk = bookmark => async dispatch => {
+	const res = await fetch("/api/bookmarks", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			...bookmark
+		})
+	});
 
+	if (res.ok) {
+		const bookmark = await res.json();
+		dispatch(createBookmarkAction(bookmark));
+		return bookmark;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
 
 export const deletePlanThunk = (planId) => async dispatch => {
 	const res = await fetch(`/api/plans/${planId}`, { method: "DELETE" });

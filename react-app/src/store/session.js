@@ -10,6 +10,7 @@ const UNENROLL_PLAN = "session/UNENROLL_PLAN";
 const CREATE_PLAN = "session/CREATE_PLAN";
 const EDIT_PLAN = "session/EDIT_PLAN";
 const DELETE_PLAN = "session/DELETE_PLAN";
+const CREATE_BOOKMARK = 'session/CREATE_BOOKMARK';
 
 
 const setUser = (user) => ({
@@ -65,6 +66,12 @@ const editPlanAction = (plan) => ({
 const deletePlanAction = (planId) => ({
 	type: DELETE_PLAN,
 	planId
+});
+
+
+const createBookmarkAction = (bookmark) => ({
+	type: CREATE_BOOKMARK,
+	bookmark
 });
 
 

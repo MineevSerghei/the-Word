@@ -46,4 +46,4 @@ def delete_bookmark(id):
     db.session.delete(bookmark)
     db.session.commit()
 
-    return {'message': 'Bookmark successfuly deleted'}
+    return {'message': 'Bookmark successfully deleted'}

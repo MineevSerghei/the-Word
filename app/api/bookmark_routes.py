@@ -29,3 +29,21 @@ def post_bookmark():
         return bookmark.to_dict_no_user()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
+@bookmark_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_bookmark(id):
+    """
+    Route to delete a bookmark specified by id
+    """
+
+    bookmark = Bookmark.query.get(id)
+
+    if bookmark.user.id != current_user.id:
+         return {'errors': 'Forbidden'}, 403
+
+    db.session.delete(bookmark)
+    db.session.commit()
+
+    return {'message': 'Bookmark successfuly deleted'}

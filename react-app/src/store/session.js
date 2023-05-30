@@ -449,6 +449,9 @@ export default function reducer(state = initialState, action) {
 
 				return newState;
 			}
+
+		case CREATE_BOOKMARK:
+			return { ...state, user: { ...state.user, notes: [...state.user.bookmarks, action.bookmark] } }
 		default:
 			return state;
 	}

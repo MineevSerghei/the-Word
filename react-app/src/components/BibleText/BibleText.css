@@ -36,7 +36,21 @@
 }
 
 .bookmark-icon {
+
     height: 1.5em;
+    vertical-align: -0.125em;
+    padding: 3px 3px 3px 0;
+    margin: 2px;
+    border: transparent 1px solid;
+
+}
+
+.bookmark-icon:hover {
+    position: relative;
+    bottom: 2px;
+    cursor: pointer;
+
+    border: transparent 1px solid;
 }
 
 .title-bookmarks {

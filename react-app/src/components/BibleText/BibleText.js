@@ -144,11 +144,10 @@ export default function BibleText() {
                         {user.bookmarks.map(bookmark =>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                title={bookmark.tag}
                                 className="bookmark-icon"
                                 aria-hidden="true"
                                 focusable="false"
-                                viewBox="0 0 512 512">
+                                viewBox="0 0 290 512">
                                 <path
                                     fill={bookmark.color}
                                     d="M 88.601 56.189 L 88.601 472.859 C 88.601 485.557 93.925 495.886 100.468 495.886

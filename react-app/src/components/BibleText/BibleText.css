@@ -35,6 +35,16 @@
     background-color: white;
 }
 
+.bookmark-icon {
+    height: 1.5em;
+}
+
+.title-bookmarks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .chapter-number-in-text {
     font-size: 3rem;
     font-weight: bold;
@@ -97,6 +107,8 @@
 }
 
 .book-top {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
 }

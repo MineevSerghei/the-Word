@@ -114,7 +114,7 @@ export default function BibleText() {
                         <h2
                             onClick={() => setBooksMenuOpen(!booksMenuOpen)}
                             className="selected-book-title">{displayedBook}</h2>
-                        {user.bookmarks.map(bookmark => <i className="">{bookmark.tag} ---- {bookmark.color}</i>)}
+                        {user.bookmarks.map(bookmark => <i title={bookmark.tag} style={{ color: bookmark.color }} className="fa-solid fa-bookmark"></i>)}
                         {booksMenuOpen && <div className="select-book">
                             {books.map(book => {
                                 return <div key={book.id}>

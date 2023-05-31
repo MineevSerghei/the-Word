@@ -9,7 +9,8 @@ import './BibleText.css'
 export default function BibleText() {
 
     const dispatch = useDispatch();
-    const booksObj = useSelector(state => state.bible)
+    const booksObj = useSelector(state => state.bible);
+    const user = useSelector(state => state.session.user);
 
     const [selectedBook, setSelectedBook] = useState('');
     const [booksMenuOpen, setBooksMenuOpen] = useState(false);
@@ -113,7 +114,7 @@ export default function BibleText() {
                         <h2
                             onClick={() => setBooksMenuOpen(!booksMenuOpen)}
                             className="selected-book-title">{displayedBook}</h2>
-
+                        {user.bookmarks.map(bookmark => <i className="">{bookmark.tag} ---- {bookmark.color}</i>)}
                         {booksMenuOpen && <div className="select-book">
                             {books.map(book => {
                                 return <div key={book.id}>

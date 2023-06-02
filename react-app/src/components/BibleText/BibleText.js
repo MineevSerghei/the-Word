@@ -42,9 +42,21 @@ export default function BibleText() {
         setSelectedBook('')
     }
 
-    const goToBookmark = verse => {
-        setDisplayedChapter(verse.chapter.number);
-        setDisplayedBook(verse.chapter.book.name);
+    const goToBookmark = async bookmark => {
+        await setDisplayedChapter(bookmark.verse.chapter.number);
+        await setDisplayedBook(bookmark.verse.chapter.book.name);
+        const versePTag = await document.getElementById(`${bookmark.verse.id}`);
+        if (versePTag) {
+            versePTag.scrollIntoView({ block: "center" });
+            versePTag.style.color = bookmark.color;
+            versePTag.style.textDecoration = `underline`;
+
+            setTimeout(() => {
+                versePTag.style.color = 'inherit';
+                versePTag.style.textDecoration = `none`;
+            }, 1000)
+        }
+
     }
 
     const openPopUp = (e, verseNumber) => {
@@ -148,7 +160,7 @@ export default function BibleText() {
                     <div>
                         {user.bookmarks.map(bookmark =>
                             <svg
-                                onClick={() => goToBookmark(bookmark.verse)}
+                                onClick={() => goToBookmark(bookmark)}
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="bookmark-icon"
                                 aria-hidden="true"
@@ -172,6 +184,7 @@ export default function BibleText() {
                             .chaptersObj[displayedChapter].versesObj)
                             .map(verse => {
                                 return <p
+                                    id={verse.id}
                                     className={popUpOpen === verse.number ? 'verse underlined' : 'verse'}
                                     onClick={(e) => openPopUp(e, verse.number)}
                                     key={verse.id}>

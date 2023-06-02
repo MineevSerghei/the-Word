@@ -42,8 +42,9 @@ export default function BibleText() {
         setSelectedBook('')
     }
 
-    const goToBookmark = e => {
-        
+    const goToBookmark = verse => {
+        setDisplayedChapter(verse.chapter.number);
+        setDisplayedBook(verse.chapter.book.name);
     }
 
     const openPopUp = (e, verseNumber) => {
@@ -147,7 +148,7 @@ export default function BibleText() {
                     <div>
                         {user.bookmarks.map(bookmark =>
                             <svg
-                                onClick={goToBookmark}
+                                onClick={() => goToBookmark(bookmark.verse)}
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="bookmark-icon"
                                 aria-hidden="true"

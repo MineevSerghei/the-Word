@@ -52,8 +52,7 @@ export default function BibleText() {
             versePTag.style.textDecoration = `underline`;
 
             setTimeout(() => {
-                versePTag.style.color = 'inherit';
-                versePTag.style.textDecoration = `none`;
+                versePTag.style = null;
             }, 1000)
         }
 
@@ -89,9 +88,6 @@ export default function BibleText() {
             setDisplayedBook(bookName)
             setDisplayedChapter(1)
         }
-
-
-        // setDisplayedBook(book)
     }
 
     const setPrevious = e => {

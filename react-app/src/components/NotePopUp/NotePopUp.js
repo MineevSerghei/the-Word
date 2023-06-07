@@ -35,7 +35,7 @@ export default function NotePopUp({ verse, chapter, book, x, y, setPopUpOpen, se
             <div className="popup-buttons">
 
                 <button className="popup-button" disabled>Send</button>
-                <button className="popup-button" onClick={() => setBookmarkOptionsOpen(!bookmarkOptionsOpen)}>Bookmark</button>
+                <button className={bookmarkOptionsOpen ? 'popup-button filled' : 'popup-button'} onClick={() => setBookmarkOptionsOpen(!bookmarkOptionsOpen)}>Bookmark</button>
                 <button className="popup-button" disabled={!user} onClick={openNoteField}>Note</button>
                 <button className="popup-button" onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
             </div>

@@ -52,6 +52,10 @@
     font-family: inherit;
 }
 
+.popup-button.filled {
+    background-color: rgb(255, 209, 131);
+}
+
 .popup-button:hover {
     cursor: pointer;
     background-color: rgb(255, 209, 131);

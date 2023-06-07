@@ -1,6 +1,7 @@
 .pop-up-container-bookmarks {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 120px;
     height: 70px;
     background-color: rgb(255, 245, 213);

@@ -2,12 +2,14 @@ import { useSelector } from "react-redux"
 
 import "./NotePopUp.css"
 import { useState } from "react"
+import BookmarksOptions from "../BookmarksOptions/BookmarksOptions"
 
 export default function NotePopUp({ verse, chapter, book, x, y, setPopUpOpen, setField, setTab, setSelectedVerse }) {
 
     const user = useSelector(state => state.session.user)
 
-    const [copied, setCopied] = useState(false)
+    const [copied, setCopied] = useState(false);
+    const [bookmarkOptionsOpen, setBookmarkOptionsOpen] = useState(false);
 
     const openNoteField = (e) => {
         setTab('notes')
@@ -33,10 +35,15 @@ export default function NotePopUp({ verse, chapter, book, x, y, setPopUpOpen, se
             <div className="popup-buttons">
 
                 <button className="popup-button" disabled>Send</button>
-                <button className="popup-button" disabled>Bookmark</button>
+                <button className="popup-button" onClick={() => setBookmarkOptionsOpen(!bookmarkOptionsOpen)}>Bookmark</button>
                 <button className="popup-button" disabled={!user} onClick={openNoteField}>Note</button>
                 <button className="popup-button" onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
             </div>
+
+            {bookmarkOptionsOpen && <BookmarksOptions
+                setBookmarkOptionsOpen={setBookmarkOptionsOpen}
+                user={user}
+            />}
 
         </div >
     )

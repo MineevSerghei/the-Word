@@ -1,21 +1,21 @@
 import "./BookmarksOptions.css"
 
-export default function BookmarksOptions({ }) {
+export default function BookmarksOptions({ setBookmarkOptionsOpen, user }) {
 
     return (
-        <h2>BookmarksOptions</h2>
-        // <div style={{ left: `${x - 100}px`, top: `${y - 200}px` }} className="pop-up-container">
-        //     <i className="fa-solid fa-xmark note-close" onClick={() => setPopUpOpen(0)}></i>
-        //     <p className="verse-ref-note">{book.name} {chapter.number}:{verse.number}</p>
+        <div style={{ bottom: `${100}px` }} className="pop-up-container">
+            <i className="fa-solid fa-xmark note-close" onClick={() => setBookmarkOptionsOpen(false)}></i>
 
-        //     <div className="popup-buttons">
+            {/* <p className="verse-ref-note">{book.name} {chapter.number}:{verse.number}</p>
 
-        //         <button className="popup-button" disabled>Send</button>
-        //         <button className="popup-button" disabled>Bookmark</button>
-        //         <button className="popup-button" disabled={!user} onClick={openNoteField}>Note</button>
-        //         <button className="popup-button" onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
-        //     </div>
+            <div className="popup-buttons">
 
-        // </div >
+                <button className="popup-button" disabled>Send</button>
+                <button className="popup-button" disabled>Bookmark</button>
+                <button className="popup-button" disabled={!user} onClick={openNoteField}>Note</button>
+                <button className="popup-button" onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
+            </div> */}
+
+        </div >
     )
 }

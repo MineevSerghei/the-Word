@@ -1,9 +1,17 @@
 import "./BookmarksOptions.css"
+import BookmarkDetails from "./BookmarkDetails"
+import { useState } from "react"
 
 export default function BookmarksOptions({ setBookmarkOptionsOpen, user }) {
 
+    const [detailsOpen, setDetailsOpen] = useState(0);
+
     const bookmarkVerse = () => {
 
+    }
+
+    showDetails = number => {
+        setDetailsOpen(number);
     }
 
 
@@ -12,6 +20,7 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user }) {
             {user.bookmarks.map(bookmark =>
                 <svg
                     onClick={() => bookmarkVerse(bookmark)}
+                    onMouseOver={e => showDetails(bookmark.number)}
                     xmlns="http://www.w3.org/2000/svg"
                     className="bookmark-icon"
                     aria-hidden="true"
@@ -26,6 +35,8 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user }) {
                                     112.044 10.705 C 99.1 10.705 88.601 31.078 88.601 56.189 Z" />
                 </svg>
             )}
+
+            {detailsOpen > 0 && <BookmarkDetails bookmark={user.bookmarks.find(m => m.number == detailsOpen)} />}
 
             {user.bookmarks.map(bookmark =>
                 <svg

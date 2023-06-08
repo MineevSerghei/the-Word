@@ -16,14 +16,21 @@ def post_bookmark():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        bookmark = Bookmark(
-            user=current_user,
-            verse_id=int(request.get_json()['verseId']),
-            tag=form.data['tag'],
-            color=form.data['color']
-        )
 
-        db.session.add(bookmark)
+        bookmark = Bookmark.query.filter(Bookmark.number == form.data['number'],
+                                         Bookmark.user_id == current_user.id).first()
+
+        if bookmark:
+            bookmark.verse_id = request.get_json()['verseId']
+        else:
+            new_bookmark = Bookmark(
+                user=current_user,
+                verse_id=int(request.get_json()['verseId']),
+                number=form.data['number'],
+                color=form.data['color']
+            )
+            db.session.add(new_bookmark)
+
         db.session.commit()
 
         return bookmark.to_dict_no_user()

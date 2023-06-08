@@ -10,7 +10,7 @@ class Bookmark(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     verse_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('verses.id')), nullable=False)
-    tag = db.Column(db.String(20))
+    number = db.Column(db.Integer, nullable=False)
     color = db.Column(db.String(50), nullable=False)
 
     user = db.relationship('User', back_populates='bookmarks')
@@ -21,7 +21,7 @@ class Bookmark(db.Model):
             'id': self.id,
             'userId': self.user_id,
             'verseId': self.verse_id,
-            'tag': self.tag,
+            'number': self.number,
             'color': self.color,
             'user': self.user.to_dict(),
             'verse': self.verse.to_dict()
@@ -32,7 +32,7 @@ class Bookmark(db.Model):
             'id': self.id,
             'userId': self.user_id,
             'verseId': self.verse_id,
-            'tag': self.tag,
+            'number': self.number,
             'color': self.color,
             'verse': self.verse.to_dict()
         }

@@ -6,14 +6,14 @@ def seed_bookmarks():
     bookmark1 = Bookmark(
         user_id=1,
         verse_id=1000,
-        tag="verse #1000!",
+        number=1,
         color="#3a98b9"
     )
 
     bookmark2 = Bookmark(
         user_id=1,
         verse_id=2000,
-        tag="verse #2000!",
+        number=2,
         color="#ffd183"
     )
 

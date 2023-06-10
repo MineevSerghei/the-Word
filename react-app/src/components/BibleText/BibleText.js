@@ -154,7 +154,7 @@ export default function BibleText() {
                         </div>}
                     </div>
                     <div>
-                        {user.bookmarks.map(bookmark =>
+                        {user && user.bookmarks.map(bookmark =>
                             <svg
                                 onClick={() => goToBookmark(bookmark)}
                                 xmlns="http://www.w3.org/2000/svg"

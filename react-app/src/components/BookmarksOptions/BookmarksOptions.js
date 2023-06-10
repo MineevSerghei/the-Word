@@ -10,7 +10,7 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user }) {
 
     }
 
-    showDetails = number => {
+    const showDetails = number => {
         setDetailsOpen(number);
     }
 
@@ -21,6 +21,7 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user }) {
                 <svg
                     onClick={() => bookmarkVerse(bookmark)}
                     onMouseOver={e => showDetails(bookmark.number)}
+                    onMouseOut={e => setDetailsOpen(0)}
                     xmlns="http://www.w3.org/2000/svg"
                     className="bookmark-icon"
                     aria-hidden="true"

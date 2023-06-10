@@ -1,14 +1,11 @@
 
-export default function BookmarkDetails({ }) {
+export default function BookmarkDetails({ bookmark }) {
 
-    const bookmarkVerse = () => {
-
-    }
 
 
     return (
-        <div style={{ bottom: `${80}px`, right: '5px' }} className="pop-up-container-bookmarks">
-
+        <div style={{ bottom: `${50}px`, right: '5px' }} className="pop-up-container-bookmarks">
+            <p>{bookmark.verse.chapter.book.name} {bookmark.verse.chapter.number}:{bookmark.verse.number}</p>
         </div >
     )
 }

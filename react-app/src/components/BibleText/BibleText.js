@@ -43,8 +43,19 @@ export default function BibleText() {
     }
 
     const goToBookmark = async bookmark => {
-        await setDisplayedChapter(bookmark.verse.chapter.number);
-        await setDisplayedBook(bookmark.verse.chapter.book.name);
+
+        const set = () => {
+            setDisplayedChapter(bookmark.verse.chapter.number);
+            setDisplayedBook(bookmark.verse.chapter.book.name);
+        }
+
+        await set();
+
+        console.log('bookmark.verse.chapter.book.name --> ', bookmark.verse.chapter.book.name)
+        console.log('books --> ', books)
+        console.log('booksObj[displayedBook].chaptersObj[displayedChapter].versesObj --> ',
+            booksObj[displayedBook].chaptersObj[displayedChapter].versesObj)
+
         const versePTag = await document.getElementById(`${bookmark.verse.id}`);
         if (versePTag) {
             versePTag.scrollIntoView({ block: "center" });

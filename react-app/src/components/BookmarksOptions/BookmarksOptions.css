@@ -1,14 +1,43 @@
 .pop-up-container-bookmarks {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    justify-items: start;
     align-items: center;
-    width: 120px;
+    width: 140px;
     height: 40px;
     background-color: rgb(255, 245, 213);
     position: absolute;
-    padding: 0 20px 0 20px;
+    padding: 0 5px 0 20px;
     border-radius: 10px;
-
     /* border: 1px solid rgb(168, 168, 168); */
     box-shadow: 1px 1px 5px;
+}
+
+.bookmarks-delete-mode {
+    background-color: rgb(253, 163, 163);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fa-delete-left {
+    font-size: 10px;
+    justify-self: end;
+}
+
+.delete-bookmark {
+    padding: 5px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    color: brown;
+    margin-left: 5px;
+
+}
+
+.delete-bookmark:hover {
+    border: 1px solid brown;
+    cursor: pointer;
+}
+
+.delete-bookmark-filled {
+    background-color: brown;
+    color: red;
 }

@@ -11,6 +11,7 @@ const CREATE_PLAN = "session/CREATE_PLAN";
 const EDIT_PLAN = "session/EDIT_PLAN";
 const DELETE_PLAN = "session/DELETE_PLAN";
 const CREATE_BOOKMARK = 'session/CREATE_BOOKMARK';
+const REMOVE_BOOKMARK = 'session/REMOVE_BOOKMARK';
 
 
 const setUser = (user) => ({
@@ -73,6 +74,32 @@ const createBookmarkAction = (bookmark) => ({
 	type: CREATE_BOOKMARK,
 	bookmark
 });
+
+const removeBookmarkAction = (bookmarkId) => ({
+	type: REMOVE_BOOKMARK,
+	bookmarkId
+});
+
+
+export const removeBookmarkThunk = bookmarkId => async dispatch => {
+
+	const res = await fetch(`/api/bookmarks/${bookmarkId}`, {
+		method: "DELETE"
+	});
+
+	if (res.ok) {
+		const message = await res.json();
+		dispatch(removeBookmarkAction(bookmarkId));
+		return message;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
 
 export const createBookmarkThunk = bookmark => async dispatch => {
 
@@ -457,12 +484,19 @@ export default function reducer(state = initialState, action) {
 
 				const index = state.user.bookmarks.findIndex(bm => bm.number === action.bookmark.number);
 
-				console.log('idex --> ', index)
-
 				if (index !== -1)
 					newState.user.bookmarks[index] = action.bookmark;
 				else
 					newState.user.bookmarks.push(action.bookmark);
+
+				return newState;
+			}
+		case REMOVE_BOOKMARK:
+			{
+				const newState = { ...state, user: { ...state.user, bookmarks: [...state.user.bookmarks] } };
+				const index = state.user.bookmarks.findIndex(bm => bm.id === action.bookmarkId);
+
+				newState.user.bookmarks.splice(index, 1);
 
 				return newState;
 			}

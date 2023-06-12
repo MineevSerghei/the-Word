@@ -15,7 +15,6 @@
 
 .bookmarks-delete-mode {
     background-color: rgb(253, 163, 163);
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .fa-delete-left {

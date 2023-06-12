@@ -1,7 +1,7 @@
 import "./BookmarksOptions.css"
 import BookmarkDetails from "./BookmarkDetails"
 import { useState } from "react"
-import { createBookmarkThunk } from "../../store/session"
+import { createBookmarkThunk, removeBookmarkThunk } from "../../store/session"
 import { useDispatch } from "react-redux"
 
 const colors = { '1': '#3a98b9', '2': '#ffd183', '3': '#a52a2a', '4': '#36AC0B', '5': '#CB58DA' }
@@ -26,20 +26,17 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user, verse }
             'verseId': verse.id
         }
 
-        const res = await dispatch(createBookmarkThunk(info));
-
-        console.log('res --> ', res);
-
+        await dispatch(createBookmarkThunk(info));
     }
 
     const removeBookmark = async bmId => {
-        
+        setDetailsOpen(0);
+        await dispatch(removeBookmarkThunk(bmId));
     }
 
     const showDetails = number => {
         setDetailsOpen(number);
     }
-
 
     return (
         <>
@@ -55,7 +52,7 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user, verse }
                         className="bookmark-icon"
                         aria-hidden="true"
                         focusable="false"
-                        viewBox="0 0 290 512">
+                        viewBox="0 0 340 512">
                         <path
                             fill={colors[`${i + 1}`]}
                             d="M 88.601 56.189 L 88.601 472.859 C 88.601 485.557 93.925 495.886 100.468 495.886
@@ -81,7 +78,7 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user, verse }
                     L 317.739 53.094 C 317.739 27.983 307.239 7.61 294.298 7.61 L 153.646 7.61
                     C 140.702 7.61 130.203 27.983 130.203 53.094 Z"/>
                             <path
-                                fill='#fff5d5'
+                                fill={deleteModeOn ? '#fda3a3' : '#fff5d5'}
                                 d="M 142.903 67.226 L 142.903 430.273 C 142.903 441.337 147.542
                     450.337 153.243 450.337 C 155.37 450.337 157.456 449.099 159.2 446.704
                     L 224.604 357.864 L 290.006 446.704 C 291.752 449.099 293.837 450.337

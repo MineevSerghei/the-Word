@@ -10,6 +10,8 @@ const UNENROLL_PLAN = "session/UNENROLL_PLAN";
 const CREATE_PLAN = "session/CREATE_PLAN";
 const EDIT_PLAN = "session/EDIT_PLAN";
 const DELETE_PLAN = "session/DELETE_PLAN";
+const CREATE_BOOKMARK = 'session/CREATE_BOOKMARK';
+const REMOVE_BOOKMARK = 'session/REMOVE_BOOKMARK';
 
 
 const setUser = (user) => ({
@@ -68,6 +70,62 @@ const deletePlanAction = (planId) => ({
 });
 
 
+const createBookmarkAction = (bookmark) => ({
+	type: CREATE_BOOKMARK,
+	bookmark
+});
+
+const removeBookmarkAction = (bookmarkId) => ({
+	type: REMOVE_BOOKMARK,
+	bookmarkId
+});
+
+
+export const removeBookmarkThunk = bookmarkId => async dispatch => {
+
+	const res = await fetch(`/api/bookmarks/${bookmarkId}`, {
+		method: "DELETE"
+	});
+
+	if (res.ok) {
+		const message = await res.json();
+		dispatch(removeBookmarkAction(bookmarkId));
+		return message;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
+
+export const createBookmarkThunk = bookmark => async dispatch => {
+
+	const res = await fetch("/api/bookmarks", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			...bookmark
+		})
+	});
+
+	if (res.ok) {
+		const bookmark = await res.json();
+		dispatch(createBookmarkAction(bookmark));
+		return bookmark;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
 
 export const deletePlanThunk = (planId) => async dispatch => {
 	const res = await fetch(`/api/plans/${planId}`, { method: "DELETE" });
@@ -416,6 +474,29 @@ export default function reducer(state = initialState, action) {
 
 				const newPlans = state.user.authoredPlans.filter(plan => plan.id !== parseInt(action.planId));
 				const newState = { ...state, user: { ...state.user, authoredPlans: newPlans } }
+
+				return newState;
+			}
+
+		case CREATE_BOOKMARK:
+			{
+				const newState = { ...state, user: { ...state.user, bookmarks: [...state.user.bookmarks] } };
+
+				const index = state.user.bookmarks.findIndex(bm => bm.number === action.bookmark.number);
+
+				if (index !== -1)
+					newState.user.bookmarks[index] = action.bookmark;
+				else
+					newState.user.bookmarks.push(action.bookmark);
+
+				return newState;
+			}
+		case REMOVE_BOOKMARK:
+			{
+				const newState = { ...state, user: { ...state.user, bookmarks: [...state.user.bookmarks] } };
+				const index = state.user.bookmarks.findIndex(bm => bm.id === action.bookmarkId);
+
+				newState.user.bookmarks.splice(index, 1);
 
 				return newState;
 			}

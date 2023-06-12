@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     notes = db.relationship('Note', back_populates='user')
+    bookmarks = db.relationship('Bookmark', back_populates='user')
 
     enrolled_plans = db.relationship("Plan", back_populates="enrolled_user", foreign_keys=[Plan.enrolled_user_id] )
     authored_plans = db.relationship("Plan", back_populates="author", foreign_keys=[Plan.author_id])
@@ -36,6 +37,7 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'name': self.name,
             'email': self.email,
+            'bookmarks': [bookmark.to_dict_no_user() for bookmark in self.bookmarks],
             'notes': [note.to_dict_no_user() for note in self.notes],
             'enrolledPlans': [plan.to_dict() for plan in self.enrolled_plans],
             'authoredPlans': [plan.to_dict_no_author() for plan in self.authored_plans if plan.is_template == True]

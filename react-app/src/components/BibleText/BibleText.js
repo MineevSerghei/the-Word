@@ -9,7 +9,8 @@ import './BibleText.css'
 export default function BibleText() {
 
     const dispatch = useDispatch();
-    const booksObj = useSelector(state => state.bible)
+    const booksObj = useSelector(state => state.bible);
+    const user = useSelector(state => state.session.user);
 
     const [selectedBook, setSelectedBook] = useState('');
     const [booksMenuOpen, setBooksMenuOpen] = useState(false);
@@ -39,6 +40,33 @@ export default function BibleText() {
         setDisplayedBook(book)
         setBooksMenuOpen(false)
         setSelectedBook('')
+    }
+
+    const goToBookmark = async bookmark => {
+
+        const set = () => {
+            setDisplayedChapter(bookmark.verse.chapter.number);
+            setDisplayedBook(bookmark.verse.chapter.book.name);
+        }
+
+        await set();
+
+        console.log('bookmark.verse.chapter.book.name --> ', bookmark.verse.chapter.book.name)
+        console.log('books --> ', books)
+        console.log('booksObj[displayedBook].chaptersObj[displayedChapter].versesObj --> ',
+            booksObj[displayedBook].chaptersObj[displayedChapter].versesObj)
+
+        const versePTag = await document.getElementById(`${bookmark.verse.id}`);
+        if (versePTag) {
+            versePTag.scrollIntoView({ block: "center" });
+            versePTag.style.color = bookmark.color;
+            versePTag.style.textDecoration = `underline`;
+
+            setTimeout(() => {
+                versePTag.style = null;
+            }, 1000)
+        }
+
     }
 
     const openPopUp = (e, verseNumber) => {
@@ -71,9 +99,6 @@ export default function BibleText() {
             setDisplayedBook(bookName)
             setDisplayedChapter(1)
         }
-
-
-        // setDisplayedBook(book)
     }
 
     const setPrevious = e => {
@@ -109,10 +134,15 @@ export default function BibleText() {
         <div className="read-page">
             <div className="left-section">
                 <div className="book-top">
+                    <div></div>
+
                     <div className="book-menu">
+
                         <h2
                             onClick={() => setBooksMenuOpen(!booksMenuOpen)}
                             className="selected-book-title">{displayedBook}</h2>
+
+
 
                         {booksMenuOpen && <div className="select-book">
                             {books.map(book => {
@@ -134,6 +164,25 @@ export default function BibleText() {
                             })}
                         </div>}
                     </div>
+                    <div>
+                        {user && user.bookmarks.map(bookmark =>
+                            <svg
+                                onClick={() => goToBookmark(bookmark)}
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="bookmark-icon"
+                                aria-hidden="true"
+                                focusable="false"
+                                viewBox="0 0 290 512">
+                                <path
+                                    fill={bookmark.color}
+                                    d="M 88.601 56.189 L 88.601 472.859 C 88.601 485.557 93.925 495.886 100.468 495.886
+                                    C 102.91 495.886 105.304 494.465 107.306 491.716 L 182.37 389.754 L 257.433 491.716
+                                    C 259.435 494.465 261.828 495.886 264.271 495.886 C 270.815 495.886 276.137 485.557
+                                    276.137 472.859 L 276.137 56.189 C 276.137 31.078 265.637 10.705 252.696 10.705 L
+                                    112.044 10.705 C 99.1 10.705 88.601 31.078 88.601 56.189 Z" />
+                            </svg>
+                        )}
+                    </div>
                 </div>
 
                 <div className="Bible-text-area">
@@ -142,6 +191,7 @@ export default function BibleText() {
                             .chaptersObj[displayedChapter].versesObj)
                             .map(verse => {
                                 return <p
+                                    id={verse.id}
                                     className={popUpOpen === verse.number ? 'verse underlined' : 'verse'}
                                     onClick={(e) => openPopUp(e, verse.number)}
                                     key={verse.id}>

@@ -35,6 +35,30 @@
     background-color: white;
 }
 
+.bookmark-icon {
+
+    height: 1.5em;
+    vertical-align: -0.125em;
+    padding: 3px 3px 3px 0;
+    margin: 2px;
+    border: transparent 1px solid;
+
+}
+
+.bookmark-icon:hover {
+    position: relative;
+    bottom: 2px;
+    cursor: pointer;
+
+    border: transparent 1px solid;
+}
+
+.title-bookmarks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .chapter-number-in-text {
     font-size: 3rem;
     font-weight: bold;
@@ -97,6 +121,8 @@
 }
 
 .book-top {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
 }

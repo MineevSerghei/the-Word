@@ -22,6 +22,8 @@ def post_bookmark():
 
         if bookmark:
             bookmark.verse_id = request.get_json()['verseId']
+            db.session.commit()
+            return bookmark.to_dict_no_user()
         else:
             new_bookmark = Bookmark(
                 user=current_user,
@@ -30,10 +32,8 @@ def post_bookmark():
                 color=form.data['color']
             )
             db.session.add(new_bookmark)
-
-        db.session.commit()
-
-        return bookmark.to_dict_no_user()
+            db.session.commit()
+            return new_bookmark.to_dict_no_user()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 

@@ -1,23 +1,33 @@
 import "./BookmarksOptions.css"
 import BookmarkDetails from "./BookmarkDetails"
 import { useState } from "react"
+import { createBookmarkThunk } from "../../store/session"
+import { useDispatch } from "react-redux"
 
-const colors = { '1': '#3a98b9', '2': '#ffd183', '3': '#a52a2a', '4': '#DAF7A6', '5': '#33B0FF' }
+const colors = { '1': '#3a98b9', '2': '#ffd183', '3': '#a52a2a', '4': '#36AC0B', '5': '#CB58DA' }
 
-export default function BookmarksOptions({ setBookmarkOptionsOpen, user }) {
+export default function BookmarksOptions({ setBookmarkOptionsOpen, user, verse }) {
 
     const [detailsOpen, setDetailsOpen] = useState(0);
-
+    const dispatch = useDispatch();
     const bookmarks = Array(5).fill(null);
 
     for (let bmark of user.bookmarks) {
         bookmarks[bmark.number - 1] = bmark;
     }
 
-    console.log('bookmarks ---> ', bookmarks)
 
+    const bookmarkVerse = async number => {
 
-    const bookmarkVerse = () => {
+        const info = {
+            'color': colors[number],
+            'number': number,
+            'verseId': verse.id
+        }
+
+        const res = await dispatch(createBookmarkThunk(info));
+
+        console.log('res --> ', res);
 
     }
 
@@ -31,7 +41,7 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user }) {
             {bookmarks.map((bookmark, i) => {
 
                 return bookmark ? <svg
-                    onClick={() => bookmarkVerse(bookmark)}
+                    onClick={() => bookmarkVerse(i + 1)}
                     onMouseOver={e => showDetails(bookmark.number)}
                     onMouseOut={e => setDetailsOpen(0)}
                     xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +59,7 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user }) {
                 </svg>
                     :
                     <svg
-                        onClick={() => bookmarkVerse(bookmark)}
+                        onClick={() => bookmarkVerse(i + 1)}
                         xmlns="http://www.w3.org/2000/svg"
                         className="bookmark-icon"
                         aria-hidden="true"

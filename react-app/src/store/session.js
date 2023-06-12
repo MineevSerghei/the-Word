@@ -75,6 +75,9 @@ const createBookmarkAction = (bookmark) => ({
 });
 
 export const createBookmarkThunk = bookmark => async dispatch => {
+
+	console.log('bookmark --> ', bookmark);
+
 	const res = await fetch("/api/bookmarks", {
 		method: "POST",
 		headers: {

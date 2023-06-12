@@ -76,8 +76,6 @@ const createBookmarkAction = (bookmark) => ({
 
 export const createBookmarkThunk = bookmark => async dispatch => {
 
-	console.log('bookmark --> ', bookmark);
-
 	const res = await fetch("/api/bookmarks", {
 		method: "POST",
 		headers: {
@@ -454,7 +452,20 @@ export default function reducer(state = initialState, action) {
 			}
 
 		case CREATE_BOOKMARK:
-			return { ...state, user: { ...state.user, notes: [...state.user.bookmarks, action.bookmark] } }
+			{
+				const newState = { ...state, user: { ...state.user, bookmarks: [...state.user.bookmarks] } };
+
+				const index = state.user.bookmarks.findIndex(bm => bm.number === action.bookmark.number);
+
+				console.log('idex --> ', index)
+
+				if (index !== -1)
+					newState.user.bookmarks[index] = action.bookmark;
+				else
+					newState.user.bookmarks.push(action.bookmark);
+
+				return newState;
+			}
 		default:
 			return state;
 	}

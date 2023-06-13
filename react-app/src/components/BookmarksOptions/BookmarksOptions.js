@@ -40,6 +40,8 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user, verse }
         setDetailsOpen(number);
     }
 
+    if (!user) return null;
+
     return (
         <>
             <div style={{ bottom: `${80}px`, right: '5px' }}
@@ -90,11 +92,7 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user, verse }
                         </svg>
                 }
                 )}
-
-
-
                 {detailsOpen > 0 && <BookmarkDetails bookmark={user.bookmarks.find(m => m.number == detailsOpen)} />}
-
                 <i
                     onClick={() => setDeleteModeOn(!deleteModeOn)}
                     className={`delete-bookmark fa-solid fa-delete-left ${deleteModeOn && ' delete-bookmark-filled'}`}></i>

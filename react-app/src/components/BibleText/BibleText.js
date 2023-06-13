@@ -5,6 +5,7 @@ import NotesBox from "../NotesBox";
 import NotePopUp from "../NotePopUp";
 import PlansBox from "../PlansBox";
 import './BibleText.css'
+import useShowComponent from "../../context/ShowComponent";
 
 export default function BibleText() {
 
@@ -12,8 +13,9 @@ export default function BibleText() {
     const booksObj = useSelector(state => state.bible);
     const user = useSelector(state => state.session.user);
 
+    const { ref, isShown, setIsShown } = useShowComponent();
     const [selectedBook, setSelectedBook] = useState('');
-    const [booksMenuOpen, setBooksMenuOpen] = useState(false);
+    // const [booksMenuOpen, setBooksMenuOpen] = useState(false);
     const [displayedChapter, setDisplayedChapter] = useState(1);
     const [popUpOpen, setPopUpOpen] = useState(0);
     const [selectedVerse, setSelectedVerse] = useState(0);
@@ -38,7 +40,7 @@ export default function BibleText() {
     const setDisplayed = (chapter, book) => {
         setDisplayedChapter(chapter)
         setDisplayedBook(book)
-        setBooksMenuOpen(false)
+        setIsShown(false)
         setSelectedBook('')
     }
 
@@ -50,11 +52,6 @@ export default function BibleText() {
         }
 
         await set();
-
-        console.log('bookmark.verse.chapter.book.name --> ', bookmark.verse.chapter.book.name)
-        console.log('books --> ', books)
-        console.log('booksObj[displayedBook].chaptersObj[displayedChapter].versesObj --> ',
-            booksObj[displayedBook].chaptersObj[displayedChapter].versesObj)
 
         const versePTag = await document.getElementById(`${bookmark.verse.id}`);
         if (versePTag) {
@@ -139,12 +136,12 @@ export default function BibleText() {
                     <div className="book-menu">
 
                         <h2
-                            onClick={() => setBooksMenuOpen(!booksMenuOpen)}
+                            onClick={() => setIsShown(!isShown)}
                             className="selected-book-title">{displayedBook}</h2>
 
 
 
-                        {booksMenuOpen && <div className="select-book">
+                        {isShown && <div ref={ref} className="select-book">
                             {books.map(book => {
                                 return <div key={book.id}>
                                     <p

@@ -27,11 +27,13 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user, verse }
         }
 
         await dispatch(createBookmarkThunk(info));
+        setBookmarkOptionsOpen(false);
     }
 
     const removeBookmark = async bmId => {
         setDetailsOpen(0);
         await dispatch(removeBookmarkThunk(bmId));
+
     }
 
     const showDetails = number => {

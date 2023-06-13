@@ -13,6 +13,21 @@
     box-shadow: 1px 1px 5px;
 }
 
+.pop-up-container-bookmarks-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 245, 213);
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px;
+}
+
+.pop-up-container-bookmarks-details p {
+    margin: 5px 10px;
+
+}
+
 .bookmarks-delete-mode {
     background-color: rgb(253, 163, 163);
 }

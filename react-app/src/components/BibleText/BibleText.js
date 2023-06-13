@@ -13,11 +13,12 @@ export default function BibleText() {
     const booksObj = useSelector(state => state.bible);
     const user = useSelector(state => state.session.user);
 
-    const { ref, isShown, setIsShown } = useShowComponent();
+    const { ref: menuRef, isShown: menuIsShown, setIsShown: setMenuIsShown } = useShowComponent(false);
+    const { ref: popupRef, isShown: popupIsShown, setIsShown: setPopupIsShown } = useShowComponent(0);
     const [selectedBook, setSelectedBook] = useState('');
     // const [booksMenuOpen, setBooksMenuOpen] = useState(false);
     const [displayedChapter, setDisplayedChapter] = useState(1);
-    const [popUpOpen, setPopUpOpen] = useState(0);
+    // const [popupIsShown, setPopupIsShown] = useState(0);
     const [selectedVerse, setSelectedVerse] = useState(0);
     const [x, setX] = useState(0);
     const [y, setY] = useState(0);
@@ -40,7 +41,7 @@ export default function BibleText() {
     const setDisplayed = (chapter, book) => {
         setDisplayedChapter(chapter)
         setDisplayedBook(book)
-        setIsShown(false)
+        setMenuIsShown(false)
         setSelectedBook('')
     }
 
@@ -70,7 +71,7 @@ export default function BibleText() {
 
         setX(e.pageX);
         setY(e.pageY);
-        setPopUpOpen(verseNumber);
+        setPopupIsShown(verseNumber);
     }
 
     const selectBook = (book) => {
@@ -88,7 +89,7 @@ export default function BibleText() {
 
 
         setField('allNotes');
-        setPopUpOpen(0);
+        setPopupIsShown(0);
         if (booksObj[displayedBook].chaptersObj[displayedChapter + 1]) {
             setDisplayedChapter(displayedChapter + 1)
         } else {
@@ -104,7 +105,7 @@ export default function BibleText() {
             return;
 
         setField('allNotes');
-        setPopUpOpen(0);
+        setPopupIsShown(0);
         if (booksObj[displayedBook].chaptersObj[displayedChapter - 1]) {
             setDisplayedChapter(displayedChapter - 1)
         } else {
@@ -134,14 +135,13 @@ export default function BibleText() {
                     <div></div>
 
                     <div className="book-menu">
-
                         <h2
-                            onClick={() => setIsShown(!isShown)}
+                            onClick={() => setMenuIsShown(true)}
                             className="selected-book-title">{displayedBook}</h2>
 
 
 
-                        {isShown && <div ref={ref} className="select-book">
+                        {menuIsShown && <div ref={menuRef} className="select-book">
                             {books.map(book => {
                                 return <div key={book.id}>
                                     <p
@@ -189,7 +189,7 @@ export default function BibleText() {
                             .map(verse => {
                                 return <p
                                     id={verse.id}
-                                    className={popUpOpen === verse.number ? 'verse underlined' : 'verse'}
+                                    className={popupIsShown === verse.number ? 'verse underlined' : 'verse'}
                                     onClick={(e) => openPopUp(e, verse.number)}
                                     key={verse.id}>
                                     {verse.number === 1 ?
@@ -205,15 +205,16 @@ export default function BibleText() {
                             disabled={booksObj[displayedBook].ordinalNumber === 66 && displayedChapter === 22 ? 'disabled' : ''}
                             onClick={setNext}></i>
                     </>}
-                    {popUpOpen !== 0 && <NotePopUp
+                    {popupIsShown !== 0 && <NotePopUp
+                        popupRef={popupRef}
                         field={field}
                         setField={setField}
-                        verse={booksObj[displayedBook].chaptersObj[displayedChapter].versesObj[popUpOpen]}
+                        verse={booksObj[displayedBook].chaptersObj[displayedChapter].versesObj[popupIsShown]}
                         chapter={booksObj[displayedBook].chaptersObj[displayedChapter]}
                         book={booksObj[displayedBook]}
                         setTab={setTab}
                         setSelectedVerse={setSelectedVerse}
-                        x={x} y={y} setPopUpOpen={setPopUpOpen} />}
+                        x={x} y={y} setPopupIsShown={setPopupIsShown} />}
                 </div>
             </div>
 

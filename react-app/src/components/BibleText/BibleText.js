@@ -144,7 +144,7 @@ export default function BibleText() {
                 <p>Loading</p>
 
                 <progress value={null} />
-                {isLoadingIntoCache && <h2>Loading King James Bible. You'll only have to wait once.</h2>}
+                {isLoadingIntoCache && <><h2>Loading King James Bible.</h2> <h3>You'll only have to wait once.</h3></>}
             </div>);
     }
 

@@ -4,7 +4,7 @@ from app.models import Plan, Task, db
 from datetime import date
 from app.forms import PlanForm, PlanImageForm
 from . import validation_errors_to_error_messages
-from .aws_helpers import get_unique_filename, upload_file_to_s3
+from .aws_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 plan_routes = Blueprint('plans', __name__)
 
@@ -73,6 +73,13 @@ def unenroll_plan(id):
 
     if plan.enrolled_user.id != current_user.id:
         return {'errors': 'Forbidden'}, 403
+
+    image_is_in_use = Plan.query.filter(
+            Plan.image_url == plan.image_url,
+            Plan.id != plan.id).first()
+
+    if not image_is_in_use:
+        remove_file_from_s3(plan.image_url)
 
     db.session.delete(plan)
     db.session.commit()
@@ -189,6 +196,13 @@ def edit_image(id):
         if "url" not in upload:
             return upload, 400
 
+        image_is_in_use = Plan.query.filter(
+            Plan.image_url == plan_to_update.image_url,
+            Plan.id != plan_to_update.id).first()
+
+        if not image_is_in_use:
+            remove_file_from_s3(plan_to_update.image_url)
+
         plan_to_update.image_url = upload["url"]
 
         db.session.commit()
@@ -268,6 +282,13 @@ def delete_plan(id):
 
     if plan_to_delete.author_id != current_user.id:
         return {'errors': 'Forbidden'}, 403
+
+    image_is_in_use = Plan.query.filter(
+            Plan.image_url == plan_to_delete.image_url,
+            Plan.id != plan_to_delete.id).first()
+
+    if not image_is_in_use:
+        remove_file_from_s3(plan_to_delete.image_url)
 
     db.session.delete(plan_to_delete)
     db.session.commit()

@@ -12,10 +12,7 @@ export const getAllBooksThunk = () => async (dispatch) => {
 
     if (res.ok) {
         const books = await res.json();
-        // console.log('BOOKS BEFORE ACTION ---> ', books)
         dispatch(getAllBooksAction(books))
-
-        // console.log('BOOKS AFTER ACTION ---> ', books)
         return books;
     } else {
         return await res.json();
@@ -30,12 +27,12 @@ export default function reducer(state = initialState, action) {
             const booksObject = {};
 
             for (let book of action.books) {
-                booksObject[book.name] = book;
+                booksObject[book.name] = { ...book };
 
                 for (let chapter of book.chapters) {
                     if (!booksObject[book.name].chaptersObj)
                         booksObject[book.name].chaptersObj = {};
-                    booksObject[book.name].chaptersObj[chapter.number] = chapter;
+                    booksObject[book.name].chaptersObj[chapter.number] = { ...chapter };
 
                     for (let verse of chapter.verses) {
                         if (!booksObject[book.name].chaptersObj[chapter.number].versesObj)

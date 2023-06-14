@@ -43,10 +43,9 @@ export default function BibleText() {
 
             const checkCache = async () => {
 
-                const indexDbBooks = await db.bibles.get({ name: 'kjv' });
+                const indexDbBooks = await db.bibles.get({ version: 'kjv' });
 
                 if (indexDbBooks) {
-                    // console.log('indexDbBooks ----->>>> ', indexDbBooks.bible);
                     dispatch(getAllBooksAction(indexDbBooks.bible))
 
                 } else {

@@ -2,13 +2,13 @@ import Dexie from 'dexie';
 
 export const db = new Dexie('Bibles');
 db.version(1).stores({
-    bibles: '++id, name, bible'
+    bibles: '++id, version'
 })
 
-export async function addBible(name, bible) {
+export async function addBible(version, bible) {
     try {
         await db.bibles.add({
-            name,
+            version,
             bible
         });
     } catch (e) {

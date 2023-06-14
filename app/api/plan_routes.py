@@ -5,6 +5,7 @@ from datetime import date
 from app.forms import PlanForm, PlanImageForm
 from . import validation_errors_to_error_messages
 from .aws_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
+import json
 
 plan_routes = Blueprint('plans', __name__)
 
@@ -120,20 +121,23 @@ def post_plan():
 
     req = request.form
 
-    tasks = req['tasks']
+    tasks = json.loads(req['tasks'])
     duration = req['duration']
     is_public = True if req['isPublic'] == 'true' else False
 
     task_errors = {}
-    print('')
-    print('--'*30)
-    print('')
-    print('')
-    print('tasks --> ', tasks)
-    print('')
-    print('')
-    print('--'*30)
-    print('')
+    # print('')
+    # print('--'*30)
+    # print('')
+    # print('')
+    # print('tasks --> ', tasks)
+    # print('tasks type --> ', type(tasks))
+    # print('tasks parsed --> ', json.loads(tasks))
+    # print('tasks  parsed type --> ', type(json.loads(tasks)))
+    # print('')
+    # print('')
+    # print('--'*30)
+    # print('')
     # print('duration --> ', duration)
     # print('is_public --> ', is_public)
     # print('is_public string? --> ', type(is_public))

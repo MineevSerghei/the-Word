@@ -91,7 +91,7 @@ export default function PlansForm() {
             formData.append("description", description);
             formData.append("duration", appliedDuration);
             formData.append("isPublic", isPublic);
-            formData.append("tasks", tasks);
+            formData.append("tasks", JSON.stringify(tasks));
 
             if (image) formData.append("image", image);
 

@@ -169,15 +169,10 @@ export const editPlanThunk = (plan, planId) => async dispatch => {
 }
 
 
-export const createPlanThunk = plan => async dispatch => {
+export const createPlanThunk = formData => async dispatch => {
 	const res = await fetch("/api/plans", {
 		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			...plan
-		})
+		body: formData
 	});
 
 	if (res.ok) {

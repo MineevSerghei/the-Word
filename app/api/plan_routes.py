@@ -111,16 +111,33 @@ def post_plan():
     """
     Route to create a reading plan
     """
+
+
+
     form = PlanForm()
+
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    req = request.get_json()
+    req = request.form
 
     tasks = req['tasks']
     duration = req['duration']
-    is_public = req['isPublic']
+    is_public = True if req['isPublic'] == 'true' else False
 
     task_errors = {}
+    print('')
+    print('--'*30)
+    print('')
+    print('')
+    print('tasks --> ', tasks)
+    print('')
+    print('')
+    print('--'*30)
+    print('')
+    # print('duration --> ', duration)
+    # print('is_public --> ', is_public)
+    # print('is_public string? --> ', type(is_public))
+
 
 
     for i in range(len(tasks)):
@@ -131,16 +148,20 @@ def post_plan():
                 task_errors[i+1] = 'Task description has to be 500 characters or less'
 
     if task_errors:
-        return {'task_errors': task_errors}, 400
+        return {'errors': task_errors}, 400
 
     if form.validate_on_submit():
 
         image = form.data["image"]
-        image.filename = get_unique_filename(image.filename)
-        upload = upload_file_to_s3(image)
 
-        if "url" not in upload:
-            return upload, 400
+        if image:
+
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+
+            if "url" not in upload:
+                return upload, 400
+
 
         tasks_to_create = []
 
@@ -161,10 +182,12 @@ def post_plan():
             is_public=is_public,
             is_template=True,
             start_date=None,
-            image_url=upload["url"],
             enrolled_user_id=None,
             tasks=tasks_to_create
         )
+
+        if image:
+            plan.image_url = upload["url"]
 
         db.session.add(plan)
         db.session.commit()

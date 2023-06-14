@@ -15,6 +15,7 @@ export default function PlansForm() {
     const [isPublic, setIsPublic] = useState(false);
     const [tasks, setTasks] = useState(Array(parseInt(appliedDuration)).fill(['']).map(arr => Array.from(arr)));
     const [daySelected, setDaySelected] = useState(0);
+    const [image, setImage] = useState();
     const [errors, setErrors] = useState({});
     const [durationError, setDurationError] = useState({});
 
@@ -84,17 +85,19 @@ export default function PlansForm() {
             setErrors(err)
         } else {
 
-            const plan = {
-                name,
-                description,
-                duration: appliedDuration,
-                isPublic,
-                tasks
-            }
+            const formData = new FormData();
 
-            const returnedPlan = await dispatch(createPlanThunk(plan));
+            formData.append("name", name);
+            formData.append("description", description);
+            formData.append("duration", appliedDuration);
+            formData.append("isPublic", isPublic);
+            formData.append("tasks", tasks);
 
+            if (image) formData.append("image", image);
 
+            const returnedPlan = await dispatch(createPlanThunk(formData));
+
+            if (returnedPlan.errors) alert('There were errors');
 
             history.push(`/plans/${returnedPlan.id}`)
 
@@ -164,6 +167,8 @@ export default function PlansForm() {
                     {durationError.duration && <p className="error">{durationError.duration}</p>}
 
                     <label className="label-plan-form">Do you want to make your plan public?  <input type="checkbox" checked={isPublic} onChange={e => setIsPublic(!isPublic)} /></label>
+
+                    <label className="label-plan-form">Plan Image <input type="file" accept=".png,.jpg,.jpeg" onChange={e => setImage(e.target.files[0])} /></label>
 
                     <button className="bttn" type="submit">Create Plan</button>
                 </div>

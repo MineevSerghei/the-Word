@@ -1,7 +1,7 @@
 
 const GET_ALL_BOOKS = "bible/GET_ALL_BOOKS"
 
-const getAllBooksAction = (books) => ({
+export const getAllBooksAction = (books) => ({
     type: GET_ALL_BOOKS,
     books
 });
@@ -12,7 +12,11 @@ export const getAllBooksThunk = () => async (dispatch) => {
 
     if (res.ok) {
         const books = await res.json();
+        // console.log('BOOKS BEFORE ACTION ---> ', books)
         dispatch(getAllBooksAction(books))
+
+        // console.log('BOOKS AFTER ACTION ---> ', books)
+        return books;
     } else {
         return await res.json();
     }

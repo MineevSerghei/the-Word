@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getAllBooksThunk } from "../../store/bible";
+import { getAllBooksThunk, getAllBooksAction } from "../../store/bible";
 import NotesBox from "../NotesBox";
 import NotePopUp from "../NotePopUp";
 import PlansBox from "../PlansBox";
 import './BibleText.css'
 import useShowComponent from "../../context/ShowComponent";
+import { addBible, db } from "../../db/db";
 
 export default function BibleText() {
 
@@ -32,9 +33,30 @@ export default function BibleText() {
 
         const getBooks = async () => {
 
-            await dispatch(getAllBooksThunk())
+            const thunkBooks = await dispatch(getAllBooksThunk());
+
+            // console.log('thunkBooks ---> ', thunkBooks);
+            await addBible('kjv', thunkBooks);
         }
-        if (!books || !books.length) getBooks();
+
+        if (!books || !books.length) {
+
+            const checkCache = async () => {
+
+                const indexDbBooks = await db.bibles.get({ name: 'kjv' });
+
+                if (indexDbBooks) {
+                    // console.log('indexDbBooks ----->>>> ', indexDbBooks.bible);
+                    dispatch(getAllBooksAction(indexDbBooks.bible))
+
+                } else {
+                    getBooks();
+                }
+            }
+
+            checkCache()
+        }
+
 
     }, [dispatch]);
 

@@ -1,24 +1,24 @@
 import { Link } from 'react-router-dom'
 import './LandingPage.css'
-import { useEffect } from 'react';
-import { getAllBooksThunk } from "../../store/bible";
-import { useDispatch, useSelector } from 'react-redux';
+// import { useEffect } from 'react';
+// import { getAllBooksThunk } from "../../store/bible";
+// import { useDispatch, useSelector } from 'react-redux';
 
 export default function LandingPage() {
 
-    const books = useSelector(state => state.bible)
+    // const books = useSelector(state => state.bible)
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const getBooks = async () => {
+    //     const getBooks = async () => {
 
-            await dispatch(getAllBooksThunk())
-        }
-        if (!books || !Object.values(books).length) getBooks();
+    //         // await dispatch(getAllBooksThunk())
+    //     }
+    //     if (!books || !Object.values(books).length) getBooks();
 
-    }, [dispatch]);
+    // }, [dispatch]);
 
 
     return (

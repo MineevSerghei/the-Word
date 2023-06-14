@@ -1,7 +1,7 @@
 
 const GET_ALL_BOOKS = "bible/GET_ALL_BOOKS"
 
-const getAllBooksAction = (books) => ({
+export const getAllBooksAction = (books) => ({
     type: GET_ALL_BOOKS,
     books
 });
@@ -13,6 +13,7 @@ export const getAllBooksThunk = () => async (dispatch) => {
     if (res.ok) {
         const books = await res.json();
         dispatch(getAllBooksAction(books))
+        return books;
     } else {
         return await res.json();
     }
@@ -26,12 +27,12 @@ export default function reducer(state = initialState, action) {
             const booksObject = {};
 
             for (let book of action.books) {
-                booksObject[book.name] = book;
+                booksObject[book.name] = { ...book };
 
                 for (let chapter of book.chapters) {
                     if (!booksObject[book.name].chaptersObj)
                         booksObject[book.name].chaptersObj = {};
-                    booksObject[book.name].chaptersObj[chapter.number] = chapter;
+                    booksObject[book.name].chaptersObj[chapter.number] = { ...chapter };
 
                     for (let verse of chapter.verses) {
                         if (!booksObject[book.name].chaptersObj[chapter.number].versesObj)

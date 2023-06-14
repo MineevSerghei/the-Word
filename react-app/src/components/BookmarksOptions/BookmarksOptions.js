@@ -27,16 +27,20 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user, verse }
         }
 
         await dispatch(createBookmarkThunk(info));
+        setBookmarkOptionsOpen(false);
     }
 
     const removeBookmark = async bmId => {
         setDetailsOpen(0);
         await dispatch(removeBookmarkThunk(bmId));
+
     }
 
     const showDetails = number => {
         setDetailsOpen(number);
     }
+
+    if (!user) return null;
 
     return (
         <>
@@ -88,11 +92,7 @@ export default function BookmarksOptions({ setBookmarkOptionsOpen, user, verse }
                         </svg>
                 }
                 )}
-
-
-
                 {detailsOpen > 0 && <BookmarkDetails bookmark={user.bookmarks.find(m => m.number == detailsOpen)} />}
-
                 <i
                     onClick={() => setDeleteModeOn(!deleteModeOn)}
                     className={`delete-bookmark fa-solid fa-delete-left ${deleteModeOn && ' delete-bookmark-filled'}`}></i>

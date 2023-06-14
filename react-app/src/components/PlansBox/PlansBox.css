@@ -130,3 +130,9 @@
 .gap10 {
     gap: 10px
 }
+
+.plan-img-container {}
+
+.plan-img {
+    height: 100px;
+}

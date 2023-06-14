@@ -65,8 +65,8 @@ export default function PlanDetails({ plan, setPlansField }) {
             </div>
 
             <div className='plan-field plan-details'>
-
                 <h3>{plan.name} ({Math.round(competed / plan.tasks.length * 100)}%) <i onClick={(e) => setPlansField('planSettings')} className="fa-solid fa-gear"></i></h3>
+                <div className='plan-img-container'><img className="plan-img" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>
 
 
                 <div className='days'>

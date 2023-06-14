@@ -17,10 +17,9 @@ export default function BibleText() {
     const { ref: menuRef, isShown: menuIsShown, setIsShown: setMenuIsShown } = useShowComponent(false);
     const { ref: popupRef, isShown: popupIsShown, setIsShown: setPopupIsShown } = useShowComponent(0);
     const [selectedBook, setSelectedBook] = useState('');
-    // const [booksMenuOpen, setBooksMenuOpen] = useState(false);
     const [displayedChapter, setDisplayedChapter] = useState(1);
-    // const [popupIsShown, setPopupIsShown] = useState(0);
     const [selectedVerse, setSelectedVerse] = useState(0);
+    const [isLoadingIntoCache, setIsLoadingIntoCache] = useState(false);
     const [x, setX] = useState(0);
     const [y, setY] = useState(0);
     const [displayedBook, setDisplayedBook] = useState('Genesis');
@@ -33,10 +32,10 @@ export default function BibleText() {
 
         const getBooks = async () => {
 
+            setIsLoadingIntoCache(true);
             const thunkBooks = await dispatch(getAllBooksThunk());
-
-            // console.log('thunkBooks ---> ', thunkBooks);
             await addBible('kjv', thunkBooks);
+            setIsLoadingIntoCache(false);
         }
 
         if (!books || !books.length) {
@@ -145,6 +144,7 @@ export default function BibleText() {
                 <p>Loading</p>
 
                 <progress value={null} />
+                {isLoadingIntoCache && <h2>Loading King James Bible. You'll only have to wait once.</h2>}
             </div>);
     }
 

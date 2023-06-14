@@ -15,6 +15,7 @@ class Plan(db.Model):
     is_template = db.Column(db.Boolean, nullable=False)
     template_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('plans.id'), ondelete='SET NULL'))
     start_date = db.Column(db.DateTime)
+    image_url = db.Column(db.String(255))
     enrolled_user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
     tasks = db.relationship('Task', back_populates='plan', cascade="all, delete-orphan")
@@ -33,6 +34,7 @@ class Plan(db.Model):
             'isTemplate': self.is_template,
             'templateId': self.template_id,
             'startDate': self.start_date,
+            'imageUrl': self.image_url,
             'tasks': [task.to_dict() for task in self.tasks],
             'author': self.author.to_dict_no_ref()
         }
@@ -48,5 +50,6 @@ class Plan(db.Model):
             'isTemplate': self.is_template,
             'templateId': self.template_id,
             'startDate': self.start_date,
+            'imageUrl': self.image_url,
             'tasks': [task.to_dict() for task in self.tasks]
         }

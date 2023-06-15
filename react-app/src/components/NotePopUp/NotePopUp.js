@@ -3,6 +3,8 @@ import { useSelector } from "react-redux"
 import "./NotePopUp.css"
 import { useState } from "react"
 import BookmarksOptions from "../BookmarksOptions/BookmarksOptions"
+import useShowComponent from "../../context/ShowComponent"
+import HighlightsOptions from "../HighlightsOptions/HighlightsOptions"
 
 export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPopupIsShown, setField, setTab, setSelectedVerse }) {
 
@@ -10,6 +12,8 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
 
     const [copied, setCopied] = useState(false);
     const [bookmarkOptionsOpen, setBookmarkOptionsOpen] = useState(false);
+    const { ref: highlightsRef, isShown: highlightsShown, setIsShown: setHighlightsShown } = useShowComponent(false);
+
 
     const openNoteField = (e) => {
         setTab('notes')
@@ -34,16 +38,23 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
 
             <div className="popup-buttons">
 
-                <button className="popup-button" disabled>Send</button>
+                <button className="popup-button" onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
                 <button className={bookmarkOptionsOpen ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={() => setBookmarkOptionsOpen(!bookmarkOptionsOpen)}>Bookmark</button>
                 <button className="popup-button" disabled={!user} onClick={openNoteField}>Note</button>
-                <button className="popup-button" onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
+                <button className={highlightsShown ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={() => setHighlightsShown(true)}>Highlight</button>
             </div>
 
             {bookmarkOptionsOpen && <BookmarksOptions
                 setBookmarkOptionsOpen={setBookmarkOptionsOpen}
                 user={user}
                 verse={verse}
+            />}
+
+            {highlightsShown && <HighlightsOptions
+                setHighlightsShown={setHighlightsShown}
+                user={user}
+                verse={verse}
+                highlightsRef={highlightsRef}
             />}
 
         </div >

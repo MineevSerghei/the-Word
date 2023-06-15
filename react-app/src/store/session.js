@@ -168,6 +168,26 @@ export const editPlanThunk = (plan, planId) => async dispatch => {
 	}
 }
 
+export const editPlanImageThunk = (formData, planId) => async dispatch => {
+	const res = await fetch(`/api/plans/${planId}/image`, {
+		method: "PUT",
+		body: formData
+	});
+
+	if (res.ok) {
+		const returnedPlan = await res.json();
+		dispatch(editPlanAction(returnedPlan));
+		return returnedPlan;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
+
 
 export const createPlanThunk = formData => async dispatch => {
 	const res = await fetch("/api/plans", {

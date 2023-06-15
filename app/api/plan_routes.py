@@ -9,6 +9,17 @@ import json
 
 plan_routes = Blueprint('plans', __name__)
 
+def delete_unused_image(plan):
+
+            if plan.image_url:
+
+                image_is_in_use = Plan.query.filter(
+                    Plan.image_url == plan.image_url,
+                    Plan.id != plan.id).first()
+
+                if not image_is_in_use:
+                    remove_file_from_s3(plan.image_url)
+
 
 @plan_routes.route('/<int:id>/enroll', methods=['POST'])
 def enroll_plan(id):
@@ -75,12 +86,7 @@ def unenroll_plan(id):
     if plan.enrolled_user.id != current_user.id:
         return {'errors': 'Forbidden'}, 403
 
-    image_is_in_use = Plan.query.filter(
-            Plan.image_url == plan.image_url,
-            Plan.id != plan.id).first()
-
-    if not image_is_in_use:
-        remove_file_from_s3(plan.image_url)
+    delete_unused_image(plan)
 
     db.session.delete(plan)
     db.session.commit()
@@ -113,8 +119,6 @@ def post_plan():
     Route to create a reading plan
     """
 
-
-
     form = PlanForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -126,23 +130,6 @@ def post_plan():
     is_public = True if req['isPublic'] == 'true' else False
 
     task_errors = {}
-    # print('')
-    # print('--'*30)
-    # print('')
-    # print('')
-    # print('tasks --> ', tasks)
-    # print('tasks type --> ', type(tasks))
-    # print('tasks parsed --> ', json.loads(tasks))
-    # print('tasks  parsed type --> ', type(json.loads(tasks)))
-    # print('')
-    # print('')
-    # print('--'*30)
-    # print('')
-    # print('duration --> ', duration)
-    # print('is_public --> ', is_public)
-    # print('is_public string? --> ', type(is_public))
-
-
 
     for i in range(len(tasks)):
         for task in tasks[i]:
@@ -223,12 +210,7 @@ def edit_image(id):
         if "url" not in upload:
             return upload, 400
 
-        image_is_in_use = Plan.query.filter(
-            Plan.image_url == plan_to_update.image_url,
-            Plan.id != plan_to_update.id).first()
-
-        if not image_is_in_use:
-            remove_file_from_s3(plan_to_update.image_url)
+        delete_unused_image(plan_to_update)
 
         plan_to_update.image_url = upload["url"]
 
@@ -310,12 +292,7 @@ def delete_plan(id):
     if plan_to_delete.author_id != current_user.id:
         return {'errors': 'Forbidden'}, 403
 
-    image_is_in_use = Plan.query.filter(
-            Plan.image_url == plan_to_delete.image_url,
-            Plan.id != plan_to_delete.id).first()
-
-    if not image_is_in_use:
-        remove_file_from_s3(plan_to_delete.image_url)
+    delete_unused_image(plan_to_delete)
 
     db.session.delete(plan_to_delete)
     db.session.commit()

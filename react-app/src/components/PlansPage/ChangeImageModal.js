@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { deletePlanThunk } from "../../store/session";
-import { useHistory } from "react-router-dom";
+import { editPlanImageThunk } from "../../store/session";
+// import { useHistory } from "react-router-dom";
 
 
 export default function ChangeImageModal({ plan }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-    const history = useHistory();
+    // const history = useHistory();
     const [previewUrl, setPreviewUrl] = useState();
     const [image, setImage] = useState();
 
@@ -29,9 +29,14 @@ export default function ChangeImageModal({ plan }) {
 
 
     const changeImage = async (e) => {
-        // await dispatch(deletePlanThunk(planId));
+
+        const formData = new FormData();
+
+        formData.append("image", image);
+
+        await dispatch(editPlanImageThunk(formData, plan.id));
+
         closeModal()
-        history.push('/plans')
     };
 
     return (

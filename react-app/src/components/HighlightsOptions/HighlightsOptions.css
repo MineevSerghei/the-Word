@@ -1,9 +1,9 @@
 .pop-up-container-highlights {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
-    width: 140px;
+    width: 160px;
     height: 40px;
     background-color: rgb(255, 245, 213);
     position: absolute;
@@ -16,7 +16,18 @@
 
 .highlighter-icon {
     padding: 3px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+}
+
+.highlighter-icon-svg {
+    height: 1.1rem;
+    padding: 3px;
+}
+
+.highlighter-icon-svg:hover {
+    position: relative;
+    bottom: 2px;
+    cursor: pointer;
 }
 
 .highlighter-icon:hover {

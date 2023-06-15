@@ -4,3 +4,4 @@ from .note_form import NoteForm
 from .plan_form import PlanForm
 from .plan_image_form import PlanImageForm
 from .bookmark_form import BookmarkForm
+from .highlight_form import HighlightForm

@@ -16,6 +16,7 @@ export default function PlansForm() {
     const [tasks, setTasks] = useState(Array(parseInt(appliedDuration)).fill(['']).map(arr => Array.from(arr)));
     const [daySelected, setDaySelected] = useState(0);
     const [image, setImage] = useState();
+    const [previewUrl, setPreviewUrl] = useState();
     const [errors, setErrors] = useState({});
     const [durationError, setDurationError] = useState({});
 
@@ -45,6 +46,22 @@ export default function PlansForm() {
         const selectedDiv = document.getElementById("selected-div");
         if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
     }, [daySelected])
+
+
+    useEffect(() => {
+
+        if (previewUrl)
+            URL.revokeObjectURL(previewUrl)
+
+        if (image)
+            setPreviewUrl(URL.createObjectURL(image))
+
+        return () => {
+            if (previewUrl)
+                URL.revokeObjectURL(previewUrl)
+        }
+
+    }, [image])
 
 
     const createPlan = async e => {
@@ -168,7 +185,10 @@ export default function PlansForm() {
 
                     <label className="label-plan-form">Do you want to make your plan public?  <input type="checkbox" checked={isPublic} onChange={e => setIsPublic(!isPublic)} /></label>
 
+                    {image && <div className='plan-img-container'><img className="plan-img" src={previewUrl} alt={`Preview of image`}></img></div>}
+
                     <label className="label-plan-form">Plan Image <input type="file" accept=".png,.jpg,.jpeg" onChange={e => setImage(e.target.files[0])} /></label>
+
 
                     <button className="bttn" type="submit">Create Plan</button>
                 </div>

@@ -88,9 +88,9 @@ const removeBookmarkAction = (bookmarkId) => ({
 });
 
 
-const removeHighlightAction = (highlightId) => ({
+const removeHighlightAction = (verseId) => ({
 	type: REMOVE_HIGHLIGHT,
-	highlightId
+	verseId
 });
 
 export const createHighlightThunk = highlight => async dispatch => {
@@ -119,15 +119,15 @@ export const createHighlightThunk = highlight => async dispatch => {
 	}
 }
 
-export const removeHighlightThunk = highlightId => async dispatch => {
+export const removeHighlightThunk = verseId => async dispatch => {
 
-	const res = await fetch(`/api/highlights/${highlightId}`, {
+	const res = await fetch(`/api/highlights/${verseId}`, {
 		method: "DELETE"
 	});
 
 	if (res.ok) {
 		const message = await res.json();
-		dispatch(removeHighlightAction(highlightId));
+		dispatch(removeHighlightAction(verseId));
 		return message;
 	} else if (res.status < 500) {
 		const data = await res.json();
@@ -592,6 +592,15 @@ export default function reducer(state = initialState, action) {
 						}
 					}
 				}
+			}
+
+		case REMOVE_HIGHLIGHT:
+			{
+				const newState = { ...state, user: { ...state.user, highlights: { ...state.user.highlights } } };
+
+				delete newState.user.highlights[action.verseId];
+
+				return newState;
 			}
 		default:
 			return state;

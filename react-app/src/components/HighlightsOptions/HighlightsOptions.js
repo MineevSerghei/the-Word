@@ -23,6 +23,8 @@ export default function HighlightsOptions({ setPopupIsShown, highlightsRef, setH
 
     const removeHighlight = async () => {
         await dispatch(removeHighlightThunk(verse.id));
+        setHighlightsShown(false);
+        setPopupIsShown(0);
     }
 
     if (!user) return null;

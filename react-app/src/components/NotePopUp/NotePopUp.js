@@ -12,7 +12,7 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
 
     const [copied, setCopied] = useState(false);
     const [bookmarkOptionsOpen, setBookmarkOptionsOpen] = useState(false);
-    const { ref: highlightsRef, isShown: highlightsShown, setIsShown: setHighlightsShown } = useShowComponent(false);
+    const { ref: highlightsRef, isShown: highlightsShown, setIsShown: setHighlightsShown, buttonRef } = useShowComponent(false);
 
 
     const openNoteField = (e) => {
@@ -30,6 +30,11 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
         setTimeout(setCopied, 700, false)
     }
 
+    const openHighlighters = e => {
+        setHighlightsShown(!highlightsShown);
+    }
+
+
 
     return (
         <div ref={popupRef} style={{ left: `${x - 100}px`, top: `${y - 200}px` }} className="pop-up-container">
@@ -41,7 +46,7 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
                 <button className="popup-button" onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
                 <button className={bookmarkOptionsOpen ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={() => setBookmarkOptionsOpen(!bookmarkOptionsOpen)}>Bookmark</button>
                 <button className="popup-button" disabled={!user} onClick={openNoteField}>Note</button>
-                <button className={highlightsShown ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={() => setHighlightsShown(true)}>Highlight</button>
+                <button ref={buttonRef} className={highlightsShown ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={openHighlighters}>Highlight</button>
             </div>
 
             {bookmarkOptionsOpen && <BookmarksOptions

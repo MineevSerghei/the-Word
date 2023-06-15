@@ -15,7 +15,6 @@ def post_highlight():
     form = HighlightForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        print('validates!!!!!!')
 
         verse_id = int(request.get_json()['verseId'])
 
@@ -40,7 +39,6 @@ def post_highlight():
             db.session.add(new_highlight)
             db.session.commit()
             return new_highlight.to_dict_no_user()
-    print('WHAT"S WRONG????', validation_errors_to_error_messages(form.errors))
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
@@ -48,10 +46,14 @@ def post_highlight():
 @login_required
 def delete_highlight(id):
     """
-    Route to delete a highlight specified by id
+    Route to delete a highlight specified by VERSE id
     """
 
-    highlight = Highlight.query.get(id)
+    highlight = Highlight.query.filter(Highlight.verse_id == id).first()
+
+
+    if not highlight:
+        return {'errors': 'Highlight Not Found'}, 404
 
     if highlight.user.id != current_user.id:
          return {'errors': 'Forbidden'}, 403

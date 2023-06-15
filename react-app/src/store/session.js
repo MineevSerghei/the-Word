@@ -421,7 +421,16 @@ const initialState = { user: null };
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-			return { user: action.payload };
+			{
+				const newState = { user: action.payload };
+				const highlights = {};
+
+				for (let hl of action.payload.highlights) {
+					highlights[hl.verseId] = hl
+				}
+				newState.user.highlights = highlights
+				return newState;
+			}
 		case REMOVE_USER:
 			return { user: null };
 		case CREATE_NOTE:

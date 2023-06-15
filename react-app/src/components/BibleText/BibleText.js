@@ -208,14 +208,22 @@ export default function BibleText() {
                         {Object.values(booksObj[displayedBook]
                             .chaptersObj[displayedChapter].versesObj)
                             .map(verse => {
+
+                                let className = 'verse';
+
+                                if (popupIsShown === verse.number) className += ' underlined'
+
                                 return <p
                                     id={verse.id}
-                                    className={popupIsShown === verse.number ? 'verse underlined' : 'verse'}
+                                    className={className}
                                     onClick={(e) => openPopUp(e, verse.number)}
                                     key={verse.id}>
-                                    {verse.number === 1 ?
-                                        <span className="chapter-number-in-text">{displayedChapter}</span> :
-                                        verse.number} {verse.text}</p>
+                                    <span
+                                        style={verse.id in user.highlights ?
+                                            { backgroundColor: user.highlights[verse.id].color } : null}>
+                                        {verse.number === 1 ?
+                                            <span className="chapter-number-in-text">{displayedChapter}</span> :
+                                            verse.number} {verse.text}</span></p>
 
                             })}
 

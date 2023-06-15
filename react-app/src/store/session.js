@@ -12,6 +12,8 @@ const EDIT_PLAN = "session/EDIT_PLAN";
 const DELETE_PLAN = "session/DELETE_PLAN";
 const CREATE_BOOKMARK = 'session/CREATE_BOOKMARK';
 const REMOVE_BOOKMARK = 'session/REMOVE_BOOKMARK';
+const CREATE_HIGHLIGHT = 'session/CREATE_HIGHLIGHT';
+const REMOVE_HIGHLIGHT = 'session/REMOVE_HIGHLIGHT';
 
 
 const setUser = (user) => ({
@@ -75,10 +77,67 @@ const createBookmarkAction = (bookmark) => ({
 	bookmark
 });
 
+const createHighlightAction = (highlight) => ({
+	type: CREATE_HIGHLIGHT,
+	highlight
+});
+
 const removeBookmarkAction = (bookmarkId) => ({
 	type: REMOVE_BOOKMARK,
 	bookmarkId
 });
+
+
+const removeHighlightAction = (highlightId) => ({
+	type: REMOVE_HIGHLIGHT,
+	highlightId
+});
+
+export const createHighlightThunk = highlight => async dispatch => {
+
+	const res = await fetch("/api/highlights", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			...highlight
+		})
+	});
+
+	if (res.ok) {
+		const highlight = await res.json();
+		dispatch(createHighlightAction(highlight));
+		return highlight;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
+
+export const removeHighlightThunk = highlightId => async dispatch => {
+
+	const res = await fetch(`/api/highlights/${highlightId}`, {
+		method: "DELETE"
+	});
+
+	if (res.ok) {
+		const message = await res.json();
+		dispatch(removeHighlightAction(highlightId));
+		return message;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
 
 
 export const removeBookmarkThunk = bookmarkId => async dispatch => {
@@ -523,6 +582,16 @@ export default function reducer(state = initialState, action) {
 				newState.user.bookmarks.splice(index, 1);
 
 				return newState;
+			}
+		case CREATE_HIGHLIGHT:
+			{
+				return {
+					...state, user: {
+						...state.user, highlights: {
+							...state.user.highlights, [action.highlight.verseId]: action.highlight
+						}
+					}
+				}
 			}
 		default:
 			return state;

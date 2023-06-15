@@ -14,8 +14,8 @@ def post_highlight():
     """
     form = HighlightForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-
     if form.validate_on_submit():
+        print('validates!!!!!!')
 
         verse_id = int(request.get_json()['verseId'])
 
@@ -40,7 +40,7 @@ def post_highlight():
             db.session.add(new_highlight)
             db.session.commit()
             return new_highlight.to_dict_no_user()
-
+    print('WHAT"S WRONG????', validation_errors_to_error_messages(form.errors))
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 

@@ -51,6 +51,7 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
             />}
 
             {highlightsShown && <HighlightsOptions
+                setPopupIsShown={setPopupIsShown}
                 setHighlightsShown={setHighlightsShown}
                 user={user}
                 verse={verse}

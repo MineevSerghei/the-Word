@@ -1,11 +1,11 @@
 import "./HighlightsOptions.css"
 import { useState } from "react"
-import { createBookmarkThunk, removeBookmarkThunk } from "../../store/session"
+import { createHighlightThunk, removeHighlightThunk } from "../../store/session"
 import { useDispatch } from "react-redux"
 
 const colors = ['#3a98b9', '#ffd183', '#a52a2a', '#36AC0B', '#CB58DA']
 
-export default function HighlightsOptions({ highlightsRef, setHighlightsShown, user, verse }) {
+export default function HighlightsOptions({ setPopupIsShown, highlightsRef, setHighlightsShown, user, verse }) {
 
     const dispatch = useDispatch();
 
@@ -16,12 +16,13 @@ export default function HighlightsOptions({ highlightsRef, setHighlightsShown, u
             'verseId': verse.id
         }
 
-        // await dispatch(createBookmarkThunk(info));
+        await dispatch(createHighlightThunk(info));
         setHighlightsShown(false);
+        setPopupIsShown(0);
     }
 
     const removeHighlight = async () => {
-
+        await dispatch(removeHighlightThunk(verse.id));
     }
 
     if (!user) return null;
@@ -31,7 +32,7 @@ export default function HighlightsOptions({ highlightsRef, setHighlightsShown, u
             className={`pop-up-container-highlights`}>
             {colors.map((color) => {
                 return <i
-                    onClick={() => highlightVerse()}
+                    onClick={() => highlightVerse(color)}
                     className="fa-solid fa-highlighter highlighter-icon" style={{ color: color }}></i>
             })}
             <svg

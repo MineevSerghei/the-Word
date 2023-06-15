@@ -131,7 +131,12 @@
     gap: 10px
 }
 
-.plan-img-container {}
+.plan-img-container-edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
 
 .plan-img {
     height: 200px;

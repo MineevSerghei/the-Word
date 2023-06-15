@@ -5,6 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import ConfirmPlanDeleteModal from "./ConfirmPlanDeleteModal";
 import { enrollPlanThunk } from "../../store/session";
+import ChangeImageModal from "./ChangeImageModal";
 
 export default function PlanDetailsPage() {
 
@@ -18,7 +19,7 @@ export default function PlanDetailsPage() {
 
     useEffect(() => {
         const selectedDiv = document.getElementById("selected-div");
-        if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
+        if (selectedDiv) selectedDiv.scrollIntoView({ block: "nearest", inline: "center" });
     }, [daySelected])
 
     if (!plan) {
@@ -59,6 +60,11 @@ export default function PlanDetailsPage() {
                 <div className="form-plan-details plan-page-details-left">
                     <h2>Plan Details</h2>
                     <div className='plan-img-page-container'><img className="plan-img-page" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>
+                    <OpenModalButton
+                        className='bttn-smaller'
+                        buttonText="Change Image"
+                        modalComponent={<ChangeImageModal plan={plan} />}
+                    />
                     <p className="p-plan-form">{plan.name}</p>
                     <p className="p-plan-form">{plan.description}</p>
                     <p>Duration: <span className="bold">{plan.duration}</span>  days </p>

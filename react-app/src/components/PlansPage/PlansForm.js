@@ -6,8 +6,6 @@ import { useHistory } from "react-router-dom";
 
 export default function PlansForm() {
 
-
-
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [duration, setDuration] = useState('3');
@@ -44,7 +42,7 @@ export default function PlansForm() {
 
     useEffect(() => {
         const selectedDiv = document.getElementById("selected-div");
-        if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
+        if (selectedDiv) selectedDiv.scrollIntoView({ block: "nearest", inline: "center" });
     }, [daySelected])
 
 

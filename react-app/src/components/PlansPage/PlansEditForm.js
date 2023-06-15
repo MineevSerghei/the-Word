@@ -57,7 +57,7 @@ export default function PlansEditForm() {
 
     useEffect(() => {
         const selectedDiv = document.getElementById("selected-div");
-        if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
+        if (selectedDiv) selectedDiv.scrollIntoView({ block: "nearest", inline: "center" });
     }, [daySelected])
 
 

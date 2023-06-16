@@ -14,7 +14,7 @@ export default function BibleText() {
     const booksObj = useSelector(state => state.bible);
     const user = useSelector(state => state.session.user);
 
-    const { ref: menuRef, isShown: menuIsShown, setIsShown: setMenuIsShown } = useShowComponent(false);
+    const { ref: menuRef, isShown: menuIsShown, setIsShown: setMenuIsShown, buttonRef: menuButtonRef } = useShowComponent(false);
     const { ref: popupRef, isShown: popupIsShown, setIsShown: setPopupIsShown } = useShowComponent(0);
     const [selectedBook, setSelectedBook] = useState('');
     const [displayedChapter, setDisplayedChapter] = useState(1);
@@ -157,8 +157,9 @@ export default function BibleText() {
 
                     <div className="book-menu">
                         <h2
-                            onClick={() => setMenuIsShown(true)}
-                            className="selected-book-title">{displayedBook}</h2>
+                            onClick={() => setMenuIsShown(!menuIsShown)}
+                            ref={menuButtonRef}
+                            className="selected-book-title">{displayedBook} {displayedChapter}</h2>
 
 
 

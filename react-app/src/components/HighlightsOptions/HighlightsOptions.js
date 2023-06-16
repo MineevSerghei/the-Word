@@ -30,7 +30,7 @@ export default function HighlightsOptions({ setPopupIsShown, highlightsRef, setH
     if (!user) return null;
 
     return (
-        <div ref={highlightsRef} style={{ bottom: `${40}px`, right: '5px' }}
+        <div ref={highlightsRef} style={{ bottom: `${75}px`, left: '85px' }}
             className={`pop-up-container-highlights`}>
             {colors.map((color) => {
                 return <i

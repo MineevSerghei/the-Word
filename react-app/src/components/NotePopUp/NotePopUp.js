@@ -11,8 +11,10 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
     const user = useSelector(state => state.session.user)
 
     const [copied, setCopied] = useState(false);
-    const [bookmarkOptionsOpen, setBookmarkOptionsOpen] = useState(false);
-    const { ref: highlightsRef, isShown: highlightsShown, setIsShown: setHighlightsShown, buttonRef } = useShowComponent(false);
+    const { ref: bookmarksRef, isShown: bookmarksShown,
+        setIsShown: setBookmarksShown, buttonRef: bookmarksButtonRef } = useShowComponent(false);
+    const { ref: highlightsRef, isShown: highlightsShown,
+        setIsShown: setHighlightsShown, buttonRef: highlightsButtonRef } = useShowComponent(false);
 
 
     const openNoteField = (e) => {
@@ -43,14 +45,15 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
 
             <div className="popup-buttons">
 
+                <button ref={bookmarksButtonRef} className={bookmarksShown ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={() => setBookmarksShown(!bookmarksShown)}>Bookmark</button>
+                <button ref={highlightsButtonRef} className={highlightsShown ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={openHighlighters}>Highlight</button>
                 <button className="popup-button" onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
-                <button className={bookmarkOptionsOpen ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={() => setBookmarkOptionsOpen(!bookmarkOptionsOpen)}>Bookmark</button>
                 <button className="popup-button" disabled={!user} onClick={openNoteField}>Note</button>
-                <button ref={buttonRef} className={highlightsShown ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={openHighlighters}>Highlight</button>
             </div>
 
-            {bookmarkOptionsOpen && <BookmarksOptions
-                setBookmarkOptionsOpen={setBookmarkOptionsOpen}
+            {bookmarksShown && <BookmarksOptions
+                setBookmarksShown={setBookmarksShown}
+                bookmarksRef={bookmarksRef}
                 user={user}
                 verse={verse}
             />}

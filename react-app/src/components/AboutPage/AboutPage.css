@@ -1,0 +1,65 @@
+.about-page {
+    margin: 20px 50px 50px 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 100px;
+}
+
+.about-image-div {
+    background-image: url('../LandingPage/wisconsinpictures-sqyQNuOUl8g-unsplash.jpg');
+    background-size: cover;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: end; */
+    justify-content: end;
+}
+
+.about-image-div-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.the-word-description {
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.inspired-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.inspired-link {
+    text-decoration: none;
+    color: #3A98B9;
+}
+
+.inspired-link:hover {
+    text-decoration: underline;
+}
+
+.the-dev {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inspired-icon {
+    font-size: 2rem;
+}
+
+.inspired-icon:hover {
+    color: brown;
+}

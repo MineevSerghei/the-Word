@@ -1,25 +1,6 @@
-// import { a } from 'react-router-dom'
 import './AboutPage.css'
-import { a } from 'react-router-dom/cjs/react-router-dom.min'
-// import { useEffect } from 'react';
-// import { getAllBooksThunk } from "../../store/bible";
-// import { useDispatch, useSelector } from 'react-redux';
 
 export default function AboutPage() {
-
-    // const books = useSelector(state => state.bible)
-
-    // const dispatch = useDispatch();
-
-    // useEffect(() => {
-
-    //     const getBooks = async () => {
-
-    //         // await dispatch(getAllBooksThunk())
-    //     }
-    //     if (!books || !Object.values(books).length) getBooks();
-
-    // }, [dispatch]);
 
 
     return (
@@ -28,9 +9,6 @@ export default function AboutPage() {
                 <div className='about-image-div'>
                     Photo by
                     <a className='inspired-link' target='_blank' href="https://unsplash.com/es/@wisconsinpictures?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">wisconsinpictures</a>
-
-                    {/* <h1 className='read-bible-online'>Read the Bible Online</h1> */}
-                    {/* <a className='nav-left-as read-now-bttn' target='_blank' href="/read">Read Now</a> */}
                 </div>
 
             </div>

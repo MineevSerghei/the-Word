@@ -49,7 +49,8 @@ def delete_highlight(id):
     Route to delete a highlight specified by VERSE id
     """
 
-    highlight = Highlight.query.filter(Highlight.verse_id == id).first()
+    highlight = Highlight.query.filter(Highlight.verse_id == id,
+                                       Highlight.user_id == current_user.id).first()
 
 
     if not highlight:

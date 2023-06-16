@@ -220,7 +220,7 @@ export default function BibleText() {
                                     onClick={(e) => openPopUp(e, verse.number)}
                                     key={verse.id}>
                                     <span
-                                        style={verse.id in user.highlights ?
+                                        style={user && verse.id in user.highlights ?
                                             { backgroundColor: user.highlights[verse.id].color } : null}>
                                         {verse.number === 1 ?
                                             <span className="chapter-number-in-text">{displayedChapter}</span> :

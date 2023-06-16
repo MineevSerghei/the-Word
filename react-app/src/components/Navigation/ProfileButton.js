@@ -53,7 +53,6 @@ function ProfileButton({ user }) {
             <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/read'>The Bible</Link></li>
             <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/notes'>All Notes</Link></li>
             <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/plans'>Custom Plans</Link></li>
-            <li className='drop-down-link-li'><Link className='drop-down-link-Link' onClick={closeMenu} to='/about'>About The Word</Link></li>
             <li>
               <button className="bttn-face log-out-bttn" onClick={handleLogout}>Log Out</button>
             </li>

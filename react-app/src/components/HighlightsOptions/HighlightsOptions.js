@@ -3,7 +3,7 @@ import { useState } from "react"
 import { createHighlightThunk, removeHighlightThunk } from "../../store/session"
 import { useDispatch } from "react-redux"
 
-const colors = ['#3a98b9', '#ffd183', '#a52a2a', '#36AC0B', '#CB58DA']
+const colors = [['#3a98b9', '#95c8f3'], ['#ffd183', '#ffd183'], ['#a52a2a', '#ff8c87'], ['#36AC0B', '#b3e561'], ['#CB58DA', '#deacf9']]
 
 export default function HighlightsOptions({ setPopupIsShown, highlightsRef, setHighlightsShown, user, verse }) {
 
@@ -34,8 +34,8 @@ export default function HighlightsOptions({ setPopupIsShown, highlightsRef, setH
             className={`pop-up-container-highlights`}>
             {colors.map((color) => {
                 return <i
-                    onClick={() => highlightVerse(color)}
-                    className="fa-solid fa-highlighter highlighter-icon" style={{ color: color }}></i>
+                    onClick={() => highlightVerse(color[1])}
+                    className="fa-solid fa-highlighter highlighter-icon" style={{ color: color[0] }}></i>
             })}
             <svg
                 onClick={() => removeHighlight()}

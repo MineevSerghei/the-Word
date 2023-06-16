@@ -6,7 +6,7 @@ def seed_highlights():
     highlight1 = Highlight(
         user_id=1,
         verse_id=10,
-        color="#3a98b9"
+        color="#95c8f3"
     )
 
     highlight2 = Highlight(

@@ -52,7 +52,10 @@ export default function PlansForm() {
             URL.revokeObjectURL(previewUrl)
 
         if (image)
-            setPreviewUrl(URL.createObjectURL(image))
+            if (image.size > 2 * 1024 * 1024)
+                setPreviewUrl('tooLarge')
+            else
+                setPreviewUrl(URL.createObjectURL(image))
 
         return () => {
             if (previewUrl)
@@ -76,6 +79,8 @@ export default function PlansForm() {
 
         if (parseInt(appliedDuration) < 3) err.appliedDuration = 'Duration cannot be less than 3 days'
         if (parseInt(appliedDuration) > 365) err.appliedDuration = 'Duration cannot be more than 365 days'
+
+        if (image && image.size > 2 * 1024 * 1024) err.image = 'Image size cannot exceed 2MB'
 
         for (let day = 0; day < tasks.length; day++) {
             for (let i = 0; i < tasks[day].length; i++) {
@@ -172,21 +177,25 @@ export default function PlansForm() {
             <form className="plan-form" onSubmit={createPlan}>
                 <div className="form-plan-details">
                     <h2>Create plan</h2>
-                    <label className="label-plan-form">Name <input value={name} onChange={e => setName(e.target.value)} /></label>
+                    <label className="label-plan-form"><span className="required-star">*</span> Name <input value={name} onChange={e => setName(e.target.value)} /></label>
                     {errors.name && <p className="error">{errors.name}</p>}
-                    <label className="label-plan-form">Description <textarea className="task-textarea" value={description} onChange={e => setDescription(e.target.value)} /></label>
+                    <label className="label-plan-form"><span className="required-star">*</span> Description <textarea className="task-textarea" value={description} onChange={e => setDescription(e.target.value)} /></label>
                     {errors.description && <p className="error">{errors.description}</p>}
-                    <label className="label-plan-form"><input type="number" value={duration} onChange={e => setDuration(e.target.value)} /><button onClick={changeDuration} type="button">Apply</button></label>
+                    <label className="label-plan-form"><input type="number" value={duration} onChange={e => setDuration(e.target.value)} /> <button className="bttn-face no-width" onClick={changeDuration} type="button">Apply</button></label>
                     <span>Current Duration: <span className="bold">{appliedDuration}</span>  </span>
                     {errors.duration && <p>{errors.duration}</p>}
                     {durationError.duration && <p className="error">{durationError.duration}</p>}
 
                     <label className="label-plan-form">Do you want to make your plan public?  <input type="checkbox" checked={isPublic} onChange={e => setIsPublic(!isPublic)} /></label>
 
-                    {image && <div className='plan-img-container'><img className="plan-img" src={previewUrl} alt={`Preview of image`}></img></div>}
+                    {image &&
 
-                    <label className="label-plan-form">Plan Image <input type="file" accept=".png,.jpg,.jpeg" onChange={e => setImage(e.target.files[0])} /></label>
+                        (previewUrl === 'tooLarge' ? <div className='plan-img-container'><br></br><p className="error">Image size cannot exceed 2MB</p></div> :
 
+                            <div className='plan-img-container'><img className="plan-img" src={previewUrl} alt={`Preview of image`}></img></div>)}
+
+                    <label className="label-plan-form">Plan Image <input className="image-input" type="file" accept=".png,.jpg,.jpeg" onChange={e => setImage(e.target.files[0])} /></label>
+                    {errors.image && <p className="error">{errors.image}</p>}
 
                     <button className="bttn" type="submit">Create Plan</button>
                 </div>
@@ -213,7 +222,7 @@ export default function PlansForm() {
                         {tasks[daySelected].map((task, i) => {
                             return (
                                 <div key={i} className="task">
-                                    <label>Task {i + 1}</label>
+                                    <label><span className="required-star">*</span> Task {i + 1}</label>
                                     <textarea className="task-textarea" value={task} onChange={e => updateTasks(e, daySelected, i)} />
                                     {i !== 0 && <i className="fa-solid fa-xmark" onClick={e => removeTask(e, daySelected, i)}></i>}
                                 </div>

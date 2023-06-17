@@ -75,25 +75,28 @@
     margin: 5px;
     padding: 5px 10px;
     font-family: inherit;
-    background-color: inherit;
+    background-color: rgb(255, 209, 131);
+    border: 1px solid transparent;
+
 }
 
 .bttn-smaller:hover {
     cursor: pointer;
-    box-shadow: 5px 5px 1px;
+    border: 1px solid brown;
 }
 
 .bttn {
-    font-size: 1.5rem;
+    border: 1px solid transparent;
+    font-size: 1.2rem;
+    background-color: rgb(255, 209, 131);
     margin: 15px;
-    padding: 10px 20px;
+    padding: 8px 20px;
     font-family: inherit;
-    background-color: inherit;
 }
 
 .bttn:hover {
     cursor: pointer;
-    box-shadow: 5px 5px 1px;
+    border: 1px solid brown;
 }
 
 .bold {

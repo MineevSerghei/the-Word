@@ -6,8 +6,6 @@ import { useHistory } from "react-router-dom";
 
 export default function PlansForm() {
 
-
-
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [duration, setDuration] = useState('3');
@@ -15,8 +13,11 @@ export default function PlansForm() {
     const [isPublic, setIsPublic] = useState(false);
     const [tasks, setTasks] = useState(Array(parseInt(appliedDuration)).fill(['']).map(arr => Array.from(arr)));
     const [daySelected, setDaySelected] = useState(0);
+    const [image, setImage] = useState();
+    const [previewUrl, setPreviewUrl] = useState();
     const [errors, setErrors] = useState({});
     const [durationError, setDurationError] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -42,12 +43,31 @@ export default function PlansForm() {
 
     useEffect(() => {
         const selectedDiv = document.getElementById("selected-div");
-        if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
+        if (selectedDiv) selectedDiv.scrollIntoView({ block: "nearest", inline: "center" });
     }, [daySelected])
 
 
-    const createPlan = async e => {
+    useEffect(() => {
 
+        if (previewUrl)
+            URL.revokeObjectURL(previewUrl)
+
+        if (image)
+            if (image.size > 2 * 1024 * 1024)
+                setPreviewUrl('tooLarge')
+            else
+                setPreviewUrl(URL.createObjectURL(image))
+
+        return () => {
+            if (previewUrl)
+                URL.revokeObjectURL(previewUrl)
+        }
+
+    }, [image])
+
+
+    const createPlan = async e => {
+        setIsLoading(true);
 
         e.preventDefault();
         const err = {};
@@ -60,6 +80,8 @@ export default function PlansForm() {
 
         if (parseInt(appliedDuration) < 3) err.appliedDuration = 'Duration cannot be less than 3 days'
         if (parseInt(appliedDuration) > 365) err.appliedDuration = 'Duration cannot be more than 365 days'
+
+        if (image && image.size > 2 * 1024 * 1024) err.image = 'Image size cannot exceed 2MB'
 
         for (let day = 0; day < tasks.length; day++) {
             for (let i = 0; i < tasks[day].length; i++) {
@@ -81,21 +103,23 @@ export default function PlansForm() {
         }
 
         if (Object.keys(err).length > 0) {
+            setIsLoading(false)
             setErrors(err)
         } else {
 
-            const plan = {
-                name,
-                description,
-                duration: appliedDuration,
-                isPublic,
-                tasks
-            }
+            const formData = new FormData();
 
-            const returnedPlan = await dispatch(createPlanThunk(plan));
+            formData.append("name", name);
+            formData.append("description", description);
+            formData.append("duration", appliedDuration);
+            formData.append("isPublic", isPublic);
+            formData.append("tasks", JSON.stringify(tasks));
 
+            if (image) formData.append("image", image);
 
+            const returnedPlan = await dispatch(createPlanThunk(formData));
 
+            setIsLoading(false)
             history.push(`/plans/${returnedPlan.id}`)
 
         }
@@ -154,18 +178,27 @@ export default function PlansForm() {
             <form className="plan-form" onSubmit={createPlan}>
                 <div className="form-plan-details">
                     <h2>Create plan</h2>
-                    <label className="label-plan-form">Name <input value={name} onChange={e => setName(e.target.value)} /></label>
+                    <label className="label-plan-form"><span className="required-star">*</span> Name <input value={name} onChange={e => setName(e.target.value)} /></label>
                     {errors.name && <p className="error">{errors.name}</p>}
-                    <label className="label-plan-form">Description <textarea className="task-textarea" value={description} onChange={e => setDescription(e.target.value)} /></label>
+                    <label className="label-plan-form"><span className="required-star">*</span> Description <textarea className="task-textarea" value={description} onChange={e => setDescription(e.target.value)} /></label>
                     {errors.description && <p className="error">{errors.description}</p>}
-                    <label className="label-plan-form"><input type="number" value={duration} onChange={e => setDuration(e.target.value)} /><button onClick={changeDuration} type="button">Apply</button></label>
+                    <label className="label-plan-form"><input type="number" value={duration} onChange={e => setDuration(e.target.value)} /> <button className="bttn-face no-width" onClick={changeDuration} type="button">Apply</button></label>
                     <span>Current Duration: <span className="bold">{appliedDuration}</span>  </span>
                     {errors.duration && <p>{errors.duration}</p>}
                     {durationError.duration && <p className="error">{durationError.duration}</p>}
 
                     <label className="label-plan-form">Do you want to make your plan public?  <input type="checkbox" checked={isPublic} onChange={e => setIsPublic(!isPublic)} /></label>
 
-                    <button className="bttn" type="submit">Create Plan</button>
+                    {image &&
+
+                        (previewUrl === 'tooLarge' ? <div className='plan-img-container'><br></br><p className="error">Image size cannot exceed 2MB</p></div> :
+
+                            <div className='plan-img-container'><img className="plan-img" src={previewUrl} alt={`Preview of image`}></img></div>)}
+
+                    <label className="label-plan-form">Plan Image <input className="image-input" type="file" accept=".png,.jpg,.jpeg" onChange={e => setImage(e.target.files[0])} /></label>
+                    {errors.image && <p className="error">{errors.image}</p>}
+
+                    {isLoading ? <div className="loading-div-create"><i className="fa-solid fa-spinner fa-spin-pulse loading-icon"></i></div> : <button className="bttn" type="submit">Create Plan</button>}
                 </div>
                 <div className="form-tasks">
                     <h2>Add tasks</h2>
@@ -190,7 +223,7 @@ export default function PlansForm() {
                         {tasks[daySelected].map((task, i) => {
                             return (
                                 <div key={i} className="task">
-                                    <label>Task {i + 1}</label>
+                                    <label><span className="required-star">*</span> Task {i + 1}</label>
                                     <textarea className="task-textarea" value={task} onChange={e => updateTasks(e, daySelected, i)} />
                                     {i !== 0 && <i className="fa-solid fa-xmark" onClick={e => removeTask(e, daySelected, i)}></i>}
                                 </div>

@@ -33,6 +33,7 @@ export default function PlanOverview({ plan, setPlansField, setSelectedPlan }) {
 
             <div className="plan-field">
                 <h3>{plan.name}</h3>
+                {plan.imageUrl && <div className='plan-img-container'><img className="plan-img" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>}
                 <div>
                     <p>Duration: {plan.duration} days</p>
                     <p>{plan.description}</p>

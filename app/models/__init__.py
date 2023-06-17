@@ -7,3 +7,4 @@ from .note import Note
 from .plan import Plan
 from .task import Task
 from .bookmark import Bookmark
+from .highlight import Highlight

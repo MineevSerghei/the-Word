@@ -57,7 +57,7 @@ export default function PlansEditForm() {
 
     useEffect(() => {
         const selectedDiv = document.getElementById("selected-div");
-        if (selectedDiv) selectedDiv.scrollIntoView({ inline: "center" });
+        if (selectedDiv) selectedDiv.scrollIntoView({ block: "nearest", inline: "center" });
     }, [daySelected])
 
 
@@ -171,7 +171,7 @@ export default function PlansEditForm() {
                     {errors.name && <p className="error">{errors.name}</p>}
                     <label className="label-plan-form">Description <textarea className="task-textarea" value={description} onChange={e => setDescription(e.target.value)} /></label>
                     {errors.description && <p className="error">{errors.description}</p>}
-                    <label className="label-plan-form"><input type="number" value={duration} onChange={e => setDuration(e.target.value)} /><button onClick={changeDuration} type="button">Apply</button></label>
+                    <label className="label-plan-form"><input type="number" value={duration} onChange={e => setDuration(e.target.value)} /> <button className="bttn-face no-width" onClick={changeDuration} type="button">Apply</button></label>
                     <span>Current Duration: <span className="bold">{appliedDuration}</span>  </span>
                     {errors.duration && <p>{errors.duration}</p>}
                     {durationError.duration && <p className="error">{durationError.duration}</p>}

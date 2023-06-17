@@ -39,8 +39,7 @@ function SignupFormModal() {
 					))}
 				</ul>
 				<label>
-					Email
-					<input
+					<span className="required-star">*</span> Email <input
 						type="text"
 						name="Email"
 						value={email}
@@ -49,8 +48,7 @@ function SignupFormModal() {
 					/>
 				</label>
 				<label>
-					Name
-					<input
+					<span className="required-star">*</span> Name <input
 						type="text"
 						name="Name"
 						value={name}
@@ -59,8 +57,7 @@ function SignupFormModal() {
 					/>
 				</label>
 				<label>
-					Password
-					<input
+					<span className="required-star">*</span> Password <input
 						type="password"
 						name="Password"
 						value={password}
@@ -69,8 +66,7 @@ function SignupFormModal() {
 					/>
 				</label>
 				<label>
-					Confirm Password
-					<input
+					<span className="required-star">*</span> Confirm Password <input
 						type="password"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}

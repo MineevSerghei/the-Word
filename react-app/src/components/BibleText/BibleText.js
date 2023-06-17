@@ -14,7 +14,7 @@ export default function BibleText() {
     const booksObj = useSelector(state => state.bible);
     const user = useSelector(state => state.session.user);
 
-    const { ref: menuRef, isShown: menuIsShown, setIsShown: setMenuIsShown } = useShowComponent(false);
+    const { ref: menuRef, isShown: menuIsShown, setIsShown: setMenuIsShown, buttonRef: menuButtonRef } = useShowComponent(false);
     const { ref: popupRef, isShown: popupIsShown, setIsShown: setPopupIsShown } = useShowComponent(0);
     const [selectedBook, setSelectedBook] = useState('');
     const [displayedChapter, setDisplayedChapter] = useState(1);
@@ -157,8 +157,9 @@ export default function BibleText() {
 
                     <div className="book-menu">
                         <h2
-                            onClick={() => setMenuIsShown(true)}
-                            className="selected-book-title">{displayedBook}</h2>
+                            onClick={() => setMenuIsShown(!menuIsShown)}
+                            ref={menuButtonRef}
+                            className="selected-book-title">{displayedBook} {displayedChapter}</h2>
 
 
 
@@ -208,14 +209,22 @@ export default function BibleText() {
                         {Object.values(booksObj[displayedBook]
                             .chaptersObj[displayedChapter].versesObj)
                             .map(verse => {
+
+                                let className = 'verse';
+
+                                if (popupIsShown === verse.number) className += ' underlined'
+
                                 return <p
                                     id={verse.id}
-                                    className={popupIsShown === verse.number ? 'verse underlined' : 'verse'}
+                                    className={className}
                                     onClick={(e) => openPopUp(e, verse.number)}
                                     key={verse.id}>
-                                    {verse.number === 1 ?
-                                        <span className="chapter-number-in-text">{displayedChapter}</span> :
-                                        verse.number} {verse.text}</p>
+                                    <span
+                                        style={user && verse.id in user.highlights ?
+                                            { backgroundColor: user.highlights[verse.id].color } : null}>
+                                        {verse.number === 1 ?
+                                            <span className="chapter-number-in-text">{displayedChapter}</span> :
+                                            verse.number} {verse.text}</span></p>
 
                             })}
 

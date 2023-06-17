@@ -2,10 +2,23 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Plan, Task, db
 from datetime import date
-from app.forms import PlanForm
+from app.forms import PlanForm, PlanImageForm
 from . import validation_errors_to_error_messages
+from .aws_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
+import json
 
 plan_routes = Blueprint('plans', __name__)
+
+def delete_unused_image(plan):
+
+            if plan.image_url:
+
+                image_is_in_use = Plan.query.filter(
+                    Plan.image_url == plan.image_url,
+                    Plan.id != plan.id).first()
+
+                if not image_is_in_use:
+                    remove_file_from_s3(plan.image_url)
 
 
 @plan_routes.route('/<int:id>/enroll', methods=['POST'])
@@ -49,6 +62,7 @@ def enroll_plan(id):
         is_public=False,
         is_template=False,
         start_date=date.today(),
+        image_url=template.image_url,
         enrolled_user=current_user,
         tasks=task_instances
     )
@@ -71,6 +85,8 @@ def unenroll_plan(id):
 
     if plan.enrolled_user.id != current_user.id:
         return {'errors': 'Forbidden'}, 403
+
+    delete_unused_image(plan)
 
     db.session.delete(plan)
     db.session.commit()
@@ -102,17 +118,18 @@ def post_plan():
     """
     Route to create a reading plan
     """
+
     form = PlanForm()
+
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    req = request.get_json()
+    req = request.form
 
-    tasks = req['tasks']
+    tasks = json.loads(req['tasks'])
     duration = req['duration']
-    is_public = req['isPublic']
+    is_public = True if req['isPublic'] == 'true' else False
 
     task_errors = {}
-
 
     for i in range(len(tasks)):
         for task in tasks[i]:
@@ -122,9 +139,20 @@ def post_plan():
                 task_errors[i+1] = 'Task description has to be 500 characters or less'
 
     if task_errors:
-        return {'task_errors': task_errors}, 400
+        return {'errors': task_errors}, 400
 
     if form.validate_on_submit():
+
+        image = form.data["image"]
+
+        if image:
+
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+
+            if "url" not in upload:
+                return upload, 400
+
 
         tasks_to_create = []
 
@@ -149,12 +177,48 @@ def post_plan():
             tasks=tasks_to_create
         )
 
+        if image:
+            plan.image_url = upload["url"]
+
         db.session.add(plan)
         db.session.commit()
 
         return plan.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
+@plan_routes.route('/<int:id>/image', methods=['PUT'])
+@login_required
+def edit_image(id):
+    """
+    Route to edit the image of a reading plan
+    """
+
+    plan_to_update = Plan.query.get(id)
+
+    if plan_to_update.author_id != current_user.id:
+        return {'errors': 'Forbidden'}, 403
+
+    form = PlanImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+
+        image = form.data["image"]
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+
+        if "url" not in upload:
+            return upload, 400
+
+        delete_unused_image(plan_to_update)
+
+        plan_to_update.image_url = upload["url"]
+
+        db.session.commit()
+
+        return plan_to_update.to_dict()
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @plan_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -227,6 +291,8 @@ def delete_plan(id):
 
     if plan_to_delete.author_id != current_user.id:
         return {'errors': 'Forbidden'}, 403
+
+    delete_unused_image(plan_to_delete)
 
     db.session.delete(plan_to_delete)
     db.session.commit()

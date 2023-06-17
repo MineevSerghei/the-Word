@@ -3,13 +3,19 @@ import { useSelector } from "react-redux"
 import "./NotePopUp.css"
 import { useState } from "react"
 import BookmarksOptions from "../BookmarksOptions/BookmarksOptions"
+import useShowComponent from "../../context/ShowComponent"
+import HighlightsOptions from "../HighlightsOptions/HighlightsOptions"
 
 export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPopupIsShown, setField, setTab, setSelectedVerse }) {
 
     const user = useSelector(state => state.session.user)
 
     const [copied, setCopied] = useState(false);
-    const [bookmarkOptionsOpen, setBookmarkOptionsOpen] = useState(false);
+    const { ref: bookmarksRef, isShown: bookmarksShown,
+        setIsShown: setBookmarksShown, buttonRef: bookmarksButtonRef } = useShowComponent(false);
+    const { ref: highlightsRef, isShown: highlightsShown,
+        setIsShown: setHighlightsShown, buttonRef: highlightsButtonRef } = useShowComponent(false);
+
 
     const openNoteField = (e) => {
         setTab('notes')
@@ -26,6 +32,11 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
         setTimeout(setCopied, 700, false)
     }
 
+    const openHighlighters = e => {
+        setHighlightsShown(!highlightsShown);
+    }
+
+
 
     return (
         <div ref={popupRef} style={{ left: `${x - 100}px`, top: `${y - 200}px` }} className="pop-up-container">
@@ -34,16 +45,25 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
 
             <div className="popup-buttons">
 
-                <button className="popup-button" disabled>Send</button>
-                <button className={bookmarkOptionsOpen ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={() => setBookmarkOptionsOpen(!bookmarkOptionsOpen)}>Bookmark</button>
-                <button className="popup-button" disabled={!user} onClick={openNoteField}>Note</button>
+                <button ref={bookmarksButtonRef} className={bookmarksShown ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={() => setBookmarksShown(!bookmarksShown)}>Bookmark</button>
+                <button ref={highlightsButtonRef} className={highlightsShown ? 'popup-button filled' : 'popup-button'} disabled={!user} onClick={openHighlighters}>Highlight</button>
                 <button className="popup-button" onClick={copy}> {copied ? "Copied ✅" : "Copy"}</button>
+                <button className="popup-button" disabled={!user} onClick={openNoteField}>Note</button>
             </div>
 
-            {bookmarkOptionsOpen && <BookmarksOptions
-                setBookmarkOptionsOpen={setBookmarkOptionsOpen}
+            {bookmarksShown && <BookmarksOptions
+                setBookmarksShown={setBookmarksShown}
+                bookmarksRef={bookmarksRef}
                 user={user}
                 verse={verse}
+            />}
+
+            {highlightsShown && <HighlightsOptions
+                setPopupIsShown={setPopupIsShown}
+                setHighlightsShown={setHighlightsShown}
+                user={user}
+                verse={verse}
+                highlightsRef={highlightsRef}
             />}
 
         </div >

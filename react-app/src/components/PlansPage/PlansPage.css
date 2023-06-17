@@ -75,25 +75,28 @@
     margin: 5px;
     padding: 5px 10px;
     font-family: inherit;
-    background-color: inherit;
+    background-color: rgb(255, 209, 131);
+    border: 1px solid transparent;
+
 }
 
 .bttn-smaller:hover {
     cursor: pointer;
-    box-shadow: 5px 5px 1px;
+    border: 1px solid brown;
 }
 
 .bttn {
-    font-size: 1.5rem;
+    border: 1px solid transparent;
+    font-size: 1.2rem;
+    background-color: rgb(255, 209, 131);
     margin: 15px;
-    padding: 10px 20px;
+    padding: 8px 20px;
     font-family: inherit;
-    background-color: inherit;
 }
 
 .bttn:hover {
     cursor: pointer;
-    box-shadow: 5px 5px 1px;
+    border: 1px solid brown;
 }
 
 .bold {
@@ -145,4 +148,50 @@
 
 .plan-page-details-left {
     align-items: flex-start;
+}
+
+.plan-img-page {
+    height: 400px;
+}
+
+.plan-img-page-container {}
+
+.image-input::file-selector-button {
+    font-family: inherit;
+    color: black;
+    background-color: rgb(255, 209, 131);
+    border: 1px solid transparent;
+    font-size: 1rem;
+}
+
+.image-input::file-selector-button:hover {
+    cursor: pointer;
+    border: 1px solid brown;
+}
+
+.no-width {
+    width: auto;
+}
+
+.required-star {
+    text-align: start;
+    color: red;
+    font-size: 1rem;
+}
+
+.loading-icon {
+    color: rgb(255, 181, 54);
+    font-size: 1.7rem;
+}
+
+.loading-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-div-create {
+    position: relative;
+    right: 50px;
+    top: 20px;
 }

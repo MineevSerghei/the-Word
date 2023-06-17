@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from "../OpenModalButton";
@@ -15,6 +15,7 @@ function Navigation({ isLoaded }) {
 			<li>
 				<NavLink className='nav-left-links' exact to="/">Home</NavLink>
 				<NavLink className='nav-left-links' to="/read">Read</NavLink>
+				<NavLink className='nav-left-links' to="/about">About</NavLink>
 			</li>
 			{isLoaded && (
 				<>
@@ -24,7 +25,6 @@ function Navigation({ isLoaded }) {
 						</li>
 						:
 						<li>
-
 							<OpenModalButton
 								className='log-in-sign-up-bttns'
 								buttonText="Log In"

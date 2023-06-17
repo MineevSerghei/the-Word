@@ -78,6 +78,7 @@ def seed_plans():
         is_template=True,
         template_id=None,
         start_date=None,
+        image_url='https://the-word-bucket.s3.amazonaws.com/seed286acd7a9a47c410588a72cea959266cd.jpg',
         enrolled_user_id=None,
         tasks=template_tasks
     )
@@ -90,6 +91,7 @@ def seed_plans():
         is_public=False,
         is_template=False,
         start_date=date.today(),
+        image_url='https://the-word-bucket.s3.amazonaws.com/seed286acd7a9a47c410588a72cea959266cd.jpg',
         enrolled_user_id=1,
         tasks=task_instances
     )
@@ -115,6 +117,7 @@ def seed_plans():
         is_template=True,
         template_id=None,
         start_date=None,
+        image_url='https://the-word-bucket.s3.amazonaws.com/seed182b2cc21987449c1b6052c63098b52e3.jpg',
         enrolled_user_id=None,
         tasks=tasks30
     )

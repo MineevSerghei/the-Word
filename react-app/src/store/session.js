@@ -12,6 +12,8 @@ const EDIT_PLAN = "session/EDIT_PLAN";
 const DELETE_PLAN = "session/DELETE_PLAN";
 const CREATE_BOOKMARK = 'session/CREATE_BOOKMARK';
 const REMOVE_BOOKMARK = 'session/REMOVE_BOOKMARK';
+const CREATE_HIGHLIGHT = 'session/CREATE_HIGHLIGHT';
+const REMOVE_HIGHLIGHT = 'session/REMOVE_HIGHLIGHT';
 
 
 const setUser = (user) => ({
@@ -75,10 +77,67 @@ const createBookmarkAction = (bookmark) => ({
 	bookmark
 });
 
+const createHighlightAction = (highlight) => ({
+	type: CREATE_HIGHLIGHT,
+	highlight
+});
+
 const removeBookmarkAction = (bookmarkId) => ({
 	type: REMOVE_BOOKMARK,
 	bookmarkId
 });
+
+
+const removeHighlightAction = (verseId) => ({
+	type: REMOVE_HIGHLIGHT,
+	verseId
+});
+
+export const createHighlightThunk = highlight => async dispatch => {
+
+	const res = await fetch("/api/highlights", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			...highlight
+		})
+	});
+
+	if (res.ok) {
+		const highlight = await res.json();
+		dispatch(createHighlightAction(highlight));
+		return highlight;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
+
+export const removeHighlightThunk = verseId => async dispatch => {
+
+	const res = await fetch(`/api/highlights/${verseId}`, {
+		method: "DELETE"
+	});
+
+	if (res.ok) {
+		const message = await res.json();
+		dispatch(removeHighlightAction(verseId));
+		return message;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
 
 
 export const removeBookmarkThunk = bookmarkId => async dispatch => {
@@ -168,16 +227,31 @@ export const editPlanThunk = (plan, planId) => async dispatch => {
 	}
 }
 
+export const editPlanImageThunk = (formData, planId) => async dispatch => {
+	const res = await fetch(`/api/plans/${planId}/image`, {
+		method: "PUT",
+		body: formData
+	});
 
-export const createPlanThunk = plan => async dispatch => {
+	if (res.ok) {
+		const returnedPlan = await res.json();
+		dispatch(editPlanAction(returnedPlan));
+		return returnedPlan;
+	} else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+}
+
+
+export const createPlanThunk = formData => async dispatch => {
 	const res = await fetch("/api/plans", {
 		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			...plan
-		})
+		body: formData
 	});
 
 	if (res.ok) {
@@ -406,7 +480,16 @@ const initialState = { user: null };
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-			return { user: action.payload };
+			{
+				const newState = { user: action.payload };
+				const highlights = {};
+
+				for (let hl of action.payload.highlights) {
+					highlights[hl.verseId] = hl
+				}
+				newState.user.highlights = highlights
+				return newState;
+			}
 		case REMOVE_USER:
 			return { user: null };
 		case CREATE_NOTE:
@@ -497,6 +580,25 @@ export default function reducer(state = initialState, action) {
 				const index = state.user.bookmarks.findIndex(bm => bm.id === action.bookmarkId);
 
 				newState.user.bookmarks.splice(index, 1);
+
+				return newState;
+			}
+		case CREATE_HIGHLIGHT:
+			{
+				return {
+					...state, user: {
+						...state.user, highlights: {
+							...state.user.highlights, [action.highlight.verseId]: action.highlight
+						}
+					}
+				}
+			}
+
+		case REMOVE_HIGHLIGHT:
+			{
+				const newState = { ...state, user: { ...state.user, highlights: { ...state.user.highlights } } };
+
+				delete newState.user.highlights[action.verseId];
 
 				return newState;
 			}

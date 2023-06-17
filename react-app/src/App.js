@@ -10,6 +10,7 @@ import PlansForm from "./components/PlansPage/PlansForm";
 import PlansEditForm from "./components/PlansPage/PlansEditForm";
 import PlanDetailsPage from "./components/PlansPage/PlanDetailsPage";
 import NotesPage from "./components/NotesPage";
+import AboutPage from "./components/AboutPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
           <Route path="/read" >
             <BibleText />
           </Route>
+
           {user && <Route path="/plans/:planId/edit" >
             <PlansEditForm />
           </Route>}
@@ -48,9 +50,14 @@ function App() {
             <PlansPage />
           </Route>}
 
+          <Route path="/about" >
+            <AboutPage />
+          </Route>
+
           {user && <Route exact path="/" >
             <LandingPage />
           </Route>}
+
           <Route path="/" >
             <LandingPage />
           </Route>

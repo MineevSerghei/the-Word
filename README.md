@@ -1,148 +1,43 @@
-# Flask React Project
+# The Word
 
-This is the starter for the Flask React project.
+The Word is a Bible app. It allows you to read and annotate your Bible, as well as create and follow reading plans to consistently stay in God's Word.
 
-## Getting started
-1. Clone this repository (only this branch)
+<a href='https://the-word.onrender.com/' target='_blank'><img src="https://img.shields.io/badge/Live%20Demo-ffd183?style=for-the-badge" /></a>
 
-2. Install dependencies
-
-      ```bash
-      pipenv install -r requirements.txt
-      ```
-
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-
-4. Make sure the SQLite3 database connection URL is in the **.env** file
-
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
-
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
-
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+## Technologies used:
 
 
-## Deployment through Render.com
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+<div align='center'>
+<br>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
+  <img src="https://img.shields.io/badge/SQLALCHEMY-323330?style=for-the-badge&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2aWV3Qm94PSIyNTguMjMyIDM4Ljk5OSAxOTQuMzI2IDE5NC40MjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6Yng9Imh0dHBzOi8vYm94eS1zdmcuY29tIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iY29sb3ItMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGJ4OnBpbm5lZD0idHJ1ZSI+CiAgICAgIDxzdG9wIHN0eWxlPSJzdG9wLWNvbG9yOiByZ2IoMTE5LCAxMzYsIDExOSk7Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cGF0aCBkPSJNIDM1NS4zOTUgMTM2LjIwOSBtIC05Ny4xNjMgMCBhIDk3LjE2MyA5Ny4xNjMgMCAxIDAgMTk0LjMyNiAwIGEgOTcuMTYzIDk3LjE2MyAwIDEgMCAtMTk0LjMyNiAwIFogTSAzNTUuMzk1IDEzNi4yMDkgbSAtNjcuMjExIDAgYSA2Ny4yMTEgNjcuMjExIDAgMCAxIDEzNC40MjIgMCBhIDY3LjIxMSA2Ny4yMTEgMCAwIDEgLTEzNC40MjIgMCBaIiBzdHlsZT0iZmlsbDogdXJsKCNjb2xvci0wKTsiIGJ4OnNoYXBlPSJyaW5nIDM1NS4zOTUgMTM2LjIwOSA2Ny4yMTEgNjcuMjExIDk3LjE2MyA5Ny4xNjMgMUBhYmZkODdkZCIvPgogIDxwYXRoIGQ9Ik0gMzU1LjI2NCAxMzcuNDQ0IG0gLTQ0LjU2OCAwIGEgNDQuNTY4IDQ0LjU2OCAwIDEgMCA4OS4xMzYgMCBhIDQ0LjU2OCA0NC41NjggMCAxIDAgLTg5LjEzNiAwIFogTSAzNTUuMjY0IDEzNy40NDQgbSAtMTcuNDM4IDAgYSAxNy40MzggMTcuNDM4IDAgMCAxIDM0Ljg3NiAwIGEgMTcuNDM4IDE3LjQzOCAwIDAgMSAtMzQuODc2IDAgWiIgc3R5bGU9ImZpbGw6IHVybCgjY29sb3ItMCk7IiBieDpzaGFwZT0icmluZyAzNTUuMjY0IDEzNy40NDQgMTcuNDM4IDE3LjQzOCA0NC41NjggNDQuNTY4IDFAYTdhZjA3NDEiLz4KPC9zdmc+&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" />
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
+<img src="https://img.shields.io/badge/Render-323330?style=for-the-badge&logo=render&logoColor=#46E3B7" />
+</div>
+<br>
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
+## Landing Page:
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
 
-### Part A: Configure the Start and Build Commands
 
-Start by giving your application a name.
+## Read | Bookmark | Highlight:
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
 
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
+## Notes:
 
-For your Flask project, enter the following command into the Build field, all in
-one line:
 
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
 
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
+## Plans View:
 
-Now, add your start command in the Start field:
 
-```shell
-# start script
-gunicorn app:app
-```
 
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+## Plans Create/Edit:

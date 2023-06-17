@@ -17,6 +17,7 @@ export default function PlansForm() {
     const [previewUrl, setPreviewUrl] = useState();
     const [errors, setErrors] = useState({});
     const [durationError, setDurationError] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -66,7 +67,7 @@ export default function PlansForm() {
 
 
     const createPlan = async e => {
-
+        setIsLoading(true);
 
         e.preventDefault();
         const err = {};
@@ -102,6 +103,7 @@ export default function PlansForm() {
         }
 
         if (Object.keys(err).length > 0) {
+            setIsLoading(false)
             setErrors(err)
         } else {
 
@@ -117,8 +119,7 @@ export default function PlansForm() {
 
             const returnedPlan = await dispatch(createPlanThunk(formData));
 
-            if (returnedPlan.errors) alert('There were errors');
-
+            setIsLoading(false)
             history.push(`/plans/${returnedPlan.id}`)
 
         }
@@ -197,7 +198,7 @@ export default function PlansForm() {
                     <label className="label-plan-form">Plan Image <input className="image-input" type="file" accept=".png,.jpg,.jpeg" onChange={e => setImage(e.target.files[0])} /></label>
                     {errors.image && <p className="error">{errors.image}</p>}
 
-                    <button className="bttn" type="submit">Create Plan</button>
+                    {isLoading ? <div className="loading-div-create"><i className="fa-solid fa-spinner fa-spin-pulse loading-icon"></i></div> : <button className="bttn" type="submit">Create Plan</button>}
                 </div>
                 <div className="form-tasks">
                     <h2>Add tasks</h2>

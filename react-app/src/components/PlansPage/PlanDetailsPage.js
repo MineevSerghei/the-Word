@@ -59,10 +59,10 @@ export default function PlanDetailsPage() {
             <div className="plan-form plan-page-details">
                 <div className="form-plan-details plan-page-details-left">
                     <h2>Plan Details</h2>
-                    <div className='plan-img-page-container'><img className="plan-img-page" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>
+                    {plan.imageUrl && <div className='plan-img-page-container'><img className="plan-img-page" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>}
                     <OpenModalButton
                         className='bttn-smaller'
-                        buttonText="Change Image"
+                        buttonText={plan.imageUrl ? `Change Image` : `Add Image`}
                         modalComponent={<ChangeImageModal plan={plan} />}
                     />
                     <p className="p-plan-form">{plan.name}</p>

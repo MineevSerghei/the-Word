@@ -42,7 +42,7 @@ export default function PlansBox() {
                         }
 
                         return (<div className='plan-box' key={plan.id} onClick={() => openPlanDetails(planIndex)}>
-                            <div className='plan-img-container'><img className="plan-img" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>
+                            {plan.imageUrl && <div className='plan-img-container'><img className="plan-img" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>}
                             <h4 >{plan.name} ({Math.round(competed / plan.tasks.length * 100)}%)</h4>
                             <p>{plan.description}</p>
                         </div>)

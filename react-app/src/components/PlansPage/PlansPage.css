@@ -178,3 +178,20 @@
     color: red;
     font-size: 1rem;
 }
+
+.loading-icon {
+    color: rgb(255, 181, 54);
+    font-size: 1.7rem;
+}
+
+.loading-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-div-create {
+    position: relative;
+    right: 50px;
+    top: 20px;
+}

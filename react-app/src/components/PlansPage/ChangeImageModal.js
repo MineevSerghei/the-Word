@@ -11,6 +11,7 @@ export default function ChangeImageModal({ plan }) {
     // const history = useHistory();
     const [previewUrl, setPreviewUrl] = useState();
     const [image, setImage] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
 
@@ -37,11 +38,15 @@ export default function ChangeImageModal({ plan }) {
 
         if (previewUrl === 'tooLarge') return;
 
+        setIsLoading(true)
+
         const formData = new FormData();
 
         formData.append("image", image);
 
         await dispatch(editPlanImageThunk(formData, plan.id));
+
+        setIsLoading(false)
 
         closeModal()
     };
@@ -52,10 +57,10 @@ export default function ChangeImageModal({ plan }) {
             <label className="label-plan-form"><input className="image-input" type="file" accept=".png,.jpg,.jpeg" onChange={e => setImage(e.target.files[0])} /></label>
             {image ? (previewUrl === 'tooLarge' ? <div className='plan-img-container-edit'><br></br><p className="error">Image size cannot exceed 2MB</p></div> : <div className='plan-img-container-edit'><img className="plan-img" src={previewUrl} alt={`Image for plan: ${plan.name}`}></img></div>) : <br></br>}
 
-            <div className="flex-col gap10">
+            {isLoading ? <div className="loading-div"><i className="fa-solid fa-spinner fa-spin-pulse loading-icon"></i></div> : <div className="flex-col gap10">
                 <button className="bttn-face" onClick={changeImage}>Confirm</button>
                 <button className="bttn-face" onClick={() => closeModal()}>Cancel</button>
-            </div>
+            </div>}
         </>
     );
 }

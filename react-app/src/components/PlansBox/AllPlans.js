@@ -48,7 +48,7 @@ export default function AllPlans({ setPlansField, setSelectedPublicPlan }) {
 
 
                     <div className='plan-box' key={plan.id} onClick={() => openPlanDetails(plan.id)}>
-                        <div className='plan-img-container'><img className="plan-img" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>
+                        {plan.imageUrl && <div className='plan-img-container'><img className="plan-img" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>}
                         <h4 >{plan.name}</h4>
                         {(plan.id in currentPlanTemplateIds) && <p className='enrolled-flag'>You're enrolled in this plan</p>}
                         <p className='italics'>{plan.duration} days</p>

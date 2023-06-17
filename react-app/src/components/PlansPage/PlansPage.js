@@ -17,7 +17,7 @@ export default function PlansPage() {
             {user.authoredPlans.map((plan, planIndex) => {
 
                 return (<div className='plan-page-box authored' key={plan.id} >
-                    <div className='plan-img-page-container'><img className="plan-img-page" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>
+                    {plan.imageUrl && <div className='plan-img-page-container'><img className="plan-img-page" src={plan.imageUrl} alt={`Image for plan: ${plan.name}`}></img></div>}
                     <h3 onClick={() => history.push(`/plans/${plan.id}`)} className="custom-plans-title" >{plan.name}</h3>
                     <p className="italics">{plan.duration} days</p>
                     <p>{plan.description}</p>

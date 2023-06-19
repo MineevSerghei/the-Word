@@ -101,11 +101,9 @@
 
 
 .note-input {
-    max-height: 150px;
     height: 80px;
     width: 200px;
-    max-width: 100%;
-    min-width: 100px;
+    resize: none;
 }
 
 .no-margin {

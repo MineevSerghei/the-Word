@@ -1,18 +1,23 @@
 .plan-form {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 50px;
 }
 
 .form-plan-details {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
+}
+
+.create-plan-title {
+    /* align-self: center; */
 }
 
 .form-tasks {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
 .tasks-list {

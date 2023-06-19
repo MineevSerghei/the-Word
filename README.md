@@ -1,148 +1,353 @@
-# Flask React Project
+# The Word
 
-This is the starter for the Flask React project.
+The Word is a Bible app. It allows you to read and annotate your Bible, as well as create and follow reading plans to consistently stay in God's Word.
 
-## Getting started
-1. Clone this repository (only this branch)
+<a href='https://the-word.onrender.com/' target='_blank'><img src="https://img.shields.io/badge/Live%20Demo-ffd183?style=for-the-badge" /></a>
 
-2. Install dependencies
-
-      ```bash
-      pipenv install -r requirements.txt
-      ```
-
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-
-4. Make sure the SQLite3 database connection URL is in the **.env** file
-
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
-
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
-
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+## Technologies used:
 
 
-## Deployment through Render.com
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+<div align='center'>
+<br>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
+  <img src="https://img.shields.io/badge/SQLALCHEMY-323330?style=for-the-badge&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2aWV3Qm94PSIyNTguMjMyIDM4Ljk5OSAxOTQuMzI2IDE5NC40MjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6Yng9Imh0dHBzOi8vYm94eS1zdmcuY29tIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iY29sb3ItMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGJ4OnBpbm5lZD0idHJ1ZSI+CiAgICAgIDxzdG9wIHN0eWxlPSJzdG9wLWNvbG9yOiByZ2IoMTE5LCAxMzYsIDExOSk7Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cGF0aCBkPSJNIDM1NS4zOTUgMTM2LjIwOSBtIC05Ny4xNjMgMCBhIDk3LjE2MyA5Ny4xNjMgMCAxIDAgMTk0LjMyNiAwIGEgOTcuMTYzIDk3LjE2MyAwIDEgMCAtMTk0LjMyNiAwIFogTSAzNTUuMzk1IDEzNi4yMDkgbSAtNjcuMjExIDAgYSA2Ny4yMTEgNjcuMjExIDAgMCAxIDEzNC40MjIgMCBhIDY3LjIxMSA2Ny4yMTEgMCAwIDEgLTEzNC40MjIgMCBaIiBzdHlsZT0iZmlsbDogdXJsKCNjb2xvci0wKTsiIGJ4OnNoYXBlPSJyaW5nIDM1NS4zOTUgMTM2LjIwOSA2Ny4yMTEgNjcuMjExIDk3LjE2MyA5Ny4xNjMgMUBhYmZkODdkZCIvPgogIDxwYXRoIGQ9Ik0gMzU1LjI2NCAxMzcuNDQ0IG0gLTQ0LjU2OCAwIGEgNDQuNTY4IDQ0LjU2OCAwIDEgMCA4OS4xMzYgMCBhIDQ0LjU2OCA0NC41NjggMCAxIDAgLTg5LjEzNiAwIFogTSAzNTUuMjY0IDEzNy40NDQgbSAtMTcuNDM4IDAgYSAxNy40MzggMTcuNDM4IDAgMCAxIDM0Ljg3NiAwIGEgMTcuNDM4IDE3LjQzOCAwIDAgMSAtMzQuODc2IDAgWiIgc3R5bGU9ImZpbGw6IHVybCgjY29sb3ItMCk7IiBieDpzaGFwZT0icmluZyAzNTUuMjY0IDEzNy40NDQgMTcuNDM4IDE3LjQzOCA0NC41NjggNDQuNTY4IDFAYTdhZjA3NDEiLz4KPC9zdmc+&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" />
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
+<img src="https://img.shields.io/badge/Render-323330?style=for-the-badge&logo=render&logoColor=#46E3B7" />
+</div>
+<br>
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
+## Landing Page:
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
+<img src="./react-app/public/gifs/gif1.gif" width="1000px">
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
 
-### Part A: Configure the Start and Build Commands
+## Read | Bookmark | Highlight:
 
-Start by giving your application a name.
+<img src="./react-app/public/gifs/gif2.gif" width="1000px">
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
+## Notes:
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
+<img src="./react-app/public/gifs/gif3.gif" width="1000px">
 
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
+## Plans:
 
-For your Flask project, enter the following command into the Build field, all in
-one line:
+<img src="./react-app/public/gifs/gif4.gif" width="1000px">
 
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
+<br>
+
+## Features:
+
+### Bible Navigation
+
+* Logged out users can view verses, chapters, and books of the Bible
+* Logged out users can easily navigate to a specific book/chapter/verse
+* Users can utilize the convenient buttons for "Next" and "Previous" chapters
+
+### New account creation, log in, log out, and guest/demo login
+
+* Users can sign up, log in, and log out.
+* Users can use a demo login to try the site.
+* Users can't use certain features without logging in (like bookmarks, notes, and plans).
+* Logged in users are directed to the Bible read page where they can see their notes and jump to where they left off using bookmarks.
+* Logged out users are directed to a splash page.
+
+
+### Notes
+> * Signed-in users only:
+
+* Users can attach notes to verses with their own text
+* Users can edit their notes
+* Users can delete their notes
+* Users can see the list of all their notes, with an option to filter them
+
+### Bookmarks
+> * Signed-in users only:
+
+* Users can bookmark verses (with custom color and tag)
+* Users can easily navigate to the bookmarked verse
+* Users can remove the bookmark
+
+### Reading Plans
+> * Signed-in users only:
+
+* Users can enroll plans to read the Bible at a specific pace (with some options already provided)
+* Users can create their own custom plans to read the Bible, setting specific tasks (like read 1 chapter everyday)
+* Users have an option to make their own custom plan public (or keep it private)
+* Users can unenroll plans
+* Users can delete their own plans
+* Users can edit their own plans
+    * If the plan is public and someone else is enrolled in it, they will retain their own personal copy of that plan.
+
+## Future Features
+
+### Friends
+> * Signed-in users only:
+* Users can send and accept friend requests
+* Users who are friends can message one another
+    * Must be a live chat
+* Users can optionally make their notes visible to other friends
+
+### Study Groups
+> * Signed-in users only:
+* Users can group together and message each other in their group chat
+    * Must be a live chat
+
+
+## Possible Features
+
+## Infinite scroll
+* Users can scroll up and down infinitely without having to click "next" or "previous" chapter.
+
+## Searching the Bible
+* Users can search for key words/terms and that query will return relevant results
+
+## Audio Bible
+* Users can turn on the audio Bible as they read or off screen
+
+# Documentation
+
+## Database Schema Design
+
+
+<img src="./react-app/public/db_schema.png" width="1000px">
+
+## API Routes
+
+### Authentication
+
+### -----------------------------
+* URL: `/api/auth/`
+
+* METHOD: `GET`
+
+```
+    Authenticates a user.
 ```
 
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
+### -----------------------------
+* URL: `/api/auth/login`
 
-Now, add your start command in the Start field:
+* METHOD: `POST`
 
-```shell
-# start script
-gunicorn app:app
+```
+    Logs a user in
 ```
 
-_If you are using websockets, use the following start command instead for increased performance:_
+### -----------------------------
+* URL: `/api/auth/logout`
 
-`gunicorn --worker-class eventlet -w 1 app:app`
+* METHOD: `GET`
 
-### Part B: Add the Environment Variables
+```
+    Logs a user out
+```
 
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
+### -----------------------------
+* URL: `/api/auth/signup`
 
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
+* METHOD: `POST`
 
-Add the following keys and values in the Render GUI form:
+```
+    Creates a new user and logs them in
+```
 
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
+### -----------------------------
+* URL: `/api/auth/unauthorized`
 
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
+* METHOD: `GET`
 
-Add the following keys and values:
+```
+    Returns unauthorized JSON when flask-login authentication fails
+```
 
-- DATABASE_URL (copy value from Internal Database URL field)
+### Bible Routes
 
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
+### -----------------------------
+* URL: `/api/bible/<name>/<int:number>`
 
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
+* METHOD: `GET`
 
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
+```
+    Get a single chapter by book name and chapter number
+```
 
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
+### -----------------------------
+* URL: `/api/bible/books`
 
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+* METHOD: `GET`
+
+```
+    Get a list of all the books of the Bible in order
+```
+
+### Bookmarks
+
+### -----------------------------
+* URL: `/api/bookmarks`
+
+* METHOD: `POST`
+
+```
+    Route to create a bookmark on a specific verse
+```
+
+### -----------------------------
+* URL: `/api/bookmarks/<int:id>`
+
+* METHOD: `DELETE`
+
+```
+    Route to delete a bookmark specified by id
+```
+
+### Highlights
+
+### -----------------------------
+* URL: `/api/highlights`
+
+* METHOD: `POST`
+
+```
+    Route to create a highlight on a specific verse
+```
+
+### -----------------------------
+* URL: `/api/highlights/<int:id>`
+
+* METHOD: `DELETE`
+
+```
+    Route to delete a highlight specified by VERSE id
+```
+
+### Notes
+
+### -----------------------------
+* URL: `/api/notes`
+
+* METHOD: `POST`
+
+```
+    Route to create a note on a specific verse
+```
+
+### -----------------------------
+* URL: `/api/notes/<int:id>`
+
+* METHOD: `PUT`
+
+```
+    Route to edit a note by note id
+```
+
+### -----------------------------
+* URL: `/api/notes/<int:id>`
+
+* METHOD: `DELETE`
+
+```
+    Route to delete a note by note id
+```
+
+### Plans
+
+### -----------------------------
+* URL: `/api/plans`
+
+* METHOD: `GET`
+
+```
+    Route to get all PUBLIC reading plan TEMPLATES
+```
+
+### -----------------------------
+* URL: `/api/plans`
+
+* METHOD: `POST`
+
+```
+    Route to create a reading plan
+```
+
+### -----------------------------
+* URL: `/api/plans/<int:id>`
+
+* METHOD: `DELETE`
+
+```
+    Route to delete a reading plan
+```
+
+### -----------------------------
+* URL: `/api/plans/<int:id>`
+
+* METHOD: `PUT`
+
+```
+    Route to edit a reading plan
+```
+
+### -----------------------------
+* URL: `/api/plans/<int:id>/image`
+
+* METHOD: `PUT`
+
+```
+    Route to edit the image of a reading plan
+```
+
+### -----------------------------
+* URL: `/api/plans/<int:id>/enroll`
+
+* METHOD: `POST`
+
+```
+    Route to enroll (create a personal copy of) a plan by the template's plan_id
+```
+
+### -----------------------------
+* URL: `/api/plans/<int:id>/unenroll`
+
+* METHOD: `DELETE`
+
+```
+    Route to unenroll a plan by plan_id
+```
+
+### Tasks
+
+### -----------------------------
+* URL: `/api/tasks/<int:id>`
+
+* METHOD: `PUT`
+
+```
+    Route to toggle tasks completed/not completed
+```
+
+### Users
+
+### -----------------------------
+* URL: `/api/users/`
+
+* METHOD: `GET`
+
+```
+    Query for all users and returns them in a list of user dictionaries
+```
+
+### -----------------------------
+* URL: `/api/users/<int:id>`
+
+* METHOD: `GET`
+
+```
+    Query for a user by id and returns that user in a dictionary
+```

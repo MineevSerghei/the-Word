@@ -177,7 +177,7 @@ export default function PlansForm() {
         <div>
             <form className="plan-form" onSubmit={createPlan}>
                 <div className="form-plan-details">
-                    <h2>Create plan</h2>
+                    <h2 className="create-plan-title">Create plan</h2>
                     <label className="label-plan-form"><span className="required-star">*</span> Name <input value={name} onChange={e => setName(e.target.value)} /></label>
                     {errors.name && <p className="error">{errors.name}</p>}
                     <label className="label-plan-form"><span className="required-star">*</span> Description <textarea className="task-textarea" value={description} onChange={e => setDescription(e.target.value)} /></label>

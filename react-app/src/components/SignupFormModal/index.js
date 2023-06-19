@@ -15,17 +15,29 @@ function SignupFormModal() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (password === confirmPassword) {
+
+		const err = [];
+
+		if (email.length <= 0) err.push('Email is required');
+		if (name.length <= 0) err.push('Name is required');
+		if (password.length < 8) err.push('Password must be 8 characters or longer');
+		if (password !== confirmPassword) err.push("Confirm Password field doesn't match the Password field");
+
+		if (err.length > 0) {
+			setErrors(err)
+		}
+
+		else {
 			const data = await dispatch(signUp(name, email, password));
 			if (data) {
+				const emailErr = 'email : Invalid email address.';
+				if (data.includes(emailErr)) {
+					data[data.indexOf(emailErr)] = 'Invalid email address';
+				}
 				setErrors(data);
 			} else {
 				closeModal();
 			}
-		} else {
-			setErrors([
-				"Confirm Password field must be the same as the Password field",
-			]);
 		}
 	};
 

@@ -58,12 +58,24 @@ export default function BibleText() {
 
     }, [dispatch]);
 
+    useEffect(() => {
+        if (menuIsShown) {
+            const bookTag = document.getElementById(displayedBook);
+            if (bookTag) bookTag.scrollIntoView({ block: 'center' });
+        }
+    }, [menuIsShown])
+
     const setDisplayed = (chapter, book) => {
         setDisplayedChapter(chapter)
         setDisplayedBook(book)
         setMenuIsShown(false)
         setSelectedBook('')
     }
+
+    const openMenu = () => {
+        setMenuIsShown(!menuIsShown)
+    }
+
 
     const goToBookmark = async bookmark => {
 
@@ -117,6 +129,8 @@ export default function BibleText() {
             setDisplayedBook(bookName)
             setDisplayedChapter(1)
         }
+        document.getElementById('Bible-text').scrollTop = 0;
+
     }
 
     const setPrevious = e => {
@@ -133,7 +147,7 @@ export default function BibleText() {
             setDisplayedBook(previousBook.name)
             setDisplayedChapter(Object.values(previousBook.chaptersObj).length)
         }
-
+        document.getElementById('Bible-text').scrollTop = 0;
     }
 
     if (books.length === 0) {
@@ -157,7 +171,7 @@ export default function BibleText() {
 
                     <div className="book-menu">
                         <h2
-                            onClick={() => setMenuIsShown(!menuIsShown)}
+                            onClick={openMenu}
                             ref={menuButtonRef}
                             className="selected-book-title">{displayedBook} {displayedChapter}</h2>
 
@@ -167,6 +181,7 @@ export default function BibleText() {
                             {books.map(book => {
                                 return <div key={book.id}>
                                     <p
+                                        id={book.name}
                                         className="book-selection"
                                         value={book.name}
                                         onClick={() => selectBook(book)}
@@ -204,7 +219,7 @@ export default function BibleText() {
                     </div>
                 </div>
 
-                <div className="Bible-text-area">
+                <div className="Bible-text-area" id="Bible-text">
                     {displayedBook && displayedChapter && <>
                         {Object.values(booksObj[displayedBook]
                             .chaptersObj[displayedChapter].versesObj)

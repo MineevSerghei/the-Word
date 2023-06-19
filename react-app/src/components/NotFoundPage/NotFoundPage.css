@@ -1,0 +1,48 @@
+.not-found-page {
+    margin: 40px 100px;
+    flex-direction: column;
+    display: flex;
+    gap: 40px;
+}
+
+.help-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.help-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.help-login-signup {
+    background-color: inherit;
+    color: #3A98B9;
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    font-family: 'DMSans-Medium', sans-serif;
+    border: 1px transparent solid;
+    background-color: rgb(255, 219, 156);
+}
+
+.help-link:hover,
+.help-login-signup:hover {
+    cursor: pointer;
+    border: 1px brown solid;
+}
+
+.help-link {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: #3A98B9;
+    font-family: 'DMSans-Medium', sans-serif;
+    border: 1px transparent solid;
+    background-color: rgb(255, 219, 156);
+}
+
+.help-p-tag {
+    font-size: 1.1rem;
+}

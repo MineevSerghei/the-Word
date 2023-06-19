@@ -11,6 +11,7 @@ import PlansEditForm from "./components/PlansPage/PlansEditForm";
 import PlanDetailsPage from "./components/PlansPage/PlanDetailsPage";
 import NotesPage from "./components/NotesPage";
 import AboutPage from "./components/AboutPage";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,31 +27,31 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/read" >
+          <Route exact path="/read" >
             <BibleText />
           </Route>
 
-          {user && <Route path="/plans/:planId/edit" >
+          {user && <Route exact path="/plans/:planId/edit" >
             <PlansEditForm />
           </Route>}
 
-          {user && <Route path="/plans/custom" >
+          {user && <Route exact path="/plans/custom" >
             <PlansForm />
           </Route>}
 
-          {user && <Route path="/plans/:planId" >
+          {user && <Route exact path="/plans/:planId" >
             <PlanDetailsPage />
           </Route>}
 
-          {user && <Route path="/notes" >
+          {user && <Route exact path="/notes" >
             <NotesPage />
           </Route>}
 
-          {user && <Route path="/plans" >
+          {user && <Route exact path="/plans" >
             <PlansPage />
           </Route>}
 
-          <Route path="/about" >
+          <Route exact path="/about" >
             <AboutPage />
           </Route>
 
@@ -58,9 +59,14 @@ function App() {
             <LandingPage />
           </Route>}
 
-          <Route path="/" >
+          <Route exact path="/" >
             <LandingPage />
           </Route>
+
+          <Route path='*'>
+            <NotFoundPage />
+          </Route>
+
         </Switch>
       )}
     </>

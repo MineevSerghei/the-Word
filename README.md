@@ -42,6 +42,75 @@ The Word is a Bible app. It allows you to read and annotate your Bible, as well 
 
 <br>
 
+## Features:
+
+### Bible Navigation
+
+* Logged out users can view verses, chapters, and books of the Bible
+* Logged out users can easily navigate to a specific book/chapter/verse
+* Users can utilize the convenient buttons for "Next" and "Previous" chapters
+
+### New account creation, log in, log out, and guest/demo login
+
+* Users can sign up, log in, and log out.
+* Users can use a demo login to try the site.
+* Users can't use certain features without logging in (like bookmarks, notes, and plans).
+* Logged in users are directed to the Bible read page where they can see their notes and jump to where they left off using bookmarks.
+* Logged out users are directed to a splash page.
+
+
+### Notes
+> * Signed-in users only:
+
+* Users can attach notes to verses with their own text
+* Users can edit their notes
+* Users can delete their notes
+* Users can see the list of all their notes, with an option to filter them
+
+### Bookmarks
+> * Signed-in users only:
+
+* Users can bookmark verses (with custom color and tag)
+* Users can easily navigate to the bookmarked verse
+* Users can remove the bookmark
+
+### Reading Plans
+> * Signed-in users only:
+
+* Users can enroll plans to read the Bible at a specific pace (with some options already provided)
+* Users can create their own custom plans to read the Bible, setting specific tasks (like read 1 chapter everyday)
+* Users have an option to make their own custom plan public (or keep it private)
+* Users can unenroll plans
+* Users can delete their own plans
+* Users can edit their own plans
+    * If the plan is public and someone else is enrolled in it, they will retain their own personal copy of that plan.
+
+## Future Features
+
+### Friends
+> * Signed-in users only:
+* Users can send and accept friend requests
+* Users who are friends can message one another
+    * Must be a live chat
+* Users can optionally make their notes visible to other friends
+
+### Study Groups
+> * Signed-in users only:
+* Users can group together and message each other in their group chat
+    * Must be a live chat
+
+
+## Possible Features
+
+## Infinite scroll
+* Users can scroll up and down infinitely without having to click "next" or "previous" chapter.
+
+## Searching the Bible
+* Users can search for key words/terms and that query will return relevant results
+
+## Audio Bible
+* Users can turn on the audio Bible as they read or off screen
+
 # Documentation
 
 ## Database Schema Design

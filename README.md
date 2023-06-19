@@ -25,19 +25,28 @@ The Word is a Bible app. It allows you to read and annotate your Bible, as well 
 
 ## Landing Page:
 
-
+<img src="./react-app/public/gifs/gif1.gif" width="1000px">
 
 
 ## Read | Bookmark | Highlight:
 
-
+<img src="./react-app/public/gifs/gif2.gif" width="1000px">
 
 ## Notes:
 
+<img src="./react-app/public/gifs/gif3.gif" width="1000px">
+
+## Plans:
+
+<img src="./react-app/public/gifs/gif4.gif" width="1000px">
 
 
-## Plans View:
+
+# Documentation
+
+## Database Schema Design
 
 
+<img src="./react-app/public/db_schema.png" width="1000px">
 
-## Plans Create/Edit:
+## API Routes

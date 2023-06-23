@@ -56,6 +56,8 @@ export default function NotePopUp({ popupRef, verse, chapter, book, x, y, setPop
                 bookmarksRef={bookmarksRef}
                 user={user}
                 verse={verse}
+                chapter={chapter}
+                book={book}
             />}
 
             {highlightsShown && <HighlightsOptions

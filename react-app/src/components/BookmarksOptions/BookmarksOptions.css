@@ -15,6 +15,7 @@
 
 .pop-up-container-bookmarks-details {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: rgb(255, 245, 213);
@@ -26,6 +27,18 @@
 .pop-up-container-bookmarks-details p {
     margin: 5px 10px;
 
+}
+
+.bookmark-help {
+    font-size: .8rem;
+}
+
+.red {
+    color: red;
+}
+
+.black {
+    color: black;
 }
 
 .bookmarks-delete-mode {

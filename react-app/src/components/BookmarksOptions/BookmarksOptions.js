@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux"
 
 const colors = { '1': '#3a98b9', '2': '#ffd183', '3': '#a52a2a', '4': '#36AC0B', '5': '#CB58DA' }
 
-export default function BookmarksOptions({ setBookmarksShown, user, verse, bookmarksRef }) {
+export default function BookmarksOptions({ setBookmarksShown, user, verse, chapter, book, bookmarksRef }) {
 
     const [detailsOpen, setDetailsOpen] = useState(0);
     const [deleteModeOn, setDeleteModeOn] = useState(false);
@@ -67,6 +67,8 @@ export default function BookmarksOptions({ setBookmarksShown, user, verse, bookm
                     :
                     <svg
                         onClick={deleteModeOn ? () => { } : () => bookmarkVerse(i + 1)}
+                        onMouseOver={e => showDetails(i + 1)}
+                        onMouseOut={e => setDetailsOpen(0)}
                         xmlns="http://www.w3.org/2000/svg"
                         className="bookmark-icon"
                         aria-hidden="true"
@@ -91,7 +93,7 @@ export default function BookmarksOptions({ setBookmarksShown, user, verse, bookm
                     </svg>
             }
             )}
-            {detailsOpen > 0 && <BookmarkDetails bookmark={user.bookmarks.find(m => m.number == detailsOpen)} />}
+            {detailsOpen > 0 && <BookmarkDetails deleteModeOn={deleteModeOn} verse={verse} chapter={chapter} book={book} bookmark={user.bookmarks.find(m => m.number == detailsOpen)} />}
             <i
                 onClick={() => setDeleteModeOn(!deleteModeOn)}
                 className={`delete-bookmark fa-solid fa-delete-left ${deleteModeOn && ' delete-bookmark-filled'}`}></i>
